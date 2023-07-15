@@ -62,8 +62,8 @@ class FrontPageViewController: UIViewController {
         return HotelBookViewModel()
     }()
     let cellIdenifier = "FrontPageIdenifier"
-    var downloadAllData: [DataInfoArray] = []
-    var dataModel: [DataInfoArray] = []
+    var downloadAllData: [HotelsArray] = []
+    var dataModel: [HotelsArray] = []
     var frontPageViewStatus: FrontPageViewStatus!
     
     override func viewDidLoad() {

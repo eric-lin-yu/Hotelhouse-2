@@ -52,7 +52,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(dataModel: DataInfoArray) {
+    func configure(dataModel: HotelsArray) {
         
         // 補充說明
         if dataModel.spec != "" && dataModel.serviceinfo != "" {

@@ -9,7 +9,7 @@
 import UIKit
 
 class HotelDetailViewController: UIViewController {
-    static func make(hotelData: DataInfoArray) -> HotelDetailViewController {
+    static func make(hotelData: HotelsArray) -> HotelDetailViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
         
@@ -20,7 +20,7 @@ class HotelDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var dataModel: DataInfoArray! = nil
+    var dataModel: HotelsArray! = nil
     
     var collectionImageDataModel: [String] = []
     var collectiontitleDataModel: [String] = []

@@ -18,7 +18,7 @@ class AboutViewController: BaseViewController {
     
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
-    var dataModel: DataInfoArray! = nil
+    var dataModel: HotelsArray! = nil
     private let useCells: [UITableViewCell.Type] = [AboutTableViewCell.self]
     
     var isExpendDataList: [Bool] = [] //控制展開/縮合

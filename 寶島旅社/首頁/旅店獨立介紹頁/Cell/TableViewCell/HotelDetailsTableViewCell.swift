@@ -40,7 +40,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
  
-    func configure(dataModel: DataInfoArray) {
+    func configure(dataModel: HotelsArray) {
         
         // 旅店類別
         switch dataModel.classData {
