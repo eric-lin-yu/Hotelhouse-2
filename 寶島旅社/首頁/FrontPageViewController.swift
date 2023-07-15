@@ -71,7 +71,9 @@ class FrontPageViewController: UIViewController {
         
         searchView.isHidden = true
         frontPageViewStatus = .searchView
-        LoadingPageView.shard.show()
+        DispatchQueue.main.async {
+            LoadingPageView.shard.show()
+        }
         // download DataModel
         viewModel.getHotelBookData { response in
             LoadingPageView.shard.dismiss()
