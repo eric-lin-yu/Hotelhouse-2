@@ -68,8 +68,6 @@
 		89DF98BC29248F5F00B049BA /* HotelDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */; };
 		89E6E5C52A3080090001E1AB /* MapBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */; };
 		89F1FB372A4ADCA700E6648A /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 89F1FB342A4ADCA700E6648A /* HotelList.json */; };
-		89F1FB382A4ADCA700E6648A /* manifest.csv in Resources */ = {isa = PBXBuildFile; fileRef = 89F1FB352A4ADCA700E6648A /* manifest.csv */; };
-		89F1FB392A4ADCA700E6648A /* schema-HotelList.csv in Resources */ = {isa = PBXBuildFile; fileRef = 89F1FB362A4ADCA700E6648A /* schema-HotelList.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,8 +130,6 @@
 		89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetViewController.swift; sourceTree = "<group>"; };
 		89F1FB342A4ADCA700E6648A /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
-		89F1FB352A4ADCA700E6648A /* manifest.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = manifest.csv; sourceTree = "<group>"; };
-		89F1FB362A4ADCA700E6648A /* schema-HotelList.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "schema-HotelList.csv"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,8 +369,6 @@
 			isa = PBXGroup;
 			children = (
 				89F1FB342A4ADCA700E6648A /* HotelList.json */,
-				89F1FB352A4ADCA700E6648A /* manifest.csv */,
-				89F1FB362A4ADCA700E6648A /* schema-HotelList.csv */,
 			);
 			path = "Hotel-json";
 			sourceTree = "<group>";
@@ -463,14 +457,12 @@
 				892DE053290274CB003F3974 /* ImageDataCollectionViewCell.xib in Resources */,
 				892BD286290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib in Resources */,
 				89F1FB372A4ADCA700E6648A /* HotelList.json in Resources */,
-				89F1FB382A4ADCA700E6648A /* manifest.csv in Resources */,
 				89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */,
 				892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */,
 				89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */,
 				892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */,
 				892AACAC28F92F2F00614DA1 /* LoadingPageView.xib in Resources */,
 				89BF620628F65DDC00418305 /* Assets.xcassets in Resources */,
-				89F1FB392A4ADCA700E6648A /* schema-HotelList.csv in Resources */,
 				892BCC212907BC4F0095D3D5 /* DescriptionTableViewCell.xib in Resources */,
 				89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */,
 				89BF620428F65DDB00418305 /* Main.storyboard in Resources */,
