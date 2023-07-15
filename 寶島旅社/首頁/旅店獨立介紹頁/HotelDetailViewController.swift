@@ -45,13 +45,10 @@ class HotelDetailViewController: UIViewController {
     }
     
     func getCollectionViewDataModel() {
-        let imageData = [dataModel.picture1, dataModel.picture2, dataModel.picture3]
-        let titleData = [dataModel.picdescribe1, dataModel.picdescribe2, dataModel.picdescribe3]
-        
-        for index in 0..<imageData.count {
-            if imageData[index] != "" {
-                self.collectionImageDataModel.append(imageData[index])
-                self.collectiontitleDataModel.append(titleData[index])
+        for image in dataModel.images {
+            if !image.url.isEmpty {
+                self.collectionImageDataModel.append(image.url)
+                self.collectiontitleDataModel.append(image.description)
             }
         }
     }

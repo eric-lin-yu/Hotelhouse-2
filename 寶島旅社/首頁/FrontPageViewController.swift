@@ -212,8 +212,8 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nameLabel.text = dataModel.hotelName
 
         //ImageDownload
-        if dataModel.picture1 != "" {
-            let url = URL(string: dataModel.picture1)
+        if !dataModel.images.isEmpty {
+            let url = URL(string: dataModel.images[0].url)
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
@@ -258,7 +258,7 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         cell.loveBtn.addTarget(self, action: #selector(loveBtnAction(_:)), for: .touchUpInside)
 
         // 電話
-        cell.phoneBtn.isHidden = isCheckDataHidden(dataStr: dataModel.tel)
+        cell.phoneBtn.isHidden = isCheckDataHidden(dataStr: dataModel.tel[0])
         cell.phoneBtn.tag = indexPath.row
         cell.phoneBtn.addTarget(self, action: #selector(phoneBtnAction(_:)), for: .touchUpInside)
 
