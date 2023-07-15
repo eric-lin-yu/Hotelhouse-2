@@ -9,6 +9,24 @@
 import Foundation
 import SwiftyJSON
 
+struct HotelBookDataModel {
+    let updateInterval: String
+    let language: String
+    let providerID: String
+    let updatetime: String
+    var dataArray: [HotelsArray] = []
+    
+    init (json: JSON) {
+        updateInterval = json["UpdateInterval"].stringValue
+        language = json["Language"].stringValue
+        providerID = json["ProviderID"].stringValue
+        updatetime = json["Updatetime"].stringValue
+        
+        let hotelsArray = json["Hotels"].arrayValue
+        dataArray = hotelsArray.map { HotelsArray(json: $0) }
+    }
+}
+
  /*
   "Hotels": [
     {
@@ -84,120 +102,123 @@ import SwiftyJSON
     },
   */
 
-struct DataInfoArray {
+struct HotelsArray {
     let hotelID: String
+    /// 名稱
     let hotelName: String
-    /// 旅館介紹
+    /// 描述
     let description: String
+    /// 緯度
     let px: String
+    /// 經度
     let py: String
     /// 星級
     let grade: String
-    /// 旅館類別 (1.國際觀光旅館、2.一般觀光旅館、3.一般旅館、4.民宿)
+    /// 酒店類別
     let classData: String
+    /// 地址
     let add: String
-    /// 縣市
+    /// 地區
     let region: String
+    /// 城鎮
     let town: String
-    let tel: String
-    /// 旅館民宿之管理權責單位代碼
-    let gov: String
+    /// 電話
+    let tel: [String]
+    /// 管理機構
+    let gov: [Organization]
     /// 官網
     let website: String
-    /// image1.URL
-    let picture1: String
-    /// image1.說明
-    let picdescribe1: String
-    /// image2.URL
-    let picture2: String
-    /// image2.說明
-    let picdescribe2: String
-    /// image3.URL
-    let picture3: String
-    /// image3.說明
-    let picdescribe3: String
-    /// 補充說明
+    let images: [HotelImage]
+    /// 特殊規格
     let spec: String
-    /// 服務說明
+    /// 服務信息
     let serviceinfo: String
-    /// 總房數
+    /// 總客房數量
     let totalNumberofRooms: String
-    /// 無障礙客房
+    /// 無障礙客房數量
     let accessibilityRooms: String
     /// 最低價格
     let lowestPrice: String
     /// 最高價格
     let ceilingPrice: String
-    /// 信箱
+    /// 官方電子信箱
     let industryEmail: String
-    /// 總容納人數
+    /// 總人數容納量
     let totalNumberofPeople: String
     /// 停車位
     let parkingSpace: String
-    /// 停車位說明
+    /// 停車位訊息
     let parkinginfo: String
+
     
-    init (json: JSON) {
-        /*
-         "PostalAddress": {
-           "City": "南投縣",
-           "CityCode": "10008",
-           "Town": "埔里鎮",
-           "TownCode": "10008020",
-           "ZipCode": "545",
-           "StreetAddress": "水頭里水頭路1號"
-         },
-         */
+    init(json: JSON) {
         hotelID = json["HotelID"].stringValue
         hotelName = json["HotelName"].stringValue
         description = json["Description"].stringValue
         px = json["PositionLat"].stringValue
         py = json["PositionLon"].stringValue
-        
         grade = json["Grade"].stringValue
         classData = json["Class"].stringValue
         add = json["PostalAddress"]["StreetAddress"].stringValue
-        region = json["Region"].stringValue
+        region = json["PostalAddress"]["City"].stringValue
         town = json["PostalAddress"]["Town"].stringValue
-        tel = json["Tel"].stringValue
-        gov = json["Gov"].stringValue
-        website = json["Website"].stringValue
-        picture1 = json["Picture1"].stringValue
-        picture2 = json["Picture2"].stringValue
-        picture3 = json["Picture3"].stringValue
-        picdescribe1 = json["Picdescribe1"].stringValue
-        picdescribe2 = json["Picdescribe2"].stringValue
-        picdescribe3 = json["Picdescribe3"].stringValue
+        tel = json["Telephones"].arrayValue.map { $0["Tel"].stringValue }
+        
+        gov = json["Organizations"].arrayValue.map { Organization(json: $0) }
+        
+        website = json["WebsiteURL"].stringValue
         spec = json["Spec"].stringValue
-        serviceinfo = json["Serviceinfo"].stringValue
-        totalNumberofRooms = json["TotalNumberofRooms"].stringValue
-        accessibilityRooms = json["AccessibilityRooms"].stringValue
+        serviceinfo = json["ServiceInfo"].stringValue
+        totalNumberofRooms = json["TotalRooms"].stringValue
+        accessibilityRooms = json["AccessibleRooms"].stringValue
         lowestPrice = json["LowestPrice"].stringValue
         ceilingPrice = json["CeilingPrice"].stringValue
         industryEmail = json["IndustryEmail"].stringValue
-        totalNumberofPeople = json["TotalNumberofPeople"].stringValue
-        parkingSpace = json["ParkingSpace"].stringValue
-        parkinginfo = json["Parkinginfo"].stringValue
-    }
-}
-
-struct HotelBookDataModel {
-    let updateInterval: String
-    let language: String
-    let providerID: String
-    let updatetime: String
-    var dataArray: [DataInfoArray] = []
-    
-    init (json: JSON) {
-        updateInterval = json["UpdateInterval"].stringValue
-        language = json["Language"].stringValue
-        providerID = json["ProviderID"].stringValue
-        updatetime = json["Updatetime"].stringValue
+        totalNumberofPeople = json["TotalCapacity"].stringValue
+        parkingSpace = json["ParkingSpaces"].stringValue
+        parkinginfo = json["ParkingInfo"].stringValue
         
-        let arr = json["Hotels"].arrayValue
-        arr.forEach { (element) in
-            self.dataArray.append(DataInfoArray(json: element))
-        }
+        let imagesArray = json["Images"].arrayValue
+        images = imagesArray.map { HotelImage(json: $0) }
     }
 }
 
+struct Organization {
+    let name: String
+    let classData: String
+    let taxCode: String?
+    let agencyCode: String?
+    let url: String?
+    let telephones: [String]?
+    let mobilePhones: [String]?
+    let faxes: [String]?
+    let email: String?
+    
+    init(json: JSON) {
+        name = json["Name"].stringValue
+        classData = json["Class"].stringValue
+        taxCode = json["TaxCode"].stringValue
+        agencyCode = json["AgencyCode"].stringValue
+        url = json["URL"].stringValue
+        telephones = json["Telephones"].arrayValue.map { $0["Tel"].stringValue }
+        mobilePhones = json["MobilePhones"].arrayValue.map { $0["Tel"].stringValue }
+        faxes = json["Faxes"].arrayValue.map { $0["Tel"].stringValue }
+        email = json["Email"].stringValue
+    }
+}
+
+struct HotelImage {
+    let name: String
+    let description: String
+    let url: String
+    let width: String
+    let height: String
+    
+    init(json: JSON) {
+        name = json["Name"].stringValue
+        description = json["Description"].stringValue
+        url = json["URL"].stringValue
+        width = json["Width"].stringValue
+        height = json["Height"].stringValue
+    }
+}
