@@ -115,7 +115,7 @@ struct HotelsArray {
     /// 星級
     let grade: String
     /// 酒店類別
-    let classData: String
+    let classData: [Int]
     /// 地址
     let add: String
     /// 地區
@@ -157,8 +157,11 @@ struct HotelsArray {
         description = json["Description"].stringValue
         px = json["PositionLat"].stringValue
         py = json["PositionLon"].stringValue
-        grade = json["Grade"].stringValue
-        classData = json["Class"].stringValue
+        grade = json["HotelStars"].stringValue
+        
+        let classesArray = json["HotelClasses"].arrayValue
+        classData = classesArray.map { $0.intValue }
+        
         add = json["PostalAddress"]["StreetAddress"].stringValue
         region = json["PostalAddress"]["City"].stringValue
         town = json["PostalAddress"]["Town"].stringValue
@@ -222,3 +225,24 @@ struct HotelImage {
         height = json["Height"].stringValue
     }
 }
+
+enum HotelClass: Int {
+    case international = 1
+    case generalTourist = 2
+    case generalHotel = 3
+    case homestay = 4
+    
+    var description: String {
+        switch self {
+        case .international:
+            return "國際觀光旅館"
+        case .generalTourist:
+            return "一般觀光旅館"
+        case .generalHotel:
+            return "一般旅館"
+        case .homestay:
+            return "民宿"
+        }
+    }
+}
+

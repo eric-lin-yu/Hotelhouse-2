@@ -42,20 +42,12 @@ class HotelDetailsTableViewCell: UITableViewCell {
  
     func configure(dataModel: HotelsArray) {
         
-        // 旅店類別
-        switch dataModel.classData {
-        case "1":
-            hotelCalssLabel.text = " 旅店類別：國際觀光旅館"
-        case "2":
-            hotelCalssLabel.text = " 旅店類別：一般觀光旅館"
-        case "3":
-            hotelCalssLabel.text = " 旅店類別：一般旅館"
-        case "4":
-            hotelCalssLabel.text = " 旅店類別：民宿"
-        default:
-            hotelCalssLabel.text = "： 旅店未提供說明"
+        if let classData = dataModel.classData.first,
+            let hotelClass = HotelClass(rawValue: classData) {
+            hotelCalssLabel.text = hotelClass.description
+        } else {
+            hotelCalssLabel.text = "旅店未提供"
         }
-        
         
         // 價格
         if dataModel.lowestPrice != dataModel.ceilingPrice {

@@ -241,17 +241,11 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         // 旅店類別
-        switch dataModel.classData {
-        case "1":
-            cell.hotleCalssLabel.text = "： 國際觀光旅館"
-        case "2":
-            cell.hotleCalssLabel.text = "： 一般觀光旅館"
-        case "3":
-            cell.hotleCalssLabel.text = "： 一般旅館"
-        case "4":
-            cell.hotleCalssLabel.text = "： 民宿"
-        default:
-            cell.hotleCalssLabel.text = "： 旅店未提供"
+        if let classData = dataModel.classData.first,
+            let hotelClass = HotelClass(rawValue: classData) {
+            cell.hotleCalssLabel.text = hotelClass.description
+        } else {
+            cell.hotleCalssLabel.text = "旅店未提供"
         }
 
         cell.addLabel.text = dataModel.add
