@@ -178,21 +178,16 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
                 let px = self.dataModel[index].px as NSString
                 
                 let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: py.doubleValue, longitude: px.doubleValue)
+                annotation.coordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
                 annotation.title = self.dataModel[index].hotelName
                 
-                switch self.dataModel[index].classData {
-                case "1":
-                    annotation.subtitle = "國際觀光旅館"
-                case "2":
-                    annotation.subtitle = "一般觀光旅館"
-                case "3":
-                    annotation.subtitle = "一般旅館"
-                case "4":
-                    annotation.subtitle = "民宿"
-                default:
+                if let classData = dataModel[index].classData.first,
+                    let hotelClass = HotelClass(rawValue: classData) {
+                    annotation.subtitle = hotelClass.description
+                } else {
                     annotation.subtitle = "旅店未提供"
                 }
+                
                 annotations.append(annotation)
                 
             }
