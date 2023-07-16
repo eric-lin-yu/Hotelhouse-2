@@ -18,14 +18,14 @@ class AboutViewController: BaseViewController {
     
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
-    var dataModel: HotelsArray! = nil
-    private let useCells: [UITableViewCell.Type] = [AboutTableViewCell.self]
+    var dataModel: HotelsArray? = nil
+    private let useCells: [UITableViewCell.Type] = [PersonalSettingsLanguageTableViewCell.self]
     
-    var isExpendDataList: [Bool] = [] //控制展開/縮合
     struct AboutDataModel {
         let sectionDataModel: [String]
         let rowDataModel: [String]
     }
+    
     var aboutDataModel: [AboutDataModel] = []
     
     override func viewDidLoad() {
@@ -37,14 +37,9 @@ class AboutViewController: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //加入縮合式SectionView
-        let sectionViewNib: UINib = UINib(nibName: "SectionTableViewHeaderFooterView", bundle: nil)
-        tableView.register(sectionViewNib, forHeaderFooterViewReuseIdentifier: "SectionViewIdentifier")
-        
         // 註冊cell
         useCells.forEach {
-            tableView.register(UINib(nibName: $0.storyboardIdentifier, bundle: Bundle.messageCoreBundle),
-                                      forCellReuseIdentifier: $0.storyboardIdentifier)
+            tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
         }
         
         getAboutDataModel()
@@ -54,12 +49,11 @@ class AboutViewController: BaseViewController {
         let section = [["關於"],
                        ["設定"]]
         
-        let row = [["APP版本", "旅店資料來源"],
+        let row = [["APP版本", "資料來源"],
                    ["動工中"]]
         
         for index in 0..<section.count {
             aboutDataModel.insert(.init(sectionDataModel: section[index], rowDataModel: row[index]), at: index)
-            isExpendDataList.append(false)
         }
     }
     
@@ -78,34 +72,41 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return aboutDataModel.count
     }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionView: SectionTableViewHeaderFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionViewIdentifier") as! SectionTableViewHeaderFooterView
-        
-        sectionView.isExpand = self.isExpendDataList[section]
-        sectionView.buttonTag = section
-        sectionView.delegate = self
-        
-        // arrrow
-        let downArrow = UIImage(systemName: "chevron.down")
-        let rightArrow = UIImage(systemName: "chevron.right")
-        sectionView.arrowBth.setImage(self.isExpendDataList[section] == true ? downArrow : rightArrow, for: .normal)
     
-        sectionView.titleLabel.text = aboutDataModel[section].sectionDataModel[0]
-
-        return sectionView
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = SettingsTableViewHeaderFooterView()
+        
+        switch section {
+        case 0:
+            headerView.configure(title: "關於")
+        case 1:
+            headerView.configure(title: "設定")
+        default:
+            break
+        }
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return SettingsTableViewHeaderFooterView.height
     }
     
     // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isExpendDataList[section] {
+        switch aboutDataModel[section].sectionDataModel.count{
+        case 0:
             return aboutDataModel[section].rowDataModel.count
-        } else {
-            return 0
+        case 1:
+            return aboutDataModel[section].rowDataModel.count
+        default:
+            break
         }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AboutTableViewCell.self), for: indexPath) as! AboutTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PersonalSettingsLanguageTableViewCell.self), for: indexPath) as! PersonalSettingsLanguageTableViewCell
         
         let aboutDataModel = aboutDataModel[indexPath.section]
         switch indexPath.section {
@@ -113,27 +114,24 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             // 關於
             switch indexPath.row {
             case 0:
+                
+                let title = aboutDataModel.rowDataModel[indexPath.row]
                 // 版本
                 let versions = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+                let subtitle = "\(versions ?? "")"
                 
-                cell.titleImageView.image = UIImage(systemName: "tray.circle")
-                cell.titleLabel.text = aboutDataModel.rowDataModel[indexPath.row]
-                
-                cell.subtitleLabel.textColor = UIColor.mainRed
-                cell.subtitleLabel.text = "\(versions ?? "")"
+                cell.configure(title: title, subtitle: subtitle)
                 
             case 1:
                 // 資料來源
-                cell.titleImageView.image = UIImage(systemName: "archivebox.circle")
-                cell.titleLabel.text = aboutDataModel.rowDataModel[indexPath.row]
+                let title = aboutDataModel.rowDataModel[indexPath.row]
+                let subtitle = "政府資料開放平臺"
                 
-                cell.subtitleLabel.textColor = UIColor.blue
-                cell.subtitleLabel.text = "政府資料開放平臺"
+                cell.configure(title: title, subtitle: subtitle)
                 
-                let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
-                cell.subtitleLabel.addGestureRecognizer(tap)
-                cell.subtitleLabel.isUserInteractionEnabled = true
-                
+//                let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
+//                cell.subtitleLabel.addGestureRecognizer(tap)
+//                cell.subtitleLabel.isUserInteractionEnabled = true
             default:
                 break
             }
@@ -141,9 +139,10 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             // 設定
             switch indexPath.row {
             case 0:
-                cell.titleImageView.image = UIImage(systemName: "moon.stars")
-                cell.titleLabel.text = aboutDataModel.rowDataModel[indexPath.row]
-                cell.subtitleLabel.text = "創作者還在摸索..."
+                let title = aboutDataModel.rowDataModel[indexPath.row]
+                let subtitle = "創作者還在摸索..."
+                
+                cell.configure(title: title, subtitle: subtitle)
             default:
                 break
             }
@@ -153,14 +152,4 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return cell
     }
-}
-
-// MARK: - SectionViewDelegate
-extension AboutViewController: SectionViewDelegate {
-    
-    func sectionView(_ sectionView: SectionTableViewHeaderFooterView, _ didPressTag: Int, _ isExpand: Bool) {
-        self.isExpendDataList[didPressTag] = !isExpand
-        self.tableView.reloadSections(IndexSet(integer: didPressTag), with: .automatic)
-    }
-    
 }
