@@ -149,8 +149,6 @@
 		892AAC8E28F9054E00614DA1 /* 關於 */ = {
 			isa = PBXGroup;
 			children = (
-				9FA8F0E42A639939009ACADD /* Cell */,
-				9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */,
 				892AAC8F28F9056700614DA1 /* AboutViewController.swift */,
 				892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */,
 			);
@@ -160,6 +158,8 @@
 		892AAC9328F9073D00614DA1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */,
+				9FA8F0E42A639939009ACADD /* Cell */,
 				892AACA428F90CA200614DA1 /* GIF */,
 				892AACA128F9099200614DA1 /* LoadingPage */,
 				892AAC9628F907FF00614DA1 /* CustomView.swift */,
