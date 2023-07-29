@@ -33,11 +33,12 @@
 		892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892DE04E29024E2F003F3974 /* MapKit.framework */; };
 		892DE053290274CB003F3974 /* ImageDataCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892DE052290274CB003F3974 /* ImageDataCollectionViewCell.xib */; };
 		8938D13D297162FB0005BC9A /* Cluster in Frameworks */ = {isa = PBXBuildFile; productRef = 8938D13C297162FB0005BC9A /* Cluster */; };
-		896DF71628F7E2840031A88A /* HotelBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71528F7E2840031A88A /* HotelBookViewModel.swift */; };
 		896DF71828F7E3080031A88A /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71728F7E3080031A88A /* ResponseHandler.swift */; };
 		896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71928F7E58D0031A88A /* MainTabBarController.swift */; };
 		896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71B28F7E5CE0031A88A /* ColorSets.swift */; };
 		896EEAFC291CC7C2005296CC /* 鼓掌兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 896EEAFB291CC7C2005296CC /* 鼓掌兔兔.gif */; };
+		8993C08B2A7393940046AD84 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8993C08A2A7393940046AD84 /* Realm */; };
+		8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8993C08C2A7393940046AD84 /* RealmSwift */; };
 		89B413082914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */; };
 		89B413092914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */; };
 		89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B546972925D59F0020C522 /* MapSearchViewController.swift */; };
@@ -51,7 +52,6 @@
 		89BF621228F65F6800418305 /* KRProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621128F65F6800418305 /* KRProgressHUD */; };
 		89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621428F65F8500418305 /* SwiftyJSON */; };
 		89BF621828F65FAE00418305 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621728F65FAE00418305 /* Alamofire */; };
-		89BF621A28F661D200418305 /* HotelBookDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF621928F661D200418305 /* HotelBookDataModel.swift */; };
 		89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF621B28F66C8D00418305 /* AlamofireHandler.swift */; };
 		89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52A28FFA112009681A7 /* 滾滾兔兔.gif */; };
 		89CCE52D28FFCEF3009681A7 /* 棒棒兔兔.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89CCE52C28FFCEF3009681A7 /* 棒棒兔兔.gif */; };
@@ -63,7 +63,12 @@
 		89DF98BB29248F5F00B049BA /* HotelDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */; };
 		89DF98BC29248F5F00B049BA /* HotelDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */; };
 		89E6E5C52A3080090001E1AB /* MapBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */; };
-		89F1FB372A4ADCA700E6648A /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 89F1FB342A4ADCA700E6648A /* HotelList.json */; };
+		9F87E3F92A754B42007E77EA /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E3F52A754B42007E77EA /* HotelList.json */; };
+		9F87E3FA2A754B42007E77EA /* HotelBookDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */; };
+		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
+		9F87E3FC2A754B42007E77EA /* HotelBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */; };
+		9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */; };
+		9F87E4012A754BC8007E77EA /* CollectionsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */; };
 		9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */; };
 		9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */; };
 		9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */; };
@@ -95,7 +100,6 @@
 		892DE04A29024987003F3974 /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		892DE04E29024E2F003F3974 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		892DE052290274CB003F3974 /* ImageDataCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageDataCollectionViewCell.xib; sourceTree = "<group>"; };
-		896DF71528F7E2840031A88A /* HotelBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookViewModel.swift; sourceTree = "<group>"; };
 		896DF71728F7E3080031A88A /* ResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		896DF71928F7E58D0031A88A /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		896DF71B28F7E5CE0031A88A /* ColorSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSets.swift; sourceTree = "<group>"; };
@@ -112,7 +116,6 @@
 		89BF620528F65DDC00418305 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89BF620828F65DDC00418305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89BF620A28F65DDC00418305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89BF621928F661D200418305 /* HotelBookDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookDataModel.swift; sourceTree = "<group>"; };
 		89BF621B28F66C8D00418305 /* AlamofireHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireHandler.swift; sourceTree = "<group>"; };
 		89CCE52A28FFA112009681A7 /* 滾滾兔兔.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "滾滾兔兔.gif"; sourceTree = "<group>"; };
 		89CCE52C28FFCEF3009681A7 /* 棒棒兔兔.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "棒棒兔兔.gif"; sourceTree = "<group>"; };
@@ -124,7 +127,12 @@
 		89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetViewController.swift; sourceTree = "<group>"; };
-		89F1FB342A4ADCA700E6648A /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
+		9F87E3F52A754B42007E77EA /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
+		9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelBookDataModel.swift; sourceTree = "<group>"; };
+		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
+		9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelBookViewModel.swift; sourceTree = "<group>"; };
+		9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
+		9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CollectionsStoryboard.storyboard; sourceTree = "<group>"; };
 		9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsIconTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
@@ -135,7 +143,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8993C08B2A7393940046AD84 /* Realm in Frameworks */,
 				89BF621828F65FAE00418305 /* Alamofire in Frameworks */,
+				8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */,
 				89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */,
 				892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */,
 				89BF621228F65F6800418305 /* KRProgressHUD in Frameworks */,
@@ -272,7 +282,6 @@
 		896DF71E28F7E6380031A88A /* 首頁 */ = {
 			isa = PBXGroup;
 			children = (
-				89F1FB322A4ADC8300E6648A /* DataModel */,
 				89DF925B29232E8100B049BA /* Cell */,
 				89BF620028F65DDB00418305 /* FrontPageViewController.swift */,
 				892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */,
@@ -315,7 +324,9 @@
 				89BF61FC28F65DDB00418305 /* AppDelegate.swift */,
 				89BF61FE28F65DDB00418305 /* SceneDelegate.swift */,
 				896DF71928F7E58D0031A88A /* MainTabBarController.swift */,
+				9F87E3F32A754B42007E77EA /* DataModel */,
 				896DF71E28F7E6380031A88A /* 首頁 */,
+				9F87E3FD2A754BC8007E77EA /* 收藏 */,
 				892AAC8E28F9054E00614DA1 /* 關於 */,
 				896DF71D28F7E5DD0031A88A /* Internal library */,
 				89BF620228F65DDB00418305 /* Main.storyboard */,
@@ -335,23 +346,34 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		89F1FB322A4ADC8300E6648A /* DataModel */ = {
+		9F87E3F32A754B42007E77EA /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				896DF71528F7E2840031A88A /* HotelBookViewModel.swift */,
-				89BF621928F661D200418305 /* HotelBookDataModel.swift */,
-				89F1FB332A4ADCA700E6648A /* Hotel-json */,
+				9F87E3F42A754B42007E77EA /* Hotel-json */,
+				9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */,
+				9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */,
+				9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
 		};
-		89F1FB332A4ADCA700E6648A /* Hotel-json */ = {
+		9F87E3F42A754B42007E77EA /* Hotel-json */ = {
 			isa = PBXGroup;
 			children = (
-				89F1FB342A4ADCA700E6648A /* HotelList.json */,
+				9F87E3F52A754B42007E77EA /* HotelList.json */,
 			);
 			path = "Hotel-json";
 			sourceTree = "<group>";
+		};
+		9F87E3FD2A754BC8007E77EA /* 收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */,
+				9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */,
+			);
+			name = "收藏";
+			path = "寶島旅社/收藏";
+			sourceTree = SOURCE_ROOT;
 		};
 		9FA8F0E42A639939009ACADD /* Cell */ = {
 			isa = PBXGroup;
@@ -383,6 +405,8 @@
 				89BF621428F65F8500418305 /* SwiftyJSON */,
 				89BF621728F65FAE00418305 /* Alamofire */,
 				8938D13C297162FB0005BC9A /* Cluster */,
+				8993C08A2A7393940046AD84 /* Realm */,
+				8993C08C2A7393940046AD84 /* RealmSwift */,
 			);
 			productName = "寶島旅社";
 			productReference = 89BF61F928F65DDB00418305 /* 寶島旅社.app */;
@@ -418,6 +442,7 @@
 				89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */,
+				8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 89BF61FA28F65DDB00418305 /* Products */;
 			projectDirPath = "";
@@ -443,7 +468,6 @@
 				89B413092914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib in Resources */,
 				892DE053290274CB003F3974 /* ImageDataCollectionViewCell.xib in Resources */,
 				892BD286290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib in Resources */,
-				89F1FB372A4ADCA700E6648A /* HotelList.json in Resources */,
 				89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */,
 				892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */,
 				89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */,
@@ -452,6 +476,8 @@
 				89BF620628F65DDC00418305 /* Assets.xcassets in Resources */,
 				892BCC212907BC4F0095D3D5 /* DescriptionTableViewCell.xib in Resources */,
 				89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */,
+				9F87E3F92A754B42007E77EA /* HotelList.json in Resources */,
+				9F87E4012A754BC8007E77EA /* CollectionsStoryboard.storyboard in Resources */,
 				89BF620428F65DDB00418305 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,24 +495,26 @@
 				89BF620128F65DDB00418305 /* FrontPageViewController.swift in Sources */,
 				9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */,
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
+				9F87E3FC2A754B42007E77EA /* HotelBookViewModel.swift in Sources */,
+				9F87E3FA2A754B42007E77EA /* HotelBookDataModel.swift in Sources */,
 				89DCB172296EB408003A48B7 /* Array+Extension.swift in Sources */,
 				892DE04829023A32003F3974 /* UIViewController+SendEmail.swift in Sources */,
 				892BD285290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.swift in Sources */,
 				892DE0442901374C003F3974 /* ImageDataCollectionViewCell.swift in Sources */,
 				892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */,
 				892AACA328F909DF00614DA1 /* Bundle+Extension.swift in Sources */,
-				89BF621A28F661D200418305 /* HotelBookDataModel.swift in Sources */,
+				9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */,
 				896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */,
 				89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */,
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,
 				89E6E5C52A3080090001E1AB /* MapBottomSheetViewController.swift in Sources */,
+				9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */,
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,
 				89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */,
 				892DE04129011CEB003F3974 /* BaseViewController.swift in Sources */,
 				89B413082914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift in Sources */,
-				896DF71628F7E2840031A88A /* HotelBookViewModel.swift in Sources */,
 				89BF61FF28F65DDB00418305 /* SceneDelegate.swift in Sources */,
 				892BCC202907BC4F0095D3D5 /* DescriptionTableViewCell.swift in Sources */,
 				892DE0382900F72A003F3974 /* OpenWKWebViewController.swift in Sources */,
@@ -727,6 +755,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		89BF621028F65F6800418305 /* XCRemoteSwiftPackageReference "KRProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krimpedance/KRProgressHUD";
@@ -758,6 +794,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */;
 			productName = Cluster;
+		};
+		8993C08A2A7393940046AD84 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		8993C08C2A7393940046AD84 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		89BF621128F65F6800418305 /* KRProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
