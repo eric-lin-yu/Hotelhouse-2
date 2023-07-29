@@ -34,9 +34,10 @@ class MapSearchViewController: UIViewController {
     }
     @IBOutlet weak var userLocationImageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
-
+    
     var dataModel: [HotelsArray] = []
     let manager = CLLocationManager()
+    var circleOverlay: MKCircle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +47,8 @@ class MapSearchViewController: UIViewController {
         
         manager.delegate = self
         mapView.delegate = self
-    
         mapSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.mainRed,
-                                              .font: UIFont.boldSystemFont(ofSize: 20)], for: .normal)
+                                                    .font: UIFont.boldSystemFont(ofSize: 20)], for: .normal)
         
         getUserLocation()
         
@@ -57,7 +57,7 @@ class MapSearchViewController: UIViewController {
         userLocationImageView.addGestureRecognizer(tap)
         
         backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)
-//        showBottomSheet()
+        //        showBottomSheet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,8 +149,8 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let latLocation = locations.last else{
-            assertionFailure("Invalid lcoation or coordinate.")
+        guard let latLocation = locations.last else {
+            assertionFailure("Invalid location or coordinate.")
             return
         }
         let coordinate = latLocation.coordinate
@@ -171,66 +171,78 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         
         var annotations: [MKPointAnnotation] = []
         
-        if annotations == [] {
+        if annotations.isEmpty {
             // add hotel annotation
             for index in 0..<dataModel.count {
                 let py = self.dataModel[index].py as NSString
                 let px = self.dataModel[index].px as NSString
                 
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
-                annotation.title = self.dataModel[index].hotelName
+                let hotelCoordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
                 
-                if let classData = dataModel[index].classData.first,
-                    let hotelClass = HotelClass(rawValue: classData) {
-                    annotation.subtitle = hotelClass.description
-                } else {
-                    annotation.subtitle = "旅店未提供"
+                // 確認座標是否在circle範圍內
+                let center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let hotelLocation = CLLocation(latitude: hotelCoordinate.latitude, longitude: hotelCoordinate.longitude)
+                let regionRadius = 1000.0
+                
+                if center.distance(from: hotelLocation) <= regionRadius {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = hotelCoordinate
+                    annotation.title = self.dataModel[index].hotelName
+                    
+                    if let classData = dataModel[index].classData.first,
+                       let hotelClass = HotelClass(rawValue: classData) {
+                        annotation.subtitle = hotelClass.description
+                    } else {
+                        annotation.subtitle = "旅店未提供"
+                    }
+                    
+                    annotations.append(annotation)
                 }
-                
-                annotations.append(annotation)
-                
             }
-            // 將all標記add到mapView上
-            self.mapView.addAnnotation(annotation)
-            self.mapView.addAnnotations(annotations)
+            // 將所有標記add到mapView上
+            mapView.addAnnotations(annotations)
         }
         
-        // 繪製一個圓圈圖形（用於表示 region 的範圍）
-        let regionRadius = 1200.0
-        let circle = MKCircle(center: coordinate, radius: regionRadius)
-        mapView.addOverlay(circle)
+        // 更新圓圈標記的位置
+        if let existingCircleOverlay = circleOverlay {
+            mapView.removeOverlay(existingCircleOverlay)
+        }
+        
+        let regionRadius = 1000.0
+        let newCircle = MKCircle(center: coordinate, radius: regionRadius)
+        circleOverlay = newCircle
+        mapView.addOverlay(newCircle)
         
         manager.stopUpdatingLocation()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.userLocationImageView.isHidden = false
         }
-        
     }
     
     
     // annotation Cellout view
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "Annotation"
+        // 檢查是否為使用者定位的標記，保持預設樣式
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let identifier = "CustomAnnotationView"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-
+        
         if annotationView == nil {
-            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.clusteringIdentifier = "church"
-            annotationView!.canShowCallout = true
-
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            
             let button = UIButton(type: .detailDisclosure)
             button.tintColor = UIColor.orange
             annotationView?.rightCalloutAccessoryView = button
-
             
         } else {
-            annotationView!.annotation = annotation
+            annotationView?.annotation = annotation
         }
-
         return annotationView
-        
     }
     
     // touch Callout 面板
@@ -238,13 +250,13 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         
         var annotation = MKPointAnnotation()
         if let anAnnotation = view.annotation as? MKPointAnnotation {
-           annotation = anAnnotation
+            annotation = anAnnotation
         }
         #if DEBUG
         let selectedTitle = "\(annotation.title ?? "")"
         print("You selected index: \(selectedTitle)")
         #endif
-  
+        
         //依dataModel.name == annotation.title，抓取其index
         if let index = self.dataModel.firstIndex(where: { $0.hotelName == annotation.title }) {
             let vc = HotelDetailViewController.make(hotelData: dataModel[index])
