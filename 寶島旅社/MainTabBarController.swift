@@ -8,6 +8,16 @@
 
 import UIKit
 
+/// TabBar Tag
+///  - frontPage: 首頁
+///  - collections: 收藏
+///  - About: 設定
+enum AppTag: Int {
+    case frontPage = 0
+    case collections
+    case About
+}
+
 class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
@@ -45,20 +55,33 @@ class MainTabBarController: UITabBarController {
     // get.TabBar
     func setUpChildViewControllers() {
         let firstViewController = FrontPageViewController.makeToHome()
-        addChildViewController(childController: firstViewController, image: "briefcase.fill", title: "首頁", tag: 0)
+        addChildViewController(childController: firstViewController,
+                               image: "briefcase.fill",
+                               title: "首頁",
+                               tag: .frontPage)
         
-//        let secondViewController = LatesViewController.make()
-//        addChildViewController(childController: secondViewController, image: "list.clipboard", title: "收藏", tag: 1)
+        let secondViewController = CollectionsViewController.make()
+        addChildViewController(childController: secondViewController,
+                               image: "list.clipboard",
+                               title: "收藏",
+                               tag: .collections)
         
         let thirdViewController = AboutViewController.make()
-        addChildViewController(childController: thirdViewController, image: "gearshape.2.fill", title: "關於", tag:  2)
+        addChildViewController(childController: thirdViewController,
+                               image: "gearshape.2.fill",
+                               title: "關於",
+                               tag: .About)
     }
     
     // get.Navigation
-    func addChildViewController(childController: UIViewController, image: String, title: String, tag: Int) {
+    func addChildViewController(childController: UIViewController,
+                                image: String,
+                                title: String,
+                                tag: AppTag) {
+        
         childController.title = title
         childController.tabBarItem.image = UIImage.init(systemName: image)
-        childController.tabBarItem.tag = tag
+        childController.tabBarItem.tag = tag.rawValue
     
         //let navigationController = MainNavigationViewController.init(rootViewController: childController) //使用Code製作NavigationViewController用法
         

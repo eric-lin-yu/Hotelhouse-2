@@ -29,6 +29,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        // 設定tabBar imageInsets
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            for item in tabBarController.tabBar.items ?? [] {
+                // 設定上下間距為5，左右間距為0
+                item.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
