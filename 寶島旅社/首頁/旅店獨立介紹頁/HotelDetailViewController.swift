@@ -48,7 +48,7 @@ class HotelDetailViewController: UIViewController {
         for image in dataModel.images {
             if !image.url.isEmpty {
                 self.collectionImageDataModel.append(image.url)
-                self.collectiontitleDataModel.append(image.description)
+                self.collectiontitleDataModel.append(image.imageDescription)
             }
         }
     }
