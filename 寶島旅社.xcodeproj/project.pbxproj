@@ -31,7 +31,6 @@
 		892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DE04929024987003F3974 /* MapTableViewCell.swift */; };
 		892DE04C29024987003F3974 /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892DE04A29024987003F3974 /* MapTableViewCell.xib */; };
 		892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892DE04E29024E2F003F3974 /* MapKit.framework */; };
-		892DE053290274CB003F3974 /* ImageDataCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892DE052290274CB003F3974 /* ImageDataCollectionViewCell.xib */; };
 		8938D13D297162FB0005BC9A /* Cluster in Frameworks */ = {isa = PBXBuildFile; productRef = 8938D13C297162FB0005BC9A /* Cluster */; };
 		896DF71828F7E3080031A88A /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71728F7E3080031A88A /* ResponseHandler.swift */; };
 		896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71928F7E58D0031A88A /* MainTabBarController.swift */; };
@@ -98,7 +97,6 @@
 		892DE04929024987003F3974 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		892DE04A29024987003F3974 /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		892DE04E29024E2F003F3974 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		892DE052290274CB003F3974 /* ImageDataCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageDataCollectionViewCell.xib; sourceTree = "<group>"; };
 		896DF71728F7E3080031A88A /* ResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		896DF71928F7E58D0031A88A /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		896DF71B28F7E5CE0031A88A /* ColorSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSets.swift; sourceTree = "<group>"; };
@@ -225,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				892DE05529027E1D003F3974 /* TableViewCell */,
-				892DE05429027E09003F3974 /* CollectionViewCell */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -242,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				892DE0432901374C003F3974 /* ImageDataCollectionViewCell.swift */,
-				892DE052290274CB003F3974 /* ImageDataCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -377,6 +373,7 @@
 			children = (
 				9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */,
 				9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */,
+				892DE05429027E09003F3974 /* CollectionViewCell */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -463,7 +460,6 @@
 				896EEAFC291CC7C2005296CC /* 鼓掌兔兔.gif in Resources */,
 				892DE04629014293003F3974 /* 嘎喔兔兔.gif in Resources */,
 				89B413092914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib in Resources */,
-				892DE053290274CB003F3974 /* ImageDataCollectionViewCell.xib in Resources */,
 				892BD286290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib in Resources */,
 				89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */,
 				892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */,
