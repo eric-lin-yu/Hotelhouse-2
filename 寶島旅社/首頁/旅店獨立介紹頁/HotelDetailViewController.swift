@@ -133,7 +133,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         cell.pageControl.numberOfPages = collectionImageDataModel.count
         // 分頁模式
         cell.collectionView.isPagingEnabled = true
-        cell.collectionView.register(UINib(nibName: "ImageDataCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: String(describing: ImageDataCollectionViewCell.self))
+        cell.collectionView.register(ImageDataCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ImageDataCollectionViewCell.self))
         
         return cell
     }
@@ -192,29 +192,14 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: ImageDataCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ImageDataCollectionViewCell.self), for: indexPath) as! ImageDataCollectionViewCell
         
-        switch collectionImageDataModel.count {
-        case 0:
-            // error
-            cell.hotelImageView.loadGif(name: "嘎喔兔兔")
-            cell.titleLabel.text = "很抱歉，此旅店尚未提供圖檔哦~"
-            return cell
-        default:
-            // 下載圖片
-            let url = URL(string: collectionImageDataModel[indexPath.row])
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: url!)
-                DispatchQueue.main.async {
-                    cell.hotelImageView.image = UIImage(data: data!)
-                }
-            }
-            if collectiontitleDataModel[indexPath.row] != "" {
-                cell.titleLabel.text = collectiontitleDataModel[indexPath.row]
-            } else {
-                cell.titleLabel.text = "實景示意圖"
-            }
-            return cell
+        if indexPath.row < collectionImageDataModel.count {
+            let imageURL = collectionImageDataModel[indexPath.row]
+            let title = collectiontitleDataModel[indexPath.row]
+            cell.configure(with: imageURL, title: title)
+        } else {
+            cell.configure()
         }
-
+        return cell
     }
     
     // cell的間距。如設定isPagingEnabled(換頁模式)的話，要設定為0

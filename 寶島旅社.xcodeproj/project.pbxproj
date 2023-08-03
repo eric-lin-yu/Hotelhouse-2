@@ -62,7 +62,6 @@
 		89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */; };
 		89DF98BB29248F5F00B049BA /* HotelDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */; };
 		89DF98BC29248F5F00B049BA /* HotelDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */; };
-		89E6E5C52A3080090001E1AB /* MapBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */; };
 		9F87E3F92A754B42007E77EA /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E3F52A754B42007E77EA /* HotelList.json */; };
 		9F87E3FA2A754B42007E77EA /* HotelBookDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */; };
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
@@ -126,7 +125,6 @@
 		89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrontPageTableViewCell.xib; sourceTree = "<group>"; };
 		89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsTableViewCell.xib; sourceTree = "<group>"; };
-		89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetViewController.swift; sourceTree = "<group>"; };
 		9F87E3F52A754B42007E77EA /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
 		9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelBookDataModel.swift; sourceTree = "<group>"; };
 		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
@@ -295,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				89B546972925D59F0020C522 /* MapSearchViewController.swift */,
-				89E6E5C42A3080090001E1AB /* MapBottomSheetViewController.swift */,
 				89B546992925D5B70020C522 /* MapSearchStoryboard.storyboard */,
 			);
 			path = "地圖搜尋頁";
@@ -507,7 +504,6 @@
 				896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */,
 				89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */,
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,
-				89E6E5C52A3080090001E1AB /* MapBottomSheetViewController.swift in Sources */,
 				9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */,
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
