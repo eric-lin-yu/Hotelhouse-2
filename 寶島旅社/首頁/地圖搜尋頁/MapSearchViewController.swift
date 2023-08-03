@@ -117,12 +117,20 @@ class MapSearchViewController: UIViewController {
 // MARK: - MapDelegate
 extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
-    //地圖範圍變化時，重新讀取
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let region = mapView.region
-        #if DEBUG
-        print("Move to: \(region.center.latitude),\(region.center.longitude)")
-        #endif
+        // 取得地圖的新位置
+        let centerCoordinate = mapView.centerCoordinate
+        let newCircle = MKCircle(center: centerCoordinate, radius: 1000.0)
+        if let existingCircleOverlay = circleOverlay {
+            mapView.removeOverlay(existingCircleOverlay)
+        }
+        
+        // 添加新的圓圈到地圖上
+        mapView.addOverlay(newCircle)
+        circleOverlay = newCircle
+        
+        // 更新旅店資訊
+        updateHotelAnnotations(for: centerCoordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -137,49 +145,6 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
         
-        // 新增一個地標,在user's旁
-        var storeCoordinate = coordinate
-        storeCoordinate.latitude += 0.0001
-        storeCoordinate.longitude += 0.0001
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = storeCoordinate
-        annotation.title = "Here!"
-        
-        var annotations: [MKPointAnnotation] = []
-        
-        if annotations.isEmpty {
-            // add hotel annotation
-            for index in 0..<dataModel.count {
-                let py = self.dataModel[index].py as NSString
-                let px = self.dataModel[index].px as NSString
-                
-                let hotelCoordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
-                
-                // 確認座標是否在circle範圍內
-                let center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                let hotelLocation = CLLocation(latitude: hotelCoordinate.latitude, longitude: hotelCoordinate.longitude)
-                let regionRadius = 1000.0
-                
-                if center.distance(from: hotelLocation) <= regionRadius {
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = hotelCoordinate
-                    annotation.title = self.dataModel[index].hotelName
-                    
-                    if let classData = dataModel[index].classData.first,
-                       let hotelClass = HotelClass(rawValue: classData) {
-                        annotation.subtitle = hotelClass.description
-                    } else {
-                        annotation.subtitle = "旅店未提供"
-                    }
-                    
-                    annotations.append(annotation)
-                }
-            }
-            // 將所有標記add到mapView上
-            mapView.addAnnotations(annotations)
-        }
-        
         // 更新圓圈標記的位置
         if let existingCircleOverlay = circleOverlay {
             mapView.removeOverlay(existingCircleOverlay)
@@ -190,6 +155,9 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         circleOverlay = newCircle
         mapView.addOverlay(newCircle)
         
+        // 更新旅店資訊
+        updateHotelAnnotations(for: coordinate)
+        
         manager.stopUpdatingLocation()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -197,7 +165,40 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         }
     }
     
-    
+    private func updateHotelAnnotations(for coordinate: CLLocationCoordinate2D) {
+        var annotations: [MKPointAnnotation] = []
+        for index in 0..<dataModel.count {
+            let py = self.dataModel[index].py as NSString
+            let px = self.dataModel[index].px as NSString
+            
+            let hotelCoordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
+            
+            // 確認座標是否在circle範圍內
+            let center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let hotelLocation = CLLocation(latitude: hotelCoordinate.latitude, longitude: hotelCoordinate.longitude)
+            let regionRadius = 1000.0
+            
+            if center.distance(from: hotelLocation) <= regionRadius {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = hotelCoordinate
+                annotation.title = self.dataModel[index].hotelName
+                
+                if let classData = dataModel[index].classData.first,
+                   let hotelClass = HotelClass(rawValue: classData) {
+                    annotation.subtitle = hotelClass.description
+                } else {
+                    annotation.subtitle = "旅店未提供"
+                }
+                
+                annotations.append(annotation)
+            }
+        }
+        // 移除舊的標記
+        mapView.removeAnnotations(mapView.annotations)
+        // 將所有新的標記add到mapView上
+        mapView.addAnnotations(annotations)
+    }
+
     // annotation Cellout view
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         // 檢查是否為使用者定位的標記，保持預設樣式
