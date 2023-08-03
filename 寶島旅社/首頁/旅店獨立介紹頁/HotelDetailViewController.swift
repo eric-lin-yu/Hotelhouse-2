@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum HotelDetailType: Int {
+    case hotelImage = 0
+    case hotelDetails
+    case hotelDescription
+    case hotelExtra
+    case hotelMap
+}
+
 class HotelDetailViewController: UIViewController {
     static func make(hotelData: HotelsArray) -> HotelDetailViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
@@ -79,32 +87,37 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            return openDetailCollectionTableViewCell(on: tableView, at: indexPath)
-        case 1:
-            return openHotelDetailCell(on: tableView, at: indexPath)
-        case 2:
-            return openDescriptionTableViewCell(on: tableView, at: indexPath)
-        case 3:
-            return openHotelExtraDetailCell(on: tableView, at: indexPath)
-        case 4:
-            return openMapTableViewCell(on: tableView, at: indexPath)
-        default:
+        guard let type = HotelDetailType(rawValue: indexPath.row) else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
             return cell
+        }
+        
+        switch type {
+        case .hotelImage:
+            return openDetailCollectionTableViewCell(on: tableView, at: indexPath)
+        case .hotelDetails:
+            return openHotelDetailCell(on: tableView, at: indexPath)
+        case .hotelDescription:
+            return openDescriptionTableViewCell(on: tableView, at: indexPath)
+        case .hotelExtra:
+            return openHotelExtraDetailCell(on: tableView, at: indexPath)
+        case .hotelMap:
+            return openMapTableViewCell(on: tableView, at: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let type = HotelDetailType(rawValue: indexPath.row) else {
+            return
+        }
         
-        switch indexPath.row {
-        case 4:
-            let vc = HotelDetailMapViewController.make(hotelData: dataModel)
-            
-            self.navigationController?.pushViewController(vc, animated: true)
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+        switch type {
+//        case 4:
+//            let vc = HotelDetailMapViewController.make(hotelData: dataModel)
+//
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
         default:
             break
         }
