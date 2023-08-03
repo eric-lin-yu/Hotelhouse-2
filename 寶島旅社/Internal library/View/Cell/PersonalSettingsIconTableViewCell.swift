@@ -8,7 +8,7 @@
 import UIKit
 
 class PersonalSettingsIconTableViewCell: UITableViewCell {
-    //MARK: - UIs
+    //MARK: - UI
     private let titleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,26 +49,21 @@ class PersonalSettingsIconTableViewCell: UITableViewCell {
     
     //MARK: - setup Constraint
     private func setupConstraint() {
-        // Vertically
         NSLayoutConstraint.activate([
-            arrowRightImageView.heightAnchor.constraint(equalToConstant: 24),
-            
-            titleImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 15),
-            titleImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15),
-            
-            titleNameLabel.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor),
-            arrowRightImageView.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor)
-        ])
-        
-        // Horizontally
-        NSLayoutConstraint.activate([
+            titleImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            titleImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            titleImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             titleImageView.widthAnchor.constraint(equalToConstant: 36),
+            
+            titleNameLabel.leftAnchor.constraint(equalTo: titleImageView.rightAnchor, constant: 10),
+            titleNameLabel.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor),
+            
+            arrowRightImageView.heightAnchor.constraint(equalToConstant: 24),
             arrowRightImageView.widthAnchor.constraint(equalToConstant: 24),
             
-            titleImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
-            titleNameLabel.leftAnchor.constraint(equalTo: titleImageView.rightAnchor, constant: 10),
             arrowRightImageView.leftAnchor.constraint(equalTo: titleNameLabel.rightAnchor, constant: 10),
-            arrowRightImageView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
+            arrowRightImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            arrowRightImageView.centerYAnchor.constraint(equalTo: titleImageView.centerYAnchor),
         ])
     }
 

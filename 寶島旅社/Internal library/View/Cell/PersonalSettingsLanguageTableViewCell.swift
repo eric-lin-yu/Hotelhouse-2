@@ -40,19 +40,14 @@ class PersonalSettingsLanguageTableViewCell: UITableViewCell {
     
     //MARK: - setup Constraint
     private func setupConstraint() {
-        // Vertically
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             
-            subtitleLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
-        ])
-        
-        // Horizontally
-        NSLayoutConstraint.activate([
-            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
             subtitleLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 10),
-            subtitleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
+            subtitleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            subtitleLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
         ])
     }
     
