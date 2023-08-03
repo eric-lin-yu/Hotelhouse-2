@@ -57,7 +57,6 @@ class MapSearchViewController: UIViewController {
         userLocationImageView.addGestureRecognizer(tap)
         
         backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)
-        //        showBottomSheet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,28 +111,6 @@ class MapSearchViewController: UIViewController {
         default:
             break
         }
-    }
-    
-    func showBottomSheet() {
-        let vc = MapBottomSheetViewController.make()
-
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .automatic
-        if let sheet = nav.sheetPresentationController {
-            if #available(iOS 16.0, *) {
-                sheet.detents = [.medium(), .large(), .custom(resolver: { context in
-                    context.maximumDetentValue * 0.2 })]
-            } else {
-                sheet.detents = [.medium(), .large()]
-            }
-            // 高於medium時，無法操作
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 30.0
-        }
-        // 下滑關閉
-        nav.isModalInPresentation = true
-        present(nav, animated: true, completion: nil)
     }
 }
 
