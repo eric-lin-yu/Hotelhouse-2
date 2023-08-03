@@ -22,6 +22,9 @@ extension UIColor {
     /// 白煙色
     static let whitesmokeGray: UIColor = { return UIColor.init(hexString: "F5F5F5") }()
     
+    /// 薄霧玫瑰色
+    static let mistyRose: UIColor = { return UIColor.init(hexString: "#F9C6CF") }()
+    
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
