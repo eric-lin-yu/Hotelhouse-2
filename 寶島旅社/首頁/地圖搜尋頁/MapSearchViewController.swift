@@ -89,6 +89,7 @@ class MapSearchViewController: UIViewController {
         case .authorizedWhenInUse:
             // user接受
             manager.startUpdatingLocation()
+            mapView.showsUserLocation = true
         default:
             break
         }
@@ -166,7 +167,14 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
     }
     
     private func updateHotelAnnotations(for coordinate: CLLocationCoordinate2D) {
+        // Add user location annotation
+          let userLocationAnnotation = MKPointAnnotation()
+          userLocationAnnotation.coordinate = coordinate
+          userLocationAnnotation.title = "您的位置"
+          mapView.addAnnotation(userLocationAnnotation)
+        
         var annotations: [MKPointAnnotation] = []
+        
         for index in 0..<dataModel.count {
             let py = self.dataModel[index].py as NSString
             let px = self.dataModel[index].px as NSString
