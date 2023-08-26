@@ -252,7 +252,7 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         // 旅店類別
         if let classData = dataModel.classData.first,
             let hotelClass = HotelClass(rawValue: classData) {
-            cell.hotleCalssLabel.text = hotelClass.description
+            cell.hotleCalssLabel.text = "：\(hotelClass.description)"
         } else {
             cell.hotleCalssLabel.text = "旅店未提供"
         }

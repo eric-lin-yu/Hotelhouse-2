@@ -44,7 +44,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
         
         if let classData = dataModel.classData.first,
             let hotelClass = HotelClass(rawValue: classData) {
-            hotelCalssLabel.text = hotelClass.description
+            hotelCalssLabel.text = " 旅館類別： \(hotelClass.description)"
         } else {
             hotelCalssLabel.text = "旅店未提供"
         }
