@@ -53,12 +53,8 @@ class HotelDetailViewController: UIViewController {
     }
     
     func getCollectionViewDataModel() {
-        for image in dataModel.images {
-            if !image.url.isEmpty {
-                self.collectionImageDataModel.append(image.url)
-                self.collectiontitleDataModel.append(image.imageDescription)
-            }
-        }
+        self.collectionImageDataModel = dataModel.images.compactMap { $0.url.isEmpty ? nil : $0.url }
+        self.collectiontitleDataModel = dataModel.images.compactMap { $0.url.isEmpty ? nil : $0.imageDescription }
     }
     
    @objc func callPhoneBtn() {
@@ -77,7 +73,15 @@ class HotelDetailViewController: UIViewController {
             }
         }
     }
- 
+    
+    @objc func getOpenWebView() {
+        let vc = OpenWKWebViewController.make(urlString: dataModel.website,
+                                              title: dataModel.hotelName)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+    }
 }
 
 //MARK: - TableView
@@ -151,12 +155,10 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openHotelDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelDetailsTableViewCell.self), for: indexPath) as! HotelDetailsTableViewCell
         
-        cell.delegate = self
-        cell.configure(dataModel: dataModel)
+        cell.configure(dataModel: dataModel, tapAction: #selector(getOpenWebView))
         
         return cell
     }
-    
     
     // 額外細節說明
     func openHotelExtraDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
@@ -221,20 +223,4 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
         // 這裡要用as?, as!實機會偶發閃退問題
         cell?.pageControl.currentPage = Int(page)
     }
-    
-    
-}
-
-// MARK: HotelDetailsDelegate
-extension HotelDetailViewController: HotelDetailsCellDelegate {
-    
-    func getOpenWebView() {
-        let vc = OpenWKWebViewController.make(urlString: dataModel.website,
-                                              title: dataModel.hotelName)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
-    }
-    
 }

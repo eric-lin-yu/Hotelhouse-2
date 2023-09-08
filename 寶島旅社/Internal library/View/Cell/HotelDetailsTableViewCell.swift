@@ -8,26 +8,14 @@
 
 import UIKit
 
-protocol HotelDetailsCellDelegate: AnyObject {
-    func getOpenWebView()
-}
-
 class HotelDetailsTableViewCell: UITableViewCell {
-    @IBOutlet weak var hotelClassView: UIView!{
-        didSet {
-//            hotelClassView.roundFrameView(roundView: hotelClassView)
-        }
-    }
+    @IBOutlet weak var hotelClassView: UIView!
     @IBOutlet weak var hotelCalssLabel: UILabel!
-    @IBOutlet weak var priceView: UIView! {
-        didSet {
-//            priceView.roundFrameView(roundView: priceView)
-        }
-    }
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var webLabel: UILabel!
-    
-    var delegate: HotelDetailsCellDelegate?
+    @IBOutlet weak var collectionsView: UIView!
+    @IBOutlet weak var collectionsImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +28,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
  
-    func configure(dataModel: HotelsArray) {
+    func configure(dataModel: HotelsArray, tapAction: Selector? = nil) {
         
         if let classData = dataModel.classData.first,
             let hotelClass = HotelClass(rawValue: classData) {
@@ -60,19 +48,14 @@ class HotelDetailsTableViewCell: UITableViewCell {
         if dataModel.website != "" {
             webLabel.text = "開啟網站"
             
-            let tap = UITapGestureRecognizer(target: self, action: #selector((openWebView)))
-            webLabel.isUserInteractionEnabled = true
-            webLabel.addGestureRecognizer(tap)
-            
+            if let tapAction {
+                let tap = UITapGestureRecognizer(target: self, action: tapAction)
+                webLabel.isUserInteractionEnabled = true
+                webLabel.addGestureRecognizer(tap)
+            }
         } else {
             webLabel.text = "旅店未提供"
             webLabel.textColor = UIColor.black
         }
-        
     }
-    
-    @objc func openWebView() {
-        delegate?.getOpenWebView()
-    }
-
 }
