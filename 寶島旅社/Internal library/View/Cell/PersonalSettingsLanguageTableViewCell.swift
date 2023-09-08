@@ -26,10 +26,10 @@ class PersonalSettingsLanguageTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.whitesmokeGray
+        backgroundColor = .whitesmokeGray
         // addsubView
-        addSubview(titleLabel)
-        addSubview(subtitleLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subtitleLabel)
         
         setupConstraint()
     }
@@ -40,20 +40,34 @@ class PersonalSettingsLanguageTableViewCell: UITableViewCell {
     
     //MARK: - setup Constraint
     private func setupConstraint() {
+        let topContentViewAnchor = contentView.topAnchor
+        let leftContentViewAnchor = contentView.leftAnchor
+        let rightContentViewAnchor = contentView.rightAnchor
+        let bottomContentViewAnchor = contentView.bottomAnchor
+        
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: topContentViewAnchor, constant: 20),
+            titleLabel.leftAnchor.constraint(equalTo: leftContentViewAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomContentViewAnchor, constant: -20),
             
             subtitleLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor, constant: 10),
-            subtitleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
+            subtitleLabel.rightAnchor.constraint(equalTo: rightContentViewAnchor, constant: -20),
             subtitleLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
         ])
     }
     
-    func configure(title: String, subtitle: String) {
+    func configure(title: String,
+                   subtitle: String,
+                   tap: UITapGestureRecognizer? = nil) {
+        
         titleLabel.text = title
         subtitleLabel.text = subtitle
+        
+        if let tap {
+            subtitleLabel.addGestureRecognizer(tap)
+            subtitleLabel.isUserInteractionEnabled = true
+            subtitleLabel.textColor = .blue
+        }
     }
     
 }

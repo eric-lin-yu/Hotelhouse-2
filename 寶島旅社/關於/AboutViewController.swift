@@ -9,6 +9,34 @@
 import UIKit
 
 class AboutViewController: BaseViewController {
+    enum AboutViewControllerType: Int, CaseIterable {
+        case about = 0
+        case setup = 1
+        
+        var title: String {
+            switch self {
+            case .about:
+                return "關於"
+            case .setup:
+                return "設定"
+            }
+        }
+        
+        var cellData: [String] {
+            switch self {
+            case .about:
+                return [
+                    "APP版本",
+                    "資料來源",
+                ]
+            case .setup:
+                return [
+                    "動工中",
+                ]
+            }
+        }
+    }
+    
     static func make() -> AboutViewController {
         let storyboard = UIStoryboard(name: "AboutStoryboard", bundle: nil)
         let vc: AboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutIdentifier") as! AboutViewController
@@ -19,19 +47,13 @@ class AboutViewController: BaseViewController {
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
     var dataModel: HotelsArray? = nil
+    private let cellData: [AboutViewControllerType] = [.about, .setup]
     private let useCells: [UITableViewCell.Type] = [PersonalSettingsLanguageTableViewCell.self]
-    
-    struct AboutDataModel {
-        let sectionDataModel: [String]
-        let rowDataModel: [String]
-    }
-    
-    var aboutDataModel: [AboutDataModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "設定"
+        navigationItem.title = "關於"
         kanaheiImageView.loadGif(name: "鼓掌兔兔")
         
         tableView.dataSource = self
@@ -40,20 +62,6 @@ class AboutViewController: BaseViewController {
         // 註冊cell
         useCells.forEach {
             tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
-        }
-        
-        getAboutDataModel()
-    }
-    
-    func getAboutDataModel() {
-        let section = [["關於"],
-                       ["設定"]]
-        
-        let row = [["APP版本", "資料來源"],
-                   ["動工中"]]
-        
-        for index in 0..<section.count {
-            aboutDataModel.insert(.init(sectionDataModel: section[index], rowDataModel: row[index]), at: index)
         }
     }
     
@@ -70,20 +78,15 @@ class AboutViewController: BaseViewController {
 extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     // section
     func numberOfSections(in tableView: UITableView) -> Int {
-        return aboutDataModel.count
+        return AboutViewControllerType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = SettingsTableViewHeaderFooterView()
-        
-        switch section {
-        case 0:
-            headerView.configure(title: "關於")
-        case 1:
-            headerView.configure(title: "設定")
-        default:
-            break
+        guard let sectionType = AboutViewControllerType(rawValue: section) else {
+            return nil
         }
+        
+        let headerView = SettingsTableViewHeaderFooterView(title: sectionType.title, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
         
         return headerView
     }
@@ -94,62 +97,60 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     
     // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch aboutDataModel[section].sectionDataModel.count{
-        case 0:
-            return aboutDataModel[section].rowDataModel.count
-        case 1:
-            return aboutDataModel[section].rowDataModel.count
-        default:
-            break
+        guard let sectionType = AboutViewControllerType(rawValue: section) else {
+            return 0
         }
-        return 0
+        return sectionType.cellData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PersonalSettingsLanguageTableViewCell.self), for: indexPath) as! PersonalSettingsLanguageTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PersonalSettingsLanguageTableViewCell.self), for: indexPath) as? PersonalSettingsLanguageTableViewCell else {
+            return UITableViewCell()
+        }
         
-        let aboutDataModel = aboutDataModel[indexPath.section]
-        switch indexPath.section {
+        let sectionType = cellData[indexPath.section]
+        
+        switch sectionType {
+        case .about:
+            configureCellForAboutSection(indexPath: indexPath, cell: cell)
+        case .setup:
+            configureCellForSetupSection(indexPath: indexPath, cell: cell)
+        }
+        
+        return cell
+    }
+    
+    private func configureCellForAboutSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        
+        switch indexPath.row {
         case 0:
-            // 關於
-            switch indexPath.row {
-            case 0:
-                
-                let title = aboutDataModel.rowDataModel[indexPath.row]
-                // 版本
-                let versions = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
-                let subtitle = "\(versions ?? "")"
-                
-                cell.configure(title: title, subtitle: subtitle)
-                
-            case 1:
-                // 資料來源
-                let title = aboutDataModel.rowDataModel[indexPath.row]
-                let subtitle = "政府資料開放平臺"
-                
-                cell.configure(title: title, subtitle: subtitle)
-                
-//                let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
-//                cell.subtitleLabel.addGestureRecognizer(tap)
-//                cell.subtitleLabel.isUserInteractionEnabled = true
-            default:
-                break
-            }
+            // 版本
+            let versions = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+            let subtitle = "\(versions ?? "")"
+            cell.configure(title: rowDataTitle, subtitle: subtitle)
+            
         case 1:
-            // 設定
-            switch indexPath.row {
-            case 0:
-                let title = aboutDataModel.rowDataModel[indexPath.row]
-                let subtitle = "創作者還在摸索..."
-                
-                cell.configure(title: title, subtitle: subtitle)
-            default:
-                break
-            }
+            // 資料來源
+            let subtitle = "政府資料開放平臺"
+            let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
+            cell.configure(title: rowDataTitle, subtitle: subtitle, tap: tap)
             
         default:
             break
         }
-        return cell
+    }
+
+    private func configureCellForSetupSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        
+        switch indexPath.row {
+        case 0:
+            let subtitle = "創作者還在摸索..."
+            cell.configure(title: rowDataTitle, subtitle: subtitle)
+            
+        default:
+            break
+        }
     }
 }

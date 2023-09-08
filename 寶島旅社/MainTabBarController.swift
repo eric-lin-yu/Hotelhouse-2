@@ -60,7 +60,7 @@ class MainTabBarController: UITabBarController {
                                title: "首頁",
                                tag: .frontPage)
         
-        let secondViewController = CollectionsViewController.make()
+        let secondViewController = CollectionsViewController()
         addChildViewController(childController: secondViewController,
                                image: "list.clipboard",
                                title: "收藏",
