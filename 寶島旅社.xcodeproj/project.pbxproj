@@ -208,23 +208,14 @@
 			path = GIF;
 			sourceTree = "<group>";
 		};
-		892DE039290117E5003F3974 /* 旅店獨立介紹頁 */ = {
+		892DE039290117E5003F3974 /* 旅店介紹頁 */ = {
 			isa = PBXGroup;
 			children = (
-				892DE04229013728003F3974 /* Cell */,
 				892DE03C29011886003F3974 /* HotelDetailViewController.swift */,
 				89DF5F0C290F736200434000 /* HotelDetailMapViewController.swift */,
 				892DE03A29011873003F3974 /* HotelDetailStoryboard.storyboard */,
 			);
-			path = "旅店獨立介紹頁";
-			sourceTree = "<group>";
-		};
-		892DE04229013728003F3974 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				892DE05529027E1D003F3974 /* TableViewCell */,
-			);
-			path = Cell;
+			path = "旅店介紹頁";
 			sourceTree = "<group>";
 		};
 		892DE04D29024E2F003F3974 /* Frameworks */ = {
@@ -243,21 +234,13 @@
 			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
-		892DE05529027E1D003F3974 /* TableViewCell */ = {
+		893BB9422AAAAAA600A9A3B8 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */,
-				89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */,
-				89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */,
-				89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */,
-				892BCC1E2907BC4F0095D3D5 /* DescriptionTableViewCell.swift */,
-				892BCC1F2907BC4F0095D3D5 /* DescriptionTableViewCell.xib */,
-				892BD283290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.swift */,
-				892BD284290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib */,
-				892DE04929024987003F3974 /* MapTableViewCell.swift */,
-				892DE04A29024987003F3974 /* MapTableViewCell.xib */,
+				9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */,
+				9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */,
 			);
-			path = TableViewCell;
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		896DF71D28F7E5DD0031A88A /* Internal library */ = {
@@ -267,8 +250,6 @@
 				892AACA028F9098400614DA1 /* Extension */,
 				896DF71B28F7E5CE0031A88A /* ColorSets.swift */,
 				892DE04029011CEB003F3974 /* BaseViewController.swift */,
-				89BF621B28F66C8D00418305 /* AlamofireHandler.swift */,
-				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
 			);
 			path = "Internal library";
 			sourceTree = "<group>";
@@ -276,11 +257,12 @@
 		896DF71E28F7E6380031A88A /* 首頁 */ = {
 			isa = PBXGroup;
 			children = (
-				89DF925B29232E8100B049BA /* Cell */,
+				89BF621B28F66C8D00418305 /* AlamofireHandler.swift */,
+				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
 				89BF620028F65DDB00418305 /* FrontPageViewController.swift */,
 				892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */,
 				89B5469B2925D5BC0020C522 /* 地圖搜尋頁 */,
-				892DE039290117E5003F3974 /* 旅店獨立介紹頁 */,
+				892DE039290117E5003F3974 /* 旅店介紹頁 */,
 			);
 			path = "首頁";
 			sourceTree = "<group>";
@@ -317,7 +299,7 @@
 				89BF61FC28F65DDB00418305 /* AppDelegate.swift */,
 				89BF61FE28F65DDB00418305 /* SceneDelegate.swift */,
 				896DF71928F7E58D0031A88A /* MainTabBarController.swift */,
-				9F87E3F32A754B42007E77EA /* DataModel */,
+				9F87E3F32A754B42007E77EA /* API */,
 				896DF71E28F7E6380031A88A /* 首頁 */,
 				9F87E3FD2A754BC8007E77EA /* 收藏 */,
 				892AAC8E28F9054E00614DA1 /* 關於 */,
@@ -330,24 +312,14 @@
 			path = "寶島旅社";
 			sourceTree = "<group>";
 		};
-		89DF925B29232E8100B049BA /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				89DF925729232C9C00B049BA /* FrontPageTableViewCell.swift */,
-				89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		9F87E3F32A754B42007E77EA /* DataModel */ = {
+		9F87E3F32A754B42007E77EA /* API */ = {
 			isa = PBXGroup;
 			children = (
 				9F87E3F42A754B42007E77EA /* Hotel-json */,
-				9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */,
-				9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */,
+				893BB9422AAAAAA600A9A3B8 /* DataModel */,
 				9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */,
 			);
-			path = DataModel;
+			path = API;
 			sourceTree = "<group>";
 		};
 		9F87E3F42A754B42007E77EA /* Hotel-json */ = {
@@ -371,6 +343,18 @@
 		9FA8F0E42A639939009ACADD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				89DF925729232C9C00B049BA /* FrontPageTableViewCell.swift */,
+				89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */,
+				89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */,
+				89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */,
+				89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */,
+				89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */,
+				892BCC1E2907BC4F0095D3D5 /* DescriptionTableViewCell.swift */,
+				892BCC1F2907BC4F0095D3D5 /* DescriptionTableViewCell.xib */,
+				892BD283290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.swift */,
+				892BD284290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib */,
+				892DE04929024987003F3974 /* MapTableViewCell.swift */,
+				892DE04A29024987003F3974 /* MapTableViewCell.xib */,
 				9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */,
 				9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */,
 				892DE05429027E09003F3974 /* CollectionViewCell */,

@@ -7,17 +7,11 @@ import UIKit
 
 extension UIColor {
     // 主色調
-    static let mainGreen: UIColor = {
-        return UIColor.init(hexString: "#B6C9BB")
-    }()
+    static let mainGreen: UIColor = { return UIColor.init(hexString: "#B6C9BB") }()
     
-    static let mainRed: UIColor = {
-        return UIColor.init(hexString: "#f74311")
-    }()
+    static let mainRed: UIColor = { return UIColor.init(hexString: "#f74311") }()
     
-    static let mainGray: UIColor = {
-        return UIColor.init(hexString: "#c4c4c4")
-    }()
+    static let mainGray: UIColor = { return UIColor.init(hexString: "#c4c4c4") }()
     
     /// 白煙色
     static let whitesmokeGray: UIColor = { return UIColor.init(hexString: "F5F5F5") }()
