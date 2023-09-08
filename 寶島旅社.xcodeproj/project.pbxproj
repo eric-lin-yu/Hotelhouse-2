@@ -66,7 +66,6 @@
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
 		9F87E3FC2A754B42007E77EA /* HotelBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */; };
 		9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */; };
-		9F87E4012A754BC8007E77EA /* CollectionsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */; };
 		9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */; };
 		9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */; };
 		9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */; };
@@ -128,7 +127,6 @@
 		9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLM_CollectionsHotels.swift; sourceTree = "<group>"; };
 		9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelBookViewModel.swift; sourceTree = "<group>"; };
 		9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
-		9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CollectionsStoryboard.storyboard; sourceTree = "<group>"; };
 		9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsIconTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
@@ -334,7 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */,
-				9F87E3FF2A754BC8007E77EA /* CollectionsStoryboard.storyboard */,
 			);
 			name = "收藏";
 			path = "寶島旅社/收藏";
@@ -454,7 +451,6 @@
 				892BCC212907BC4F0095D3D5 /* DescriptionTableViewCell.xib in Resources */,
 				89CCE52B28FFA112009681A7 /* 滾滾兔兔.gif in Resources */,
 				9F87E3F92A754B42007E77EA /* HotelList.json in Resources */,
-				9F87E4012A754BC8007E77EA /* CollectionsStoryboard.storyboard in Resources */,
 				89BF620428F65DDB00418305 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

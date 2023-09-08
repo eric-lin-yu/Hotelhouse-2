@@ -9,16 +9,54 @@
 import UIKit
 
 class CollectionsViewController: UIViewController {
-    static func make() -> CollectionsViewController {
-        let storyboard = UIStoryboard(name: "CollectionsStoryboard", bundle: nil)
-        let vc: CollectionsViewController = storyboard.instantiateViewController(withIdentifier: "CollectionsIdentity") as! CollectionsViewController
+    
+    // constraint Spacing
+    private let spacing: CGFloat = 20
+    private let topSpacing: CGFloat = 30
+    private let bottomSpacing: CGFloat = 35
+    private let btnHeight: CGFloat = 50
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    //MARK: - UI
+    private let bgImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "<#imageName#>")
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    //MARK: - setup
+    private func setupViews() {
         
-        return vc
+        let viewsToAdd: [UIView] = [
+            //...
+        ]
+        viewsToAdd.forEach { view.addSubview($0) }
+    }
+    
+    private func setupConstraint() {
+        let topSafeArea = view.safeAreaLayoutGuide.topAnchor
+        let leftSafeArea = view.safeAreaLayoutGuide.leftAnchor
+        let rightSafeArea = view.safeAreaLayoutGuide.rightAnchor
+        let bottomSafeArea = view.safeAreaLayoutGuide.bottomAnchor
+        
+        NSLayoutConstraint.activate([
+            
+        ])
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupViews()
+        setupConstraint()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,16 +68,5 @@ class CollectionsViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
