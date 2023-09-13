@@ -13,6 +13,7 @@
 		891E4F982AB1933100C48624 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F972AB1933100C48624 /* Data+Extension.swift */; };
 		891E4F9A2AB193F000C48624 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F992AB193F000C48624 /* String+Extension.swift */; };
 		891E4F9C2AB1A73800C48624 /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F9B2AB1A73800C48624 /* ImageNames.swift */; };
+		891E4F9E2AB1B07400C48624 /* AddressFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */; };
 		892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */; };
 		892AAC9028F9056700614DA1 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892AAC8F28F9056700614DA1 /* AboutViewController.swift */; };
 		892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */; };
@@ -83,6 +84,7 @@
 		891E4F972AB1933100C48624 /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		891E4F992AB193F000C48624 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		891E4F9B2AB1A73800C48624 /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
+		891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressFormatter.swift; sourceTree = "<group>"; };
 		892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FrontPageStoryboard.storyboard; sourceTree = "<group>"; };
 		892AAC8F28F9056700614DA1 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				89BF61FE28F65DDB00418305 /* SceneDelegate.swift */,
 				896DF71928F7E58D0031A88A /* MainTabBarController.swift */,
 				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
+				891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */,
 				9F87E3F32A754B42007E77EA /* API */,
 				896DF71E28F7E6380031A88A /* 首頁 */,
 				9F87E3FD2A754BC8007E77EA /* 收藏 */,
@@ -500,6 +503,7 @@
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,
 				9F87E4002A754BC8007E77EA /* CollectionsViewController.swift in Sources */,
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
+				891E4F9E2AB1B07400C48624 /* AddressFormatter.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,
 				891E4F942AB1615D00C48624 /* ImageView+Extension.swift in Sources */,
