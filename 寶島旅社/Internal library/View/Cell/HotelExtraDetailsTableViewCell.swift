@@ -53,38 +53,36 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
     }
     
     func configure(dataModel: HotelsArray) {
+        var labelText = ""
         
-        // 補充說明
-        if dataModel.spec != "" && dataModel.serviceinfo != "" {
-            let spec = dataModel.spec
-            let serviceinfo = dataModel.serviceinfo
-            spec_infoLabel.text = "\(spec)\n\n提供服務：\n\(serviceinfo)"
-        } else if dataModel.spec == "" && dataModel.serviceinfo != "" {
-            spec_infoLabel.text = "\(dataModel.serviceinfo)"
-        } else if dataModel.spec != "" && dataModel.serviceinfo == ""{
-            spec_infoLabel.text = "\(dataModel.spec)"
-        } else {
-            spec_infoLabel.text = "誠摯歡迎您的到來！"
+        if !dataModel.spec.isEmpty {
+            labelText += "\(dataModel.spec)\n\n"
         }
         
-        // 房間數
+        if !dataModel.serviceinfo.isEmpty {
+            labelText += "提供服務：\n\(dataModel.serviceinfo)\n"
+        }
+        
+        if labelText.isEmpty {
+            labelText = "誠摯歡迎您的到來！"
+        }
+        
+        spec_infoLabel.text = labelText
+        
         if dataModel.accessibilityRooms == "0" {
             roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房"
         } else {
-            // 實測accessibilityRooms目前參數皆為 0,因此暫時不會進入此
-            roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房\n 並提供無障客房 \(dataModel.accessibilityRooms)間"
+            roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房\n 並提供無障礙客房 \(dataModel.accessibilityRooms) 間"
         }
-        // 容納人數
+        
         peopleLabel.text = "：可容納 \(dataModel.totalNumberofPeople) 人"
         
-        // 停車位
         if dataModel.parkingSpace != "0" {
             let parkinginfo = dataModel.parkinginfo.dropFirst(3)
             parkingLabel.text = "：\(parkinginfo)"
         } else {
             parkingLabel.text = "：很抱歉暫無提供停車位"
         }
-        
     }
     
 }
