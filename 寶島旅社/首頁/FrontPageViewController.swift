@@ -8,12 +8,12 @@
 import UIKit
 import MessageUI
 
-enum FrontPageViewStatus {
-    case searchView
-    case resultTableView
-}
-
 class FrontPageViewController: UIViewController {
+    enum FrontPageViewStatus {
+        case searchView
+        case resultTableView
+    }
+    
     static func makeToHome() -> FrontPageViewController {
         let storyboard = UIStoryboard(name: "FrontPageStoryboard", bundle: nil)
         let vc: FrontPageViewController = storyboard.instantiateViewController(withIdentifier: "FrontPageIentity") as! FrontPageViewController
@@ -61,16 +61,16 @@ class FrontPageViewController: UIViewController {
     lazy var viewModel: HotelBookViewModel = {
         return HotelBookViewModel()
     }()
+    
     let cellIdenifier = "FrontPageIdenifier"
-    var downloadAllData: [HotelsArray] = []
-    var dataModel: [HotelsArray] = []
-    var frontPageViewStatus: FrontPageViewStatus!
+    private var downloadAllData: [HotelsArray] = []
+    private var dataModel: [HotelsArray] = []
+    private var frontPageViewStatus: FrontPageViewStatus = .searchView
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchView.isHidden = true
-        frontPageViewStatus = .searchView
         DispatchQueue.main.async {
             LoadingPageView.shard.show()
         }
@@ -87,15 +87,13 @@ class FrontPageViewController: UIViewController {
         // 註冊cell
         tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdenifier)
         
-        let searchTap = UITapGestureRecognizer(target: self, action: #selector((isCheckShowSearchView)))
+        let searchTap = UITapGestureRecognizer(target: self, action: #selector((toggleSearchViewVisibility)))
         showSearchBtnView.isUserInteractionEnabled = true
         showSearchBtnView.addGestureRecognizer(searchTap)
         
         let mapTap = UITapGestureRecognizer(target: self, action: #selector((showMapView)))
         showMapBtnView.isUserInteractionEnabled = true
         showMapBtnView.addGestureRecognizer(mapTap)
-        
-//        topButtonView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,35 +107,34 @@ class FrontPageViewController: UIViewController {
     }
     
     //MARK: - searchBar相關
-    @IBAction func searchBtn(_ sender: Any) {
-        if searchTextField.text != "" {
-            dataModel = []
-            filterContent(for: searchTextField.text ?? "")
-            self.view.endEditing(true)
-        } else {
+    @IBAction func searchAction(_ sender: Any) {
+        guard let searchText = searchTextField.text, !searchText.isEmpty else {
             showAlert(title: "通知", message: "查詢條件未輸入哦")
+            return
         }
+        dataModel = []
+        filterContent(for: searchText)
+        self.view.endEditing(true)
     }
     
     // 過濾條件
-    func filterContent(for searchText: String) {
+    private func filterContent(for searchText: String) {
         let text = searchText.replacingOccurrences(of: "台", with: "臺")
         dataModel = downloadAllData.filter { (info) -> Bool in
             let isMatch = info.add.localizedCaseInsensitiveContains(text) ||
-                info.hotelName.localizedCaseInsensitiveContains(text)
+            info.hotelName.localizedCaseInsensitiveContains(text)
             return isMatch
         }
         
-        if dataModel.count == 0 {
+        if dataModel.isEmpty {
             showAlert(title: "通知", message: "輸入條件未查到相符的資料哦...")
-            tableView.reloadData()
         } else {
             self.frontPageViewStatus = .resultTableView
             searchView.isHidden = true
             topButtonView.isHidden = false
             
             // 初次搜尋後，才開啟此功能
-            let tap = UITapGestureRecognizer(target: self, action: #selector((isCheckShowSearchView)))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(toggleSearchViewVisibility))
             searchBcakgroundView.isUserInteractionEnabled = true
             searchBcakgroundView.addGestureRecognizer(tap)
             
@@ -150,17 +147,9 @@ class FrontPageViewController: UIViewController {
         searchTextField.text = ""
     }
     
-    @objc func isCheckShowSearchView() {
-        switch frontPageViewStatus {
-        case .searchView:
-            searchView.isHidden = true
-            frontPageViewStatus = .resultTableView
-        case .resultTableView:
-            searchView.isHidden = false
-            frontPageViewStatus = .searchView
-        default:
-            break
-        }
+    @objc func toggleSearchViewVisibility() {
+        searchView.isHidden.toggle()
+        frontPageViewStatus = searchView.isHidden ? .resultTableView : .searchView
     }
     
     @objc func showMapView() {
@@ -171,14 +160,9 @@ class FrontPageViewController: UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
     
-    func isCheckDataHidden(dataStr: String) -> Bool {
-        if dataStr == "" {
-            return true
-        } else {
-            return false
-        }
+    private func isDataEmpty(_ dataStr: String) -> Bool {
+        return dataStr.isEmpty
     }
-
 }
 
 //MARK: - TextFieldDelegate
@@ -215,14 +199,37 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     // MARK: Cell
-    func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+    private func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdenifier, for: indexPath) as! FrontPageTableViewCell
-
+        
         let dataModel = dataModel[indexPath.row]
-
+        
+        configureCell(cell, with: dataModel)
+        
+        cell.loveBtn.tag = indexPath.row
+        cell.loveBtn.addTarget(self, action: #selector(loveBtnAction(_:)), for: .touchUpInside)
+        
+        // 電話
+        cell.phoneBtn.isHidden = isDataEmpty(dataModel.tel[0])
+        cell.phoneBtn.tag = indexPath.row
+        cell.phoneBtn.addTarget(self, action: #selector(phoneBtnAction(_:)), for: .touchUpInside)
+        
+        // 官網
+        cell.webBtn.isHidden = isDataEmpty(dataModel.website)
+        cell.webBtn.tag = indexPath.row
+        cell.webBtn.addTarget(self, action: #selector(webBtnAction(_:)), for: .touchUpInside)
+        
+        // 信箱
+        cell.emailBtn.isHidden = isDataEmpty(dataModel.industryEmail)
+        cell.emailBtn.tag = indexPath.row
+        cell.emailBtn.addTarget(self, action: #selector(emailBtnAction(_:)), for: .touchUpInside)
+        
+        return cell
+    }
+    
+    private func configureCell(_ cell: FrontPageTableViewCell, with dataModel: HotelsArray) {
         cell.nameLabel.text = dataModel.hotelName
-
-        // Image Download
+        
         cell.hotelimageView.loadUrlImage(urlString: dataModel.images.first?.url ?? "") { result in
             switch result {
             case .success(let image):
@@ -238,44 +245,24 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         // 星級
-        cell.gradeLabel.isHidden = isCheckDataHidden(dataStr: dataModel.grade)
+        cell.gradeLabel.isHidden = isDataEmpty(dataModel.grade)
         cell.gradeLabel.text = "☆級：\(dataModel.grade)"
-
+        
         cell.govLabel.text = dataModel.hotelID
         cell.descriptionLabel.text = dataModel.description
-
+        
         // 價格
         let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
         cell.priceLabel.text = "： \(priceText)"
-
+        
         // 旅店類別
         if let hotelClass = dataModel.classData.first.flatMap(HotelClass.init(rawValue:)) {
             cell.hotleCalssLabel.text = "：\(hotelClass.description)"
         } else {
             cell.hotleCalssLabel.text = "旅店未提供"
         }
-
-        cell.addLabel.text = dataModel.add
-
-        cell.loveBtn.tag = indexPath.row
-        cell.loveBtn.addTarget(self, action: #selector(loveBtnAction(_:)), for: .touchUpInside)
-
-        // 電話
-        cell.phoneBtn.isHidden = isCheckDataHidden(dataStr: dataModel.tel[0])
-        cell.phoneBtn.tag = indexPath.row
-        cell.phoneBtn.addTarget(self, action: #selector(phoneBtnAction(_:)), for: .touchUpInside)
-
-        // 官網
-        cell.webBtn.isHidden = isCheckDataHidden(dataStr: dataModel.website)
-        cell.webBtn.tag = indexPath.row
-        cell.webBtn.addTarget(self, action: #selector(webBtnAction(_:)), for: .touchUpInside)
-
-        // 信箱
-        cell.emailBtn.isHidden = isCheckDataHidden(dataStr: dataModel.industryEmail)
-        cell.emailBtn.tag = indexPath.row
-        cell.emailBtn.addTarget(self, action: #selector(emailBtnAction(_:)), for: .touchUpInside)
         
-        return cell
+        cell.addLabel.text = dataModel.add
     }
     
     //MARK: Button標籤區
