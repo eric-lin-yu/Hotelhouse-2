@@ -74,7 +74,7 @@ class HotelDetailMapViewController: UIViewController {
         
         userLocationBtn.addTarget(self, action: #selector(getUserLocation), for: .touchUpInside)
         hotelLocationBtn.addTarget(self, action: #selector(getHotelLocation), for: .touchUpInside)
-        distanceBtn.addTarget(self, action: #selector(getUser_Hotel_Distance), for: .touchUpInside)
+        distanceBtn.addTarget(self, action: #selector(getUserHotelDistance), for: .touchUpInside)
         navigationMAPBtn.addTarget(self, action: #selector(getNavigationMAPBtn), for: .touchUpInside)
         
         mapButtonType = .showImage
@@ -179,52 +179,50 @@ class HotelDetailMapViewController: UIViewController {
     }
     
     /// 取得兩者距離並劃線
-    @objc func getUser_Hotel_Distance() {
-        let request = MKDirections.Request()
-        
-        if userLocation != nil {
-            LoadingPageView.shard.show()
-            // user位置
-            request.source = MKMapItem(placemark: MKPlacemark(coordinate: userLocation, addressDictionary: nil))
-            
-            // 旅店位置
-            let py = self.dataModel.py as NSString
-            let px = self.dataModel.px as NSString
-            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude : py.doubleValue, longitude : px.doubleValue), addressDictionary: nil))
-            
-            request.transportType = .automobile
-            
-            // 計算方向
-            let directions = MKDirections(request: request)
-
-            directions.calculate { response, error in
-                guard let response = response else {
-                    if  let error = error {
-                        LoadingPageView.shard.dismiss()
-                        print(error)
-                        self.showAlert(title: "通知", message: "無法取得路線")
-                    }
-                    return
-                }
-                
-                let route = response.routes[0]
-                self.mapView.addOverlay((route.polyline) , level: MKOverlayLevel.aboveRoads)
-
-                let rect = route.polyline.boundingMapRect
-                self.mapView.setRegion(MKCoordinateRegion(rect ) , animated: true )
-                LoadingPageView.shard.dismiss()
-            }
-        } else {
-            showAlertClosure(title: "通知", message: "APP尚未取得您得位置資訊\n是否同意先取得您的位置資訊?", okBtn: "確認") {
+    @objc func getUserHotelDistance() {
+        guard let userLocation = userLocation else {
+            showAlertClosure(title: "通知", message: "APP尚未取得您的位置資訊\n是否同意先取得您的位置資訊?", okBtn: "確認") {
                 // 先取得user的位置
                 self.getUserLocation()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     // 再次呼叫此func
-                    self.getUser_Hotel_Distance()
+                    self.getUserHotelDistance()
                 }
             }
+            return
         }
+
+        LoadingPageView.shard.show()
         
+        let userPlacemark = MKPlacemark(coordinate: userLocation, addressDictionary: nil)
+        let hotelPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: (self.dataModel.py as NSString).doubleValue, longitude: (self.dataModel.px as NSString).doubleValue), addressDictionary: nil)
+        
+        let userMapItem = MKMapItem(placemark: userPlacemark)
+        let hotelMapItem = MKMapItem(placemark: hotelPlacemark)
+
+        let request = MKDirections.Request()
+        request.source = userMapItem
+        request.destination = hotelMapItem
+        request.transportType = .automobile
+
+        let directions = MKDirections(request: request)
+
+        directions.calculate { response, error in
+            LoadingPageView.shard.dismiss()
+            if let error = error {
+                print(error)
+                self.showAlert(title: "通知", message: "無法取得路線")
+                return
+            }
+
+            guard let response = response, let route = response.routes.first else {
+                return
+            }
+
+            self.mapView.addOverlay(route.polyline, level: MKOverlayLevel.aboveRoads)
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+        }
     }
     
     /// 導航

@@ -42,7 +42,6 @@ class HotelDetailViewController: UIViewController {
         getCollectionViewDataModel()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.allowsSelection = false
         
         // 註冊cell
         useCells.forEach {
