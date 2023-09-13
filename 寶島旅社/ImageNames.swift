@@ -11,6 +11,8 @@ import Foundation
 class ImageNames {
     static let shared = ImageNames()
     
+    private init() { }
+
     /// 嘎喔兔兔
     let errorImageName = "嘎喔兔兔"
     
