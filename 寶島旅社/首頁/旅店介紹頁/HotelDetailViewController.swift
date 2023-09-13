@@ -118,11 +118,11 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         switch type {
-//        case 4:
-//            let vc = HotelDetailMapViewController.make(hotelData: dataModel)
-//
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+        case .hotelMap:
+            let vc = HotelDetailMapViewController.make(hotelData: dataModel)
+
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
         default:
             break
         }
@@ -156,8 +156,8 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openHotelDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelDetailsTableViewCell.self), for: indexPath) as! HotelDetailsTableViewCell
         
-        cell.configure(dataModel: dataModel, tapAction: #selector(getOpenWebView))
-        
+        cell.configure(dataModel: dataModel, delegate: self)
+    
         return cell
     }
     
@@ -223,5 +223,12 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? HotelDetailCollectionTableViewCell
         // 這裡要用as?, as!實機會偶發閃退問題
         cell?.pageControl.currentPage = Int(page)
+    }
+}
+
+//MARK: - HotelDetailsTableViewCellDelegate
+extension HotelDetailViewController: HotelDetailsTableViewCellDelegate {
+    func webLabelTapped(for cell: HotelDetailsTableViewCell) {
+        self.getOpenWebView()
     }
 }

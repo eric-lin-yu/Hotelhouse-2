@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol HotelDetailsTableViewCellDelegate: AnyObject {
+    func webLabelTapped(for cell: HotelDetailsTableViewCell)
+}
 class HotelDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var hotelClassView: UIView!
     @IBOutlet weak var hotelCalssLabel: UILabel!
@@ -16,6 +19,8 @@ class HotelDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var webLabel: UILabel!
     @IBOutlet weak var collectionsView: UIView!
     @IBOutlet weak var collectionsImageView: UIImageView!
+    
+    weak var delegate: HotelDetailsTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,34 +33,31 @@ class HotelDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
  
-    func configure(dataModel: HotelsArray, tapAction: Selector? = nil) {
+    func configure(dataModel: HotelsArray, delegate: HotelDetailsTableViewCellDelegate) {
+        self.delegate = delegate
         
         if let classData = dataModel.classData.first,
-            let hotelClass = HotelClass(rawValue: classData) {
+           let hotelClass = HotelClass(rawValue: classData) {
             hotelCalssLabel.text = " 旅館類別： \(hotelClass.description)"
         } else {
             hotelCalssLabel.text = "旅店未提供"
         }
         
-        // 價格
-        if dataModel.lowestPrice != dataModel.ceilingPrice {
-            priceLabel.text = " 價位： \(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)"
-        } else {
-            priceLabel.text = " 價位： \(dataModel.ceilingPrice)"
-        }
+        let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
+        priceLabel.text = " 價位： \(priceText)"
         
-        // 官網
-        if dataModel.website != "" {
+        if !dataModel.website.isEmpty {
             webLabel.text = "開啟網站"
-            
-            if let tapAction {
-                let tap = UITapGestureRecognizer(target: self, action: tapAction)
-                webLabel.isUserInteractionEnabled = true
-                webLabel.addGestureRecognizer(tap)
-            }
+            let tap = UITapGestureRecognizer(target: self, action: #selector(openWebView))
+            webLabel.isUserInteractionEnabled = true
+            webLabel.addGestureRecognizer(tap)
         } else {
             webLabel.text = "旅店未提供"
-            webLabel.textColor = UIColor.black
+            webLabel.textColor = .black
         }
+    }
+    
+    @objc private func openWebView() {
+        delegate?.webLabelTapped(for: self)
     }
 }
