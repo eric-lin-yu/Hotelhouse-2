@@ -217,24 +217,26 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: Cell
     func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdenifier, for: indexPath) as! FrontPageTableViewCell
-        
+
         let dataModel = dataModel[indexPath.row]
 
         cell.nameLabel.text = dataModel.hotelName
 
-        //ImageDownload
-        if !dataModel.images.isEmpty {
-            let url = URL(string: dataModel.images[0].url)
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: url!)
-                DispatchQueue.main.async {
-                    cell.hotelimageView.image = UIImage(data: data!)
+        // Image Download
+        cell.hotelimageView.loadUrlImage(urlString: dataModel.images.first?.url ?? "") { result in
+            switch result {
+            case .success(let image):
+                if let image = image {
+                    cell.hotelimageView.image = image
+                } else {
+                    cell.hotelimageView.image = UIImage(named: "iconError")
                 }
+            case .failure(let error):
+                print("Error loading image: \(error)")
+                cell.hotelimageView.image = UIImage(named: "iconError")
             }
-        } else {
-            cell.hotelimageView.image = UIImage(named: "iconError")
         }
-
+        
         // 星級
         cell.gradeLabel.isHidden = isCheckDataHidden(dataStr: dataModel.grade)
         cell.gradeLabel.text = "☆級：\(dataModel.grade)"
@@ -243,15 +245,11 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
         cell.descriptionLabel.text = dataModel.description
 
         // 價格
-        if dataModel.lowestPrice != dataModel.ceilingPrice {
-            cell.priceLabel.text = "： \(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)"
-        } else {
-            cell.priceLabel.text = "： \(dataModel.ceilingPrice)"
-        }
+        let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
+        cell.priceLabel.text = "： \(priceText)"
 
         // 旅店類別
-        if let classData = dataModel.classData.first,
-            let hotelClass = HotelClass(rawValue: classData) {
+        if let hotelClass = dataModel.classData.first.flatMap(HotelClass.init(rawValue:)) {
             cell.hotleCalssLabel.text = "：\(hotelClass.description)"
         } else {
             cell.hotleCalssLabel.text = "旅店未提供"

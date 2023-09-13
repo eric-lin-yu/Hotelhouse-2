@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		891E4F922AB14C2F00C48624 /* HotelList.json in Resources */ = {isa = PBXBuildFile; fileRef = 891E4F912AB14C2F00C48624 /* HotelList.json */; };
+		891E4F942AB1615D00C48624 /* ImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4F932AB1615D00C48624 /* ImageView+Extension.swift */; };
 		892AAC8D28F8FD1000614DA1 /* FrontPageStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */; };
 		892AAC9028F9056700614DA1 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892AAC8F28F9056700614DA1 /* AboutViewController.swift */; };
 		892AAC9228F9057700614DA1 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		891E4F912AB14C2F00C48624 /* HotelList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HotelList.json; sourceTree = "<group>"; };
+		891E4F932AB1615D00C48624 /* ImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageView+Extension.swift"; sourceTree = "<group>"; };
 		892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FrontPageStoryboard.storyboard; sourceTree = "<group>"; };
 		892AAC8F28F9056700614DA1 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				892AAC9E28F9092000614DA1 /* UIImage+GIF.swift */,
 				89D07895299C89C1004EAF2B /* UIView+Extension.swift */,
 				892DE04729023A32003F3974 /* UIViewController+SendEmail.swift */,
+				891E4F932AB1615D00C48624 /* ImageView+Extension.swift */,
 				89DCB171296EB408003A48B7 /* Array+Extension.swift */,
 			);
 			path = Extension;
@@ -484,6 +487,7 @@
 				896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */,
 				9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */,
 				89DF925929232C9D00B049BA /* FrontPageTableViewCell.swift in Sources */,
+				891E4F942AB1615D00C48624 /* ImageView+Extension.swift in Sources */,
 				89BF61FD28F65DDB00418305 /* AppDelegate.swift in Sources */,
 				892DE04129011CEB003F3974 /* BaseViewController.swift in Sources */,
 				89B413082914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift in Sources */,
