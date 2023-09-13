@@ -78,7 +78,7 @@ class FrontPageViewController: UIViewController {
         viewModel.getHotelBookData { response in
             LoadingPageView.shard.dismiss()
             self.searchView.isHidden = false
-            self.kanaheiImageView.loadGif(name: "棒棒兔兔")
+            self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
             self.downloadAllData = response?.dataArray ?? []
         }
     

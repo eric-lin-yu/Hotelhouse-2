@@ -68,20 +68,24 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with imageURL: String? = nil, title: String? = nil) {
+        let errorImage = ImageNames.shared.errorImageName
+        
         // Set hotel image
         if let imageURL = imageURL {
             hotelImageView.loadUrlImage(urlString: imageURL) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let image):
-                        self.hotelImageView.image = image ?? UIImage(named: "嘎喔兔兔")
+                        if let image {
+                            self.hotelImageView.image = image
+                        }
                     case .failure:
-                        self.hotelImageView.image = UIImage(named: "嘎喔兔兔")
+                        self.hotelImageView.loadGif(name: errorImage)
                     }
                 }
             }
         } else {
-            self.hotelImageView.image = UIImage(named: "嘎喔兔兔")
+            self.hotelImageView.loadGif(name: errorImage)
         }
         
         // Set title label
