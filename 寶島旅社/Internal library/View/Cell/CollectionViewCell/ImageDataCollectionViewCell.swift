@@ -22,6 +22,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
         label.textColor = .mainRed
         label.font = .boldSystemFont(ofSize: 17)
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         //圓角
         label.layer.cornerRadius = 15
@@ -62,33 +63,28 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
             titleLabel.leftAnchor.constraint(equalTo: hotelImageView.leftAnchor),
             titleLabel.rightAnchor.constraint(equalTo: hotelImageView.rightAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
         ])
     }
     
     func configure(with imageURL: String? = nil, title: String? = nil) {
         // Set hotel image
-        if let imageURL = imageURL, let url = URL(string: imageURL) {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.hotelImageView.image = image
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.hotelImageView.loadGif(name: "嘎喔兔兔")
+        if let imageURL = imageURL {
+            hotelImageView.loadUrlImage(urlString: imageURL) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let image):
+                        self.hotelImageView.image = image ?? UIImage(named: "嘎喔兔兔")
+                    case .failure:
+                        self.hotelImageView.image = UIImage(named: "嘎喔兔兔")
                     }
                 }
             }
         } else {
-            self.hotelImageView.loadGif(name: "嘎喔兔兔")
+            self.hotelImageView.image = UIImage(named: "嘎喔兔兔")
         }
         
         // Set title label
-        if let title = title {
-            titleLabel.text = title.isEmpty ? "實景示意圖" : title
-        } else {
-            titleLabel.text = "很抱歉，此旅店尚未提供圖檔哦~"
-        }
+        titleLabel.text = title?.isEmpty == true ? "實景示意圖" : (title ?? "很抱歉，此旅店尚未提供圖檔哦~")
     }
 }
