@@ -7,7 +7,7 @@ hotelhouse-V2，為資策會結業作品「寶島旅社」的升級版
 # 資料來源
 與前版相同使用 [政府公開平台 - 旅館民宿-觀光資訊資料庫](https://data.gov.tw/dataset/7780) API 串接。
 >fix: 於 2023-06-16 18:10 資料庫更新異動，架構與舊版差異極大，影響 APP API 解析\
->避免影響，先暫時存於 APP 內以 .JSON 檔案，來做使用。
+>避免影響 App 使用，先暫時存於 APP 內以 .JSON 檔案，來做使用。
 
 
 # 首頁 (FrontPageViewController)
