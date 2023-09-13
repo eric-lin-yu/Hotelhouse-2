@@ -198,7 +198,7 @@ class HotelDetailMapViewController: UIViewController {
         LoadingPageView.shard.show()
         
         let userPlacemark = MKPlacemark(coordinate: userLocation, addressDictionary: nil)
-        let hotelPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: (self.dataModel.py as NSString).doubleValue, longitude: (self.dataModel.px as NSString).doubleValue), addressDictionary: nil)
+        let hotelPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: (self.dataModel.px as NSString).doubleValue, longitude: (self.dataModel.py as NSString).doubleValue), addressDictionary: nil)
         
         let userMapItem = MKMapItem(placemark: userPlacemark)
         let hotelMapItem = MKMapItem(placemark: hotelPlacemark)
