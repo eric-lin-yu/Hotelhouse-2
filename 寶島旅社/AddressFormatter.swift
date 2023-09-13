@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+class AddressFormatter {
+    static let shared = AddressFormatter()
+
+    private init() {}
+
+    func formatAddress(region: String, town: String, add: String) -> String {
+        return region + town + add
+    }
+}
+

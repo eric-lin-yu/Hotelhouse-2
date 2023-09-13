@@ -151,7 +151,10 @@ class HotelDetailMapViewController: UIViewController {
     /// 取得旅店位置標記
     @objc func getHotelLocation() {
         let geoCoder = CLGeocoder()  //取得位置
-        geoCoder.geocodeAddressString(dataModel.add) { (placemarks, error) in
+        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.region,
+                                                                     town: dataModel.town,
+                                                                     add: dataModel.add)
+        geoCoder.geocodeAddressString(formattedAddress) { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
             }

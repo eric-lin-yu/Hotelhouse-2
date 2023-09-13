@@ -262,7 +262,8 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
             cell.hotleCalssLabel.text = "旅店未提供"
         }
         
-        cell.addLabel.text = dataModel.add
+        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.region, town: dataModel.town, add: dataModel.add)
+        cell.addLabel.text = formattedAddress
     }
     
     //MARK: Button標籤區
