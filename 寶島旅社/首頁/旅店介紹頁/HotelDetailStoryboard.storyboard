@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,7 +53,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="862-dt-QMX">
-                                <rect key="frame" x="94.5" y="54" width="225" height="41"/>
+                                <rect key="frame" x="94.5" y="58" width="225" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="isx-gg-Ivq"/>
@@ -68,7 +70,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gyU-d8-TxN" userLabel="buttonView">
-                                <rect key="frame" x="154" y="144" width="240" height="128"/>
+                                <rect key="frame" x="154" y="148" width="240" height="128"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wC8-7P-Rhp">
                                         <rect key="frame" x="8" y="96" width="224" height="22"/>
@@ -148,12 +150,26 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="口罩P助" translatesAutoresizingMaskIntoConstraints="NO" id="Nt3-pE-bqT">
-                                <rect key="frame" x="294" y="124" width="100" height="100"/>
+                                <rect key="frame" x="294" y="128" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Rih-oO-KFZ"/>
                                     <constraint firstAttribute="height" constant="100" id="VBZ-eT-Fpm"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whk-Uh-EeS">
+                                <rect key="frame" x="20" y="60" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="ku0-S3-Bia"/>
+                                    <constraint firstAttribute="height" constant="36" id="tpK-Za-Fz0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="black"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FQV-JL-47W"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -162,11 +178,14 @@
                             <constraint firstItem="Nt3-pE-bqT" firstAttribute="top" secondItem="862-dt-QMX" secondAttribute="bottom" constant="30" id="Pvc-3O-fA8"/>
                             <constraint firstItem="862-dt-QMX" firstAttribute="centerX" secondItem="fOq-54-veO" secondAttribute="centerX" id="Ur5-ng-GXx"/>
                             <constraint firstItem="FQV-JL-47W" firstAttribute="trailing" secondItem="gyU-d8-TxN" secondAttribute="trailing" constant="20" id="XjK-OH-YWT"/>
+                            <constraint firstItem="862-dt-QMX" firstAttribute="centerY" secondItem="whk-Uh-EeS" secondAttribute="centerY" id="eK8-U8-Ehp"/>
                             <constraint firstItem="FQV-JL-47W" firstAttribute="trailing" secondItem="Nt3-pE-bqT" secondAttribute="trailing" constant="20" id="gn5-9H-SOr"/>
                             <constraint firstItem="gyU-d8-TxN" firstAttribute="top" secondItem="862-dt-QMX" secondAttribute="bottom" constant="50" id="q12-ct-o1H"/>
+                            <constraint firstItem="whk-Uh-EeS" firstAttribute="leading" secondItem="FQV-JL-47W" secondAttribute="leading" constant="20" id="sKe-fL-ehA"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="whk-Uh-EeS" id="s8J-k2-k3u"/>
                         <outlet property="buttonView" destination="gyU-d8-TxN" id="iiu-J3-3ag"/>
                         <outlet property="distanceBtn" destination="k9t-hT-BY0" id="q9T-Qx-Eyf"/>
                         <outlet property="hotelLocationBtn" destination="ClD-q2-ck6" id="lyL-gK-lgo"/>
@@ -189,13 +208,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="figure.walk.circle" catalog="system" width="128" height="121"/>
-        <image name="map" catalog="system" width="128" height="110"/>
-        <image name="paperplane.circle" catalog="system" width="128" height="121"/>
-        <image name="suitcase.cart" catalog="system" width="128" height="125"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
+        <image name="figure.walk.circle" catalog="system" width="128" height="123"/>
+        <image name="map" catalog="system" width="128" height="112"/>
+        <image name="paperplane.circle" catalog="system" width="128" height="123"/>
+        <image name="suitcase.cart" catalog="system" width="128" height="122"/>
         <image name="口罩P助" width="246" height="240"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

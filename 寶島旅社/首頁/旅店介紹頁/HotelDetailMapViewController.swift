@@ -53,6 +53,7 @@ class HotelDetailMapViewController: UIViewController {
     @IBOutlet weak var distanceBtn: UIButton!
     @IBOutlet weak var navigationMAPBtn: UIButton!
     @IBOutlet weak var isButtonImageView: UIImageView!
+    @IBOutlet weak var backBtn: UIButton!
     
     var dataModel: HotelsArray! = nil
     
@@ -86,6 +87,20 @@ class HotelDetailMapViewController: UIViewController {
         
         let viewtap = UITapGestureRecognizer(target: self, action: #selector(isCheckShowButtonView))
         self.view.addGestureRecognizer(viewtap)
+        
+        backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 關閉navigation
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 開啟navigation
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     @objc func isCheckShowButtonView() {
