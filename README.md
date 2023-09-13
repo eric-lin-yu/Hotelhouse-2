@@ -1,14 +1,15 @@
 # HotelhouseV2
-hotelhouse-V2，為資策會結業作品「寶島旅社」的升級版
+hotelhouse-V2，為資策會結業作品「寶島旅社」的升級版\
 補齊前版不足處，並嘗試使用實務所學經驗，加以應用
 
 - 套件使用 SPM 安裝
 
 # 資料來源
-與前版相同使用 [政府公開平台 - 旅館民宿-觀光資訊資料庫](https://data.gov.tw/dataset/7780) API 串接。
+- 旅店資料來源與前版相同，使用 [政府公開平台 - 旅館民宿-觀光資訊資料庫](https://data.gov.tw/dataset/7780) API 串接。
 >fix: 於 2023-06-16 18:10 資料庫更新異動，架構與舊版差異極大，影響 APP API 解析\
 >避免影響 App 使用，先暫時存於 APP 內以 .JSON 檔案，來做使用。
-
+- gif 動圖檔案，目前為學術研究示意使用
+>TODO: 替換 git 檔，避免侵權
 
 # 首頁 (FrontPageViewController)
 tableView 為底層使用，搭配 cell 顯示對應 UI\
