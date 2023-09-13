@@ -8,15 +8,15 @@
 
 import UIKit
 
-enum HotelDetailType: Int {
-    case hotelImage = 0
-    case hotelDetails
-    case hotelDescription
-    case hotelExtra
-    case hotelMap
-}
-
 class HotelDetailViewController: UIViewController {
+    enum HotelDetailType: Int {
+        case hotelImage = 0
+        case hotelDetails
+        case hotelDescription
+        case hotelExtra
+        case hotelMap
+    }
+    
     static func make(hotelData: HotelsArray) -> HotelDetailViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
