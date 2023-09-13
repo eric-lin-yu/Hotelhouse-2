@@ -162,6 +162,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891E4F9F2AB1B24500C48624 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
+				891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		892AAC8E28F9054E00614DA1 /* 關於 */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +268,7 @@
 		896DF71D28F7E5DD0031A88A /* Internal library */ = {
 			isa = PBXGroup;
 			children = (
+				891E4F9F2AB1B24500C48624 /* Singleton */,
 				892AAC9328F9073D00614DA1 /* View */,
 				892AACA028F9098400614DA1 /* Extension */,
 				896DF71B28F7E5CE0031A88A /* ColorSets.swift */,
@@ -310,8 +320,6 @@
 				89BF61FC28F65DDB00418305 /* AppDelegate.swift */,
 				89BF61FE28F65DDB00418305 /* SceneDelegate.swift */,
 				896DF71928F7E58D0031A88A /* MainTabBarController.swift */,
-				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
-				891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */,
 				9F87E3F32A754B42007E77EA /* API */,
 				896DF71E28F7E6380031A88A /* 首頁 */,
 				9F87E3FD2A754BC8007E77EA /* 收藏 */,
