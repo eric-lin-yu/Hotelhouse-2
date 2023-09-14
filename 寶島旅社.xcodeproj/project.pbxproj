@@ -68,6 +68,7 @@
 		89DF925A29232C9D00B049BA /* FrontPageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */; };
 		89DF98BB29248F5F00B049BA /* HotelDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */; };
 		89DF98BC29248F5F00B049BA /* HotelDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */; };
+		89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */; };
 		9F87E3FA2A754B42007E77EA /* HotelBookDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F62A754B42007E77EA /* HotelBookDataModel.swift */; };
 		9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */; };
 		9F87E3FC2A754B42007E77EA /* HotelBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */; };
@@ -153,6 +154,7 @@
 				89BF621828F65FAE00418305 /* Alamofire in Frameworks */,
 				8993C08D2A7393940046AD84 /* RealmSwift in Frameworks */,
 				89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */,
+				89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */,
 				892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */,
 				89BF621228F65F6800418305 /* KRProgressHUD in Frameworks */,
 				8938D13D297162FB0005BC9A /* Cluster in Frameworks */,
@@ -408,6 +410,7 @@
 				8938D13C297162FB0005BC9A /* Cluster */,
 				8993C08A2A7393940046AD84 /* Realm */,
 				8993C08C2A7393940046AD84 /* RealmSwift */,
+				89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */,
 			);
 			productName = "寶島旅社";
 			productReference = 89BF61F928F65DDB00418305 /* 寶島旅社.app */;
@@ -444,6 +447,7 @@
 				89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */,
 				8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 89BF61FA28F65DDB00418305 /* Products */;
 			projectDirPath = "";
@@ -791,6 +795,14 @@
 				minimumVersion = 4.9.1;
 			};
 		};
+		89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -823,6 +835,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

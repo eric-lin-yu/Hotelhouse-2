@@ -7,6 +7,7 @@
 
 import UIKit
 import MessageUI
+import SkeletonView
 
 class FrontPageViewController: UIViewController {
     enum FrontPageViewStatus {
@@ -62,7 +63,6 @@ class FrontPageViewController: UIViewController {
         return HotelBookViewModel()
     }()
     
-    let cellIdenifier = "FrontPageIdenifier"
     private var downloadAllData: [HotelsArray] = []
     private var dataModel: [HotelsArray] = []
     private var frontPageViewStatus: FrontPageViewStatus = .searchView
@@ -71,6 +71,7 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         
         searchView.isHidden = true
+        
         DispatchQueue.main.async {
             LoadingPageView.shard.show()
         }
@@ -85,7 +86,7 @@ class FrontPageViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         // 註冊cell
-        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdenifier)
+        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
         let searchTap = UITapGestureRecognizer(target: self, action: #selector((toggleSearchViewVisibility)))
         showSearchBtnView.isUserInteractionEnabled = true
@@ -138,8 +139,18 @@ class FrontPageViewController: UIViewController {
             searchBcakgroundView.isUserInteractionEnabled = true
             searchBcakgroundView.addGestureRecognizer(tap)
             
-            tableView.reloadData()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            
+            tableView.isSkeletonable = true
+            tableView.showAnimatedGradientSkeleton()
+       
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.tableView.stopSkeletonAnimation()
+                self.view.hideSkeleton(reloadDataAfter: true,
+                                       transition: .crossDissolve(0.25))
+                
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
@@ -178,7 +189,18 @@ extension FrontPageViewController: UITextFieldDelegate {
 }
 
 //MARK: - TableView
-extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
+// SkeletonTableViewDataSource change UITableViewDataSource
+extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDelegate {
+    // skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return FrontPageTableViewCell.cellIdenifier
+    }
+    
+    // show skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.count
     }
@@ -200,7 +222,7 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Cell
     private func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdenifier, for: indexPath) as! FrontPageTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
         let dataModel = dataModel[indexPath.row]
         

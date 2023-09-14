@@ -9,6 +9,8 @@
 import UIKit
 
 class FrontPageTableViewCell: UITableViewCell {
+    static let cellIdenifier = "FrontPageIdenifier"
+    
     @IBOutlet weak var hotelimageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     ///旅館民宿之管理權責單位代碼
