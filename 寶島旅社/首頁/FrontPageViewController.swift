@@ -260,8 +260,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
                 } else {
                     cell.hotelimageView.image = UIImage(named: "iconError")
                 }
-            case .failure(let error):
-                print("Error loading image: \(error)")
+            case .failure(_):
                 cell.hotelimageView.image = UIImage(named: "iconError")
             }
         }
