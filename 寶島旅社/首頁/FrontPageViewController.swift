@@ -7,6 +7,7 @@
 
 import UIKit
 import MessageUI
+import SkeletonView
 
 class FrontPageViewController: UIViewController {
     enum FrontPageViewStatus {
@@ -70,6 +71,7 @@ class FrontPageViewController: UIViewController {
         super.viewDidLoad()
         
         searchView.isHidden = true
+        
         DispatchQueue.main.async {
             LoadingPageView.shard.show()
         }
@@ -137,8 +139,18 @@ class FrontPageViewController: UIViewController {
             searchBcakgroundView.isUserInteractionEnabled = true
             searchBcakgroundView.addGestureRecognizer(tap)
             
-            tableView.reloadData()
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            
+            tableView.isSkeletonable = true
+            tableView.showAnimatedGradientSkeleton()
+       
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.tableView.stopSkeletonAnimation()
+                self.view.hideSkeleton(reloadDataAfter: true,
+                                       transition: .crossDissolve(0.25))
+                
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         }
     }
     
@@ -177,7 +189,18 @@ extension FrontPageViewController: UITextFieldDelegate {
 }
 
 //MARK: - TableView
-extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
+// SkeletonTableViewDataSource change UITableViewDataSource
+extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDelegate {
+    // skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return FrontPageTableViewCell.cellIdenifier
+    }
+    
+    // show skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.count
     }
