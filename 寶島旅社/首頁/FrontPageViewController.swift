@@ -62,7 +62,6 @@ class FrontPageViewController: UIViewController {
         return HotelBookViewModel()
     }()
     
-    let cellIdenifier = "FrontPageIdenifier"
     private var downloadAllData: [HotelsArray] = []
     private var dataModel: [HotelsArray] = []
     private var frontPageViewStatus: FrontPageViewStatus = .searchView
@@ -85,7 +84,7 @@ class FrontPageViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         // 註冊cell
-        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdenifier)
+        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
         let searchTap = UITapGestureRecognizer(target: self, action: #selector((toggleSearchViewVisibility)))
         showSearchBtnView.isUserInteractionEnabled = true
@@ -200,7 +199,7 @@ extension FrontPageViewController: UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Cell
     private func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdenifier, for: indexPath) as! FrontPageTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
         let dataModel = dataModel[indexPath.row]
         
