@@ -58,6 +58,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
             hotelImageView.topAnchor.constraint(equalTo: topAnchor),
             hotelImageView.leftAnchor.constraint(equalTo: leftAnchor),
             hotelImageView.rightAnchor.constraint(equalTo: rightAnchor),
+            hotelImageView.heightAnchor.constraint(equalToConstant: 200),
             
             titleLabel.topAnchor.constraint(equalTo: hotelImageView.bottomAnchor, constant: 10),
             titleLabel.leftAnchor.constraint(equalTo: hotelImageView.leftAnchor),
