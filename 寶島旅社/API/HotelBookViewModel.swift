@@ -18,10 +18,10 @@ class HotelBookViewModel {
         guard let url = Bundle.main.url(forResource: "HotelList", withExtension: "json") else {
             return
         }
-        
+
         // 雲端url：https://media.taiwan.net.tw/XMLReleaseALL_public/hotel_C_f.xml
+        
         AlamofireHandler.request(url: url) { response in
-            // responseJSON 要改 responseString
             switch response.result {
             case .success(_):
                 if let json: JSON = try? JSON(data: response.data!) {
