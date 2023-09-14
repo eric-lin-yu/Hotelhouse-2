@@ -121,7 +121,9 @@ extension OpenWKWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
             let card = URLCredential.init(trust: challenge.protectionSpace.serverTrust! )
-            completionHandler(URLSession.AuthChallengeDisposition.useCredential,card)
+            DispatchQueue.global().async {
+                completionHandler(URLSession.AuthChallengeDisposition.useCredential,card)
+            }
         }
     }
 
