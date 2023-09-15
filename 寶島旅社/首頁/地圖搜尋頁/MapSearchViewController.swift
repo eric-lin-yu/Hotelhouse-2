@@ -14,7 +14,7 @@ class MapSearchViewController: UIViewController {
         let storyboard = UIStoryboard(name: "MapSearchStoryboard", bundle: nil)
         let vc: MapSearchViewController = storyboard.instantiateViewController(withIdentifier: "MapSearchIdentity") as! MapSearchViewController
         
-        vc.dataModel = dataModel
+        vc.hotelDataModel = dataModel
         return vc
     }
     
@@ -35,9 +35,9 @@ class MapSearchViewController: UIViewController {
     @IBOutlet weak var userLocationImageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     
-    var dataModel: [HotelDataModel] = []
-    let manager = CLLocationManager()
-    var circleOverlay: MKCircle?
+    private var hotelDataModel: [HotelDataModel] = []
+    private let manager = CLLocationManager()
+    private var circleOverlay: MKCircle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,9 +175,9 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         
         var annotations: [MKPointAnnotation] = []
         
-        for index in 0..<dataModel.count {
-            let py = self.dataModel[index].py as NSString
-            let px = self.dataModel[index].px as NSString
+        for index in 0..<hotelDataModel.count {
+            let py = self.hotelDataModel[index].py as NSString
+            let px = self.hotelDataModel[index].px as NSString
             
             let hotelCoordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
             
@@ -189,9 +189,9 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
             if center.distance(from: hotelLocation) <= regionRadius {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = hotelCoordinate
-                annotation.title = self.dataModel[index].hotelName
+                annotation.title = self.hotelDataModel[index].hotelName
                 
-                if let classData = dataModel[index].classData.first,
+                if let classData = hotelDataModel[index].classData.first,
                    let hotelClass = HotelClass(rawValue: classData) {
                     annotation.subtitle = hotelClass.description
                 } else {
@@ -244,8 +244,8 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         #endif
         
         //依dataModel.name == annotation.title，抓取其index
-        if let index = self.dataModel.firstIndex(where: { $0.hotelName == annotation.title }) {
-            let vc = HotelDetailViewController(hotelDataModel: dataModel[index])
+        if let index = self.hotelDataModel.firstIndex(where: { $0.hotelName == annotation.title }) {
+            let vc = HotelDetailViewController(hotelDataModel: hotelDataModel[index])
             vc.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(vc, animated: true)
