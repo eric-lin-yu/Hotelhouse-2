@@ -174,6 +174,7 @@ class RealmManager {
         do {
             try RealmManager.shard?.write { realm in
                 realm.add(realmData)
+                ResponseHandler.presentAlertHandler(message: "新增成功")
             }
         } catch {
             ResponseHandler.errorHandler(errorString: "新增失敗")
