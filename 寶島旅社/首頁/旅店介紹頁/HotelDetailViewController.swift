@@ -21,24 +21,24 @@ class HotelDetailViewController: UIViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
         
-        vc.dataModel = hotelData
+        vc.hotelDataModel = hotelData
         
         return vc
     }
     
     @IBOutlet weak var tableView: UITableView!
     
-    var dataModel: HotelDataModel! = nil
+    private var hotelDataModel: HotelDataModel! = nil
     
-    var collectionImageDataModel: [String] = []
-    var collectiontitleDataModel: [String] = []
+    private var collectionImageDataModel: [String] = []
+    private var collectiontitleDataModel: [String] = []
     // add New Cell
     private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self, MapTableViewCell.self, DescriptionTableViewCell.self, HotelExtraDetailsTableViewCell.self, HotelDetailsTableViewCell.self]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = dataModel.hotelName
+        navigationItem.title = hotelDataModel.hotelName
         getCollectionViewDataModel()
         tableView.dataSource = self
         tableView.delegate = self
@@ -53,13 +53,13 @@ class HotelDetailViewController: UIViewController {
     }
     
     func getCollectionViewDataModel() {
-        self.collectionImageDataModel = dataModel.images.compactMap { $0.url.isEmpty ? nil : $0.url }
-        self.collectiontitleDataModel = dataModel.images.compactMap { $0.url.isEmpty ? nil : $0.imageDescription }
+        self.collectionImageDataModel = hotelDataModel.images.compactMap { $0.url.isEmpty ? nil : $0.url }
+        self.collectiontitleDataModel = hotelDataModel.images.compactMap { $0.url.isEmpty ? nil : $0.imageDescription }
     }
     
    @objc func callPhoneBtn() {
-        showAlertClosure(title: "通知", message: "將外撥電話至 \(dataModel.hotelName)", okBtn: "確定") {
-            let phone = self.dataModel.tel
+        showAlertClosure(title: "通知", message: "將外撥電話至 \(hotelDataModel.hotelName)", okBtn: "確定") {
+            let phone = self.hotelDataModel.tel
             if let url = URL(string: "tel:\(phone)") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -75,8 +75,8 @@ class HotelDetailViewController: UIViewController {
     }
     
     @objc func getOpenWebView() {
-        let vc = OpenWKWebViewController.make(urlString: dataModel.website,
-                                              title: dataModel.hotelName)
+        let vc = OpenWKWebViewController.make(urlString: hotelDataModel.website,
+                                              title: hotelDataModel.hotelName)
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -84,7 +84,7 @@ class HotelDetailViewController: UIViewController {
     }
     
     @objc func addHotelDataModelToRealm() {
-        RealmManager.shard?.addHotelDataModelToRealm(dataModel)
+        RealmManager.shard?.addHotelDataModelToRealm(hotelDataModel)
     }
 }
 
@@ -122,7 +122,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         
         switch type {
         case .hotelMap:
-            let vc = HotelDetailMapViewController.make(hotelData: dataModel)
+            let vc = HotelDetailMapViewController.make(hotelData: hotelDataModel)
 
             self.navigationController?.pushViewController(vc, animated: true)
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
@@ -150,7 +150,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openDescriptionTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DescriptionTableViewCell.self), for: indexPath) as! DescriptionTableViewCell
         
-        cell.configure(dataModel: dataModel)
+        cell.configure(dataModel: hotelDataModel)
         
         return cell
     }
@@ -159,7 +159,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openHotelDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelDetailsTableViewCell.self), for: indexPath) as! HotelDetailsTableViewCell
         
-        cell.configure(dataModel: dataModel, delegate: self)
+        cell.configure(dataModel: hotelDataModel, delegate: self)
     
         return cell
     }
@@ -168,7 +168,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openHotelExtraDetailCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HotelExtraDetailsTableViewCell.self), for: indexPath) as! HotelExtraDetailsTableViewCell
         
-        cell.configure(dataModel: dataModel)
+        cell.configure(dataModel: hotelDataModel)
         
         return cell
     }
@@ -177,7 +177,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func openMapTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MapTableViewCell.self), for: indexPath) as! MapTableViewCell
         
-        cell.configure(dataModel: dataModel)
+        cell.configure(dataModel: hotelDataModel)
         
         return cell
     }
