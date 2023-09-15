@@ -64,7 +64,7 @@ class FrontPageViewController: UIViewController {
     }()
     
     private var downloadAllData: [HotelDataModel] = []
-    private var dataModel: [HotelDataModel] = []
+    private var hotelDataModel: [HotelDataModel] = []
     private var frontPageViewStatus: FrontPageViewStatus = .searchView
     
     override func viewDidLoad() {
@@ -113,7 +113,7 @@ class FrontPageViewController: UIViewController {
             showAlert(title: "通知", message: "查詢條件未輸入哦")
             return
         }
-        dataModel = []
+        hotelDataModel = []
         filterContent(for: searchText)
         self.view.endEditing(true)
     }
@@ -121,13 +121,13 @@ class FrontPageViewController: UIViewController {
     // 過濾條件
     private func filterContent(for searchText: String) {
         let text = searchText.replacingOccurrences(of: "台", with: "臺")
-        dataModel = downloadAllData.filter { (info) -> Bool in
+        hotelDataModel = downloadAllData.filter { (info) -> Bool in
             let isMatch = info.add.localizedCaseInsensitiveContains(text) ||
             info.hotelName.localizedCaseInsensitiveContains(text)
             return isMatch
         }
         
-        if dataModel.isEmpty {
+        if hotelDataModel.isEmpty {
             showAlert(title: "通知", message: "輸入條件未查到相符的資料哦...")
         } else {
             self.frontPageViewStatus = .resultTableView
@@ -202,7 +202,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataModel.count
+        return hotelDataModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,7 +213,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = HotelDetailViewController.make(hotelData: dataModel[indexPath.row])
+        let vc = HotelDetailViewController.make(hotelData: hotelDataModel[indexPath.row])
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -224,7 +224,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     private func frontPageTableViewCell(on tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
-        let dataModel = dataModel[indexPath.row]
+        let dataModel = hotelDataModel[indexPath.row]
         
         configureCell(cell, with: dataModel)
         
@@ -296,7 +296,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     // 撥打電話鈕
     @objc func phoneBtnAction(_ sender: UIButton) {
         let index = sender.tag
-        let searchData = dataModel[index]
+        let searchData = hotelDataModel[index]
         
         showAlertClosure(title: "通知", message: "將外撥電話至 \(searchData.hotelName)", okBtn: "確定") {
             let phone = searchData.tel
@@ -317,7 +317,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     // open web
     @objc func webBtnAction(_ sender: UIButton) {
         let index = sender.tag
-        let searchData = dataModel[index]
+        let searchData = hotelDataModel[index]
         
         let vc = OpenWKWebViewController.make(urlString: searchData.website,
                                               title: searchData.hotelName)
@@ -330,7 +330,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     // e-mail
     @objc func emailBtnAction(_ sender: UIButton) {
         let index = sender.tag
-        let searchData = dataModel[index]
+        let searchData = hotelDataModel[index]
      
         sendEmail(email: searchData.industryEmail)
     }
