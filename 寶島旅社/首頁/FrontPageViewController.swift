@@ -228,8 +228,8 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         
         configureCell(cell, with: dataModel)
         
-        cell.loveBtn.tag = indexPath.row
-        cell.loveBtn.addTarget(self, action: #selector(loveBtnAction(_:)), for: .touchUpInside)
+        cell.collectionsBtn.tag = indexPath.row
+        cell.collectionsBtn.addTarget(self, action: #selector(collectionsBtnAction(_:)), for: .touchUpInside)
         
         // 電話
         cell.phoneBtn.isHidden = isDataEmpty(dataModel.tel[0])
@@ -291,6 +291,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     // love
     @objc func loveBtnAction(_ sender: UIButton) {
         //...
+    @objc func collectionsBtnAction(_ sender: UIButton) {
     }
     
     // 撥打電話鈕

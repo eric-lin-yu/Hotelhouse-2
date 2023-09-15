@@ -27,7 +27,7 @@ class FrontPageTableViewCell: UITableViewCell {
     @IBOutlet weak var phoneBtn: UIButton!
     @IBOutlet weak var webBtn: UIButton!
     @IBOutlet weak var emailBtn: UIButton!
-    @IBOutlet weak var loveBtn: UIButton!
+    @IBOutlet weak var collectionsBtn: UIButton!
     
     @IBOutlet weak var govView: UIView! {
         didSet {
