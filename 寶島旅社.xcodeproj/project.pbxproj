@@ -338,9 +338,9 @@
 		9F87E3F32A754B42007E77EA /* API */ = {
 			isa = PBXGroup;
 			children = (
-				891E4F952AB1921300C48624 /* RealmManager.swift */,
 				89BF621B28F66C8D00418305 /* AlamofireHandler.swift */,
 				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
+				891E4F952AB1921300C48624 /* RealmManager.swift */,
 				9F87E3F42A754B42007E77EA /* Hotel-json */,
 				893BB9422AAAAAA600A9A3B8 /* DataModel */,
 				9F87E3F82A754B42007E77EA /* HotelBookViewModel.swift */,
