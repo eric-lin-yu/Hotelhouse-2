@@ -17,6 +17,11 @@ class HotelDetailViewController: UIViewController {
         case hotelMap
     }
     
+    struct DetailImageData {
+        let imageURL: String
+        let title: String
+    }
+    
     static func make(hotelData: HotelDataModel) -> HotelDetailViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
@@ -29,9 +34,8 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var hotelDataModel: HotelDataModel! = nil
+    private var collectionImageDataModel: [DetailImageData] = []
     
-    private var collectionImageDataModel: [String] = []
-    private var collectiontitleDataModel: [String] = []
     // add New Cell
     private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self, MapTableViewCell.self, DescriptionTableViewCell.self, HotelExtraDetailsTableViewCell.self, HotelDetailsTableViewCell.self]
     
@@ -53,8 +57,11 @@ class HotelDetailViewController: UIViewController {
     }
     
     func getCollectionViewDataModel() {
-        self.collectionImageDataModel = hotelDataModel.images.compactMap { $0.url.isEmpty ? nil : $0.url }
-        self.collectiontitleDataModel = hotelDataModel.images.compactMap { $0.url.isEmpty ? nil : $0.imageDescription }
+        collectionImageDataModel = hotelDataModel.images.compactMap { imageModel in
+            guard !imageModel.url.isEmpty else { return nil }
+            return DetailImageData(imageURL: imageModel.url,
+                                   title: imageModel.imageDescription)
+        }
     }
     
    @objc func callPhoneBtn() {
@@ -199,9 +206,8 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
         let cell: ImageDataCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ImageDataCollectionViewCell.self), for: indexPath) as! ImageDataCollectionViewCell
         
         if indexPath.row < collectionImageDataModel.count {
-            let imageURL = collectionImageDataModel[indexPath.row]
-            let title = collectiontitleDataModel[indexPath.row]
-            cell.configure(with: imageURL, title: title)
+            let imageData = collectionImageDataModel[indexPath.row]
+            cell.configure(with: imageData.imageURL, title: imageData.title)
         } else {
             cell.configure()
         }
