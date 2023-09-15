@@ -289,9 +289,11 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     
     //MARK: Button標籤區
     // love
-    @objc func loveBtnAction(_ sender: UIButton) {
-        //...
     @objc func collectionsBtnAction(_ sender: UIButton) {
+        let index = sender.tag
+        let hotelDataModel = hotelDataModel[index]
+        
+        RealmManager.shard?.addHotelDataModelToRealm(hotelDataModel)
     }
     
     // 撥打電話鈕

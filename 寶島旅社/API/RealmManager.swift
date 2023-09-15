@@ -120,4 +120,63 @@ class RealmManager {
         }
         return expandedKeyData
     }
+    
+    func addHotelDataModelToRealm(_ hotelDataModel: HotelDataModel) {
+        // get gov Data
+        var govArray: [RLM_Organization] = []
+        for index in 0..<hotelDataModel.gov.count {
+            let govs = RLM_Organization(name: hotelDataModel.gov[index].name,
+                                        classData: hotelDataModel.gov[index].classData,
+                                        taxCode: hotelDataModel.gov[index].taxCode ?? "",
+                                        agencyCode: hotelDataModel.gov[index].agencyCode ?? "",
+                                        url: hotelDataModel.gov[index].url ?? "",
+                                        telephones: hotelDataModel.gov[index].telephones ?? [],
+                                        mobilePhones: hotelDataModel.gov[index].mobilePhones ?? [],
+                                        faxes: hotelDataModel.gov[index].faxes ?? [],
+                                        email: hotelDataModel.gov[index].email ?? "")
+            govArray.append(govs)
+        }
+        
+        // get image data
+        var hotelImageArray: [RLM_HotelImages] = []
+        for index in 0..<hotelDataModel.images.count {
+            let images = RLM_HotelImages(name: hotelDataModel.images[index].name,
+                                         imageDescription:  hotelDataModel.images[index].imageDescription,
+                                         url:  hotelDataModel.images[index].url)
+            hotelImageArray.append(images)
+        }
+        
+        let realmData = RLM_CollectionsHotels(hotelID: hotelDataModel.hotelID,
+                                              hotelName: hotelDataModel.hotelName,
+                                              descriptionText: hotelDataModel.description,
+                                              px: hotelDataModel.px,
+                                              py: hotelDataModel.py,
+                                              grade: hotelDataModel.grade,
+                                              classData: hotelDataModel.classData,
+                                              add: hotelDataModel.add,
+                                              region: hotelDataModel.region,
+                                              town: hotelDataModel.town,
+                                              tel: hotelDataModel.tel,
+                                              gov: govArray,
+                                              website: hotelDataModel.website,
+                                              images: hotelImageArray,
+                                              spec: hotelDataModel.spec,
+                                              serviceinfo: hotelDataModel.serviceinfo,
+                                              totalNumberofRooms: hotelDataModel.totalNumberofRooms,
+                                              accessibilityRooms: hotelDataModel.accessibilityRooms,
+                                              lowestPrice: hotelDataModel.lowestPrice,
+                                              ceilingPrice: hotelDataModel.ceilingPrice,
+                                              industryEmail: hotelDataModel.industryEmail,
+                                              totalNumberofPeople: hotelDataModel.totalNumberofPeople,
+                                              parkingSpace: hotelDataModel.parkingSpace,
+                                              parkinginfo: hotelDataModel.parkinginfo)
+        
+        do {
+            try RealmManager.shard?.write { realm in
+                realm.add(realmData)
+            }
+        } catch {
+            ResponseHandler.errorHandler(errorString: "新增失敗")
+        }
+    }
 }
