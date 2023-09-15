@@ -22,41 +22,74 @@ class HotelDetailViewController: UIViewController {
         let title: String
     }
     
-    static func make(hotelData: HotelDataModel) -> HotelDetailViewController {
-        let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
-        let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
-        
-        vc.hotelDataModel = hotelData
-        
-        return vc
+    private var hotelDataModel: HotelDataModel
+    private var collectionImageDataModel: [DetailImageData] = []
+
+    private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self,
+                                                    MapTableViewCell.self,
+                                                    DescriptionTableViewCell.self,
+                                                    HotelExtraDetailsTableViewCell.self,
+                                                    HotelDetailsTableViewCell.self]
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    @IBOutlet weak var tableView: UITableView!
+    init(hotelDataModel: HotelDataModel) {
+        self.hotelDataModel = hotelDataModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    private var hotelDataModel: HotelDataModel! = nil
-    private var collectionImageDataModel: [DetailImageData] = []
+    //MARK: - UI
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
-    // add New Cell
-    private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self, MapTableViewCell.self, DescriptionTableViewCell.self, HotelExtraDetailsTableViewCell.self, HotelDetailsTableViewCell.self]
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    //MARK: - setup
+    private func setupViews() {
+        view.addSubview(tableView)
 
-        navigationItem.title = hotelDataModel.hotelName
-        getCollectionViewDataModel()
         tableView.dataSource = self
         tableView.delegate = self
         
         // 註冊cell
         useCells.forEach {
-            tableView.register(UINib(nibName: $0.storyboardIdentifier, bundle: Bundle.messageCoreBundle),
-                                      forCellReuseIdentifier: $0.storyboardIdentifier)
+            tableView.register(UINib(nibName: $0.storyboardIdentifier,
+                                     bundle: Bundle.messageCoreBundle),
+                               forCellReuseIdentifier: $0.storyboardIdentifier)
         }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "phone.circle"), style: .plain, target: self, action: #selector(callPhoneBtn))
-        
     }
     
-    func getCollectionViewDataModel() {
+    private func setupConstraint() {
+        let topSafeArea = view.safeAreaLayoutGuide.topAnchor
+        let leftSafeArea = view.safeAreaLayoutGuide.leftAnchor
+        let rightSafeArea = view.safeAreaLayoutGuide.rightAnchor
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topSafeArea),
+            tableView.leftAnchor.constraint(equalTo: leftSafeArea),
+            tableView.rightAnchor.constraint(equalTo: rightSafeArea),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViews()
+        setupConstraint()
+        
+        getCollectionViewDataModel()
+     
+        navigationItem.title = hotelDataModel.hotelName
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "phone.circle"), style: .plain, target: self, action: #selector(callPhoneBtn))
+    }
+    
+    private func getCollectionViewDataModel() {
         collectionImageDataModel = hotelDataModel.images.compactMap { imageModel in
             guard !imageModel.url.isEmpty else { return nil }
             return DetailImageData(imageURL: imageModel.url,
