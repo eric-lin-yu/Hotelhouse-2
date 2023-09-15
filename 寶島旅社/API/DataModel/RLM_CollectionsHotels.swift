@@ -35,33 +35,56 @@ class RLM_CollectionsHotels: Object {
     @Persisted var parkingSpace: String
     @Persisted var parkinginfo: String
     
-    convenience init(collectionsHotels: RLM_CollectionsHotels) {
+    convenience init( hotelID: String,
+                     hotelName: String,
+                     descriptionText: String,
+                     px: String,
+                     py: String,
+                     grade: String,
+                     classData: [Int],
+                     add: String,
+                     region: String,
+                     town: String,
+                     tel: [String],
+                     gov: [RLM_Organization],
+                     website: String,
+                     images: [RLM_HotelImages],
+                     spec: String,
+                     serviceinfo: String,
+                     totalNumberofRooms: String,
+                     accessibilityRooms: String,
+                     lowestPrice: String,
+                     ceilingPrice: String,
+                     industryEmail: String,
+                     totalNumberofPeople: String,
+                     parkingSpace: String,
+                     parkinginfo: String) {
         self.init()
         
-        self.hotelID = collectionsHotels.hotelID
-        self.hotelName = collectionsHotels.hotelName
-        self.descriptionText = collectionsHotels.descriptionText
-        self.px = collectionsHotels.px
-        self.py = collectionsHotels.py
-        self.grade = collectionsHotels.grade
-        self.classData = collectionsHotels.classData
-        self.add = collectionsHotels.add
-        self.region = collectionsHotels.region
-        self.town = collectionsHotels.town
-        self.tel = collectionsHotels.tel
-        self.gov.append(objectsIn: collectionsHotels.gov)
-        self.website = collectionsHotels.website
-        self.images.append(objectsIn: collectionsHotels.images)
-        self.spec = collectionsHotels.spec
-        self.serviceinfo = collectionsHotels.serviceinfo
-        self.totalNumberofRooms = collectionsHotels.totalNumberofRooms
-        self.accessibilityRooms = collectionsHotels.accessibilityRooms
-        self.lowestPrice = collectionsHotels.lowestPrice
-        self.ceilingPrice = collectionsHotels.ceilingPrice
-        self.industryEmail = collectionsHotels.industryEmail
-        self.totalNumberofPeople = collectionsHotels.totalNumberofPeople
-        self.parkingSpace = collectionsHotels.parkingSpace
-        self.parkinginfo = collectionsHotels.parkinginfo
+        self.hotelID = hotelID
+        self.hotelName = hotelName
+        self.descriptionText = descriptionText
+        self.px = px
+        self.py = py
+        self.grade = grade
+        self.classData.append(objectsIn: classData)
+        self.add = add
+        self.region = region
+        self.town = town
+        self.tel.append(objectsIn: tel)
+        self.gov.append(objectsIn: gov)
+        self.website = website
+        self.images.append(objectsIn: images)
+        self.spec = spec
+        self.serviceinfo = serviceinfo
+        self.totalNumberofRooms = totalNumberofRooms
+        self.accessibilityRooms = accessibilityRooms
+        self.lowestPrice = lowestPrice
+        self.ceilingPrice = ceilingPrice
+        self.industryEmail = industryEmail
+        self.totalNumberofPeople = totalNumberofPeople
+        self.parkingSpace = parkingSpace
+        self.parkinginfo = parkinginfo
     }
 }
 
@@ -70,12 +93,14 @@ class RLM_HotelImages: Object {
     @Persisted var imageDescription: String
     @Persisted var url: String
     
-    convenience init(hotelImages: RLM_HotelImages) {
+    convenience init( name: String,
+                     imageDescription: String,
+                     url: String) {
         self.init()
         
-        self.name = hotelImages.name
-        self.imageDescription = hotelImages.imageDescription
-        self.url = hotelImages.url
+        self.name = name
+        self.imageDescription = imageDescription
+        self.url = url
     }
 }
 
@@ -90,17 +115,25 @@ class RLM_Organization: Object {
     @Persisted var faxes: List<String>
     @Persisted var email: String
     
-    convenience init(organization: RLM_Organization) {
+    convenience init( name: String,
+                     classData: String,
+                     taxCode: String,
+                     agencyCode: String,
+                     url: String,
+                     telephones: [String],
+                     mobilePhones: [String],
+                     faxes: [String],
+                     email: String) {
         self.init()
         
-        self.name = organization.name
-        self.classData = organization.classData
-        self.taxCode = organization.taxCode
-        self.agencyCode = organization.agencyCode
-        self.url = organization.url
-        self.telephones = organization.telephones
-        self.mobilePhones = organization.mobilePhones
-        self.faxes = organization.faxes
-        self.email = organization.email
+        self.name = name
+        self.classData = classData
+        self.taxCode = taxCode
+        self.agencyCode = agencyCode
+        self.url = url
+        self.telephones.append(objectsIn: telephones)
+        self.mobilePhones.append(objectsIn: mobilePhones)
+        self.faxes.append(objectsIn: faxes)
+        self.email = email
     }
 }
