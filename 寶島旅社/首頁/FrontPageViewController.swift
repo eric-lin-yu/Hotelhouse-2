@@ -123,6 +123,8 @@ class FrontPageViewController: UIViewController {
         let text = searchText.replacingOccurrences(of: "台", with: "臺")
         hotelDataModel = downloadAllData.filter { (info) -> Bool in
             let isMatch = info.add.localizedCaseInsensitiveContains(text) ||
+            info.region.localizedCaseInsensitiveContains(text)  ||
+            info.town.localizedCaseInsensitiveContains(text) ||
             info.hotelName.localizedCaseInsensitiveContains(text)
             return isMatch
         }
