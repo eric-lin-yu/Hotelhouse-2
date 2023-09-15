@@ -10,36 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Hotel Detail View Controller-->
-        <scene sceneID="s0d-6b-0kx">
-            <objects>
-                <viewController storyboardIdentifier="HotelDetailIdentifier" id="Y6W-OH-hqX" customClass="HotelDetailViewController" customModule="寶島旅社" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kjN-he-XaX">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="kjN-he-XaX" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="ETO-e3-Rm9"/>
-                            <constraint firstAttribute="bottom" secondItem="kjN-he-XaX" secondAttribute="bottom" id="Xmb-Q0-Wxf"/>
-                            <constraint firstItem="kjN-he-XaX" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="as0-00-hzl"/>
-                            <constraint firstItem="kjN-he-XaX" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="lgW-Wp-lA6"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="kjN-he-XaX" id="kPG-px-Bwm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="47.544642857142854"/>
-        </scene>
         <!--Hotel Detail Map View Controller-->
         <scene sceneID="cDX-nn-Kpi">
             <objects>
