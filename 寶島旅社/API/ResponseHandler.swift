@@ -37,19 +37,19 @@ struct ResponseHandler {
                 vc = (vc as! UINavigationController).visibleViewController
 
                 // Convert HTML message to attributed string
-                guard let htmlData = message.data(using: .utf8) else {
-                    return
-                }
-                let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-                    .documentType: NSAttributedString.DocumentType.html,
-                    .characterEncoding: String.Encoding.utf8.rawValue
-                ]
-                guard let attributedString = try? NSAttributedString(data: htmlData, options: options, documentAttributes: nil) else {
-                    return
-                }
+//                guard let htmlData = message.data(using: .utf8) else {
+//                    return
+//                }
+//                let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+//                    .documentType: NSAttributedString.DocumentType.html,
+//                    .characterEncoding: String.Encoding.utf8.rawValue
+//                ]
+//                guard let attributedString = try? NSAttributedString(data: htmlData, options: options, documentAttributes: nil) else {
+//                    return
+//                }
 
-                let alertController = UIAlertController(title: "通知", message: "", preferredStyle: .alert)
-                alertController.setValue(attributedString, forKey: "attributedMessage")
+                let alertController = UIAlertController(title: "通知", message: message, preferredStyle: .alert)
+//                alertController.setValue(attributedString, forKey: "attributedMessage")
 
                 let okButton = UIAlertAction(title: "確定", style: .default) { (_) in
                     if let handler = handler {
