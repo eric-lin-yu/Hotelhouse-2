@@ -52,7 +52,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(dataModel: HotelsArray) {
+    func configure(dataModel: HotelDataModel) {
         var labelText = ""
         
         if !dataModel.spec.isEmpty {

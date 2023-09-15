@@ -27,7 +27,7 @@ class DescriptionTableViewCell: UITableViewCell {
         
     }
     
-    func configure(dataModel: HotelsArray) {
+    func configure(dataModel: HotelDataModel) {
         descriptionTextView.text = dataModel.description
     }
 }

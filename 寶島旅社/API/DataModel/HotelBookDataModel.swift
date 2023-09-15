@@ -14,7 +14,7 @@ struct HotelBookDataModel {
     let language: String
     let providerID: String
     let updatetime: String
-    var dataArray: [HotelsArray] = []
+    var dataArray: [HotelDataModel] = []
     
     init (json: JSON) {
         updateInterval = json["UpdateInterval"].stringValue
@@ -23,7 +23,7 @@ struct HotelBookDataModel {
         updatetime = json["Updatetime"].stringValue
         
         let hotelsArray = json["Hotels"].arrayValue
-        dataArray = hotelsArray.map { HotelsArray(json: $0) }
+        dataArray = hotelsArray.map { HotelDataModel(json: $0) }
     }
 }
 
@@ -102,7 +102,7 @@ struct HotelBookDataModel {
     },
   */
 
-struct HotelsArray {
+struct HotelDataModel {
     let hotelID: String
     /// 名稱
     let hotelName: String

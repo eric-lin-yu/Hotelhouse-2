@@ -46,7 +46,7 @@ class AboutViewController: BaseViewController {
     
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
-    var dataModel: HotelsArray? = nil
+    var dataModel: HotelDataModel? = nil
     private let cellData: [AboutViewControllerType] = [.about, .setup]
     private let useCells: [UITableViewCell.Type] = [PersonalSettingsLanguageTableViewCell.self]
     

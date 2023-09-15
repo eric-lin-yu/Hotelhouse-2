@@ -17,7 +17,7 @@ class HotelDetailViewController: UIViewController {
         case hotelMap
     }
     
-    static func make(hotelData: HotelsArray) -> HotelDetailViewController {
+    static func make(hotelData: HotelDataModel) -> HotelDetailViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailIdentifier") as! HotelDetailViewController
         
@@ -28,7 +28,7 @@ class HotelDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var dataModel: HotelsArray! = nil
+    var dataModel: HotelDataModel! = nil
     
     var collectionImageDataModel: [String] = []
     var collectiontitleDataModel: [String] = []

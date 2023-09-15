@@ -31,7 +31,7 @@ class MapTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(dataModel: HotelsArray) {
+    func configure(dataModel: HotelDataModel) {
         regionLabel.text = dataModel.region
         townLabel.text = dataModel.town
         

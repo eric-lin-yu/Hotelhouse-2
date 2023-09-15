@@ -63,8 +63,8 @@ class FrontPageViewController: UIViewController {
         return HotelBookViewModel()
     }()
     
-    private var downloadAllData: [HotelsArray] = []
-    private var dataModel: [HotelsArray] = []
+    private var downloadAllData: [HotelDataModel] = []
+    private var dataModel: [HotelDataModel] = []
     private var frontPageViewStatus: FrontPageViewStatus = .searchView
     
     override func viewDidLoad() {
@@ -249,7 +249,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    private func configureCell(_ cell: FrontPageTableViewCell, with dataModel: HotelsArray) {
+    private func configureCell(_ cell: FrontPageTableViewCell, with dataModel: HotelDataModel) {
         cell.nameLabel.text = dataModel.hotelName
         
         cell.hotelimageView.loadUrlImage(urlString: dataModel.images.first?.url ?? "") { result in
