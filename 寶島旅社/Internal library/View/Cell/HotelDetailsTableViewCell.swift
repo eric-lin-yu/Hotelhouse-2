@@ -10,6 +10,7 @@ import UIKit
 
 protocol HotelDetailsTableViewCellDelegate: AnyObject {
     func webLabelTapped(for cell: HotelDetailsTableViewCell)
+    func addHotelDataModelToRealm(for cell: HotelDetailsTableViewCell)
 }
 class HotelDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var hotelClassView: UIView!
@@ -43,6 +44,10 @@ class HotelDetailsTableViewCell: UITableViewCell {
             hotelCalssLabel.text = "旅店未提供"
         }
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(addHotelDataModelToRealm))
+        collectionsView.isUserInteractionEnabled = true
+        collectionsView.addGestureRecognizer(tap)
+        
         let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
         priceLabel.text = " 價位： \(priceText)"
         
@@ -59,5 +64,9 @@ class HotelDetailsTableViewCell: UITableViewCell {
     
     @objc private func openWebView() {
         delegate?.webLabelTapped(for: self)
+    }
+    
+    @objc private func addHotelDataModelToRealm() {
+        delegate?.addHotelDataModelToRealm(for: self)
     }
 }

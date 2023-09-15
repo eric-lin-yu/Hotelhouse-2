@@ -82,6 +82,10 @@ class HotelDetailViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
+    
+    @objc func addHotelDataModelToRealm() {
+        RealmManager.shard?.addHotelDataModelToRealm(dataModel)
+    }
 }
 
 //MARK: - TableView
@@ -227,6 +231,10 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
 
 //MARK: - HotelDetailsTableViewCellDelegate
 extension HotelDetailViewController: HotelDetailsTableViewCellDelegate {
+    func addHotelDataModelToRealm(for cell: HotelDetailsTableViewCell) {
+        self.addHotelDataModelToRealm()
+    }
+    
     func webLabelTapped(for cell: HotelDetailsTableViewCell) {
         self.getOpenWebView()
     }
