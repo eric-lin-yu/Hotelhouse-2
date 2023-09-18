@@ -128,7 +128,7 @@ struct HotelDataModel {
     let gov: [Organization]
     /// 官網
     let website: String
-    let images: [HotelImage]
+    let images: [HotelImages]
     /// 特殊規格
     let spec: String
     /// 服務信息
@@ -149,7 +149,7 @@ struct HotelDataModel {
     let parkingSpace: String
     /// 停車位訊息
     let parkinginfo: String
-
+    
     
     init(json: JSON) {
         hotelID = json["HotelID"].stringValue
@@ -182,7 +182,59 @@ struct HotelDataModel {
         parkinginfo = json["ParkingInfo"].stringValue
         
         let imagesArray = json["Images"].arrayValue
-        images = imagesArray.map { HotelImage(json: $0) }
+        images = imagesArray.map { HotelImages(json: $0) }
+    }
+    
+    
+    init( hotelID: String,
+          hotelName: String,
+          description: String,
+          px: String,
+          py: String,
+          grade: String,
+          classData: [Int],
+          add: String,
+          region: String,
+          town: String,
+          tel: [String],
+          gov: [Organization],
+          website: String,
+          images: [HotelImages],
+          spec: String,
+          serviceinfo: String,
+          totalNumberofRooms: String,
+          accessibilityRooms: String,
+          lowestPrice: String,
+          ceilingPrice: String,
+          industryEmail: String,
+          totalNumberofPeople: String,
+          parkingSpace: String,
+          parkinginfo: String) {
+        
+        self.hotelID = hotelID
+        self.hotelName = hotelName
+        self.description = description
+        self.px = px
+        self.py = py
+        self.grade = grade
+        self.classData = classData
+        self.add = add
+        self.region = region
+        self.town = town
+        self.tel = tel
+        self.gov = gov
+        self.website = website
+        self.images = images
+        self.spec = spec
+        self.serviceinfo = serviceinfo
+        self.totalNumberofRooms = totalNumberofRooms
+        self.accessibilityRooms = accessibilityRooms
+        self.lowestPrice = lowestPrice
+        self.ceilingPrice = ceilingPrice
+        self.industryEmail = industryEmail
+        self.totalNumberofPeople = totalNumberofPeople
+        self.parkingSpace = parkingSpace
+        self.parkinginfo = parkinginfo
     }
 }
 
@@ -208,21 +260,46 @@ struct Organization {
         faxes = json["Faxes"].arrayValue.map { $0["Tel"].stringValue }
         email = json["Email"].stringValue
     }
+    init(name: String,
+         classData: String,
+         taxCode: String,
+         agencyCode: String,
+         url: String,
+         telephones: [String],
+         mobilePhones: [String],
+         faxes: [String],
+         email: String) {
+        
+        self.name = name
+        self.classData = classData
+        self.taxCode = taxCode
+        self.agencyCode = agencyCode
+        self.url = url
+        self.telephones = telephones
+        self.mobilePhones = mobilePhones
+        self.faxes = faxes
+        self.email = email
+    }
 }
 
-struct HotelImage {
+struct HotelImages {
     let name: String
     let imageDescription: String
     let url: String
-    let width: String
-    let height: String
     
     init(json: JSON) {
         name = json["Name"].stringValue
         imageDescription = json["Description"].stringValue
         url = json["URL"].stringValue
-        width = json["Width"].stringValue
-        height = json["Height"].stringValue
+    }
+    
+    init(name: String,
+         imageDescription: String,
+         url: String) {
+        
+        self.name = name
+        self.imageDescription = imageDescription
+        self.url = url
     }
 }
 

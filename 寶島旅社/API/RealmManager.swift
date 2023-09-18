@@ -180,4 +180,54 @@ class RealmManager {
             ResponseHandler.errorHandler(errorString: "新增失敗")
         }
     }
+    
+    func getHotelDataModelsFromRealm() -> [HotelDataModel] {
+        guard let realm = RealmManager.shard else {
+            return []
+        }
+        
+        let realmDataArray = realm.objects(RLM_CollectionsHotels.self)
+        
+        let hotelDataModels = realmDataArray.compactMap { realmData in
+            let govArray = realmData.gov.map { Organization(name: $0.name,
+                                                            classData: $0.classData,
+                                                            taxCode: $0.taxCode,
+                                                            agencyCode: $0.agencyCode,
+                                                            url: $0.url,
+                                                            telephones: Array($0.telephones),
+                                                            mobilePhones: Array($0.mobilePhones),
+                                                            faxes: Array($0.faxes),
+                                                            email: $0.email) }
+            
+            let imagesArray = realmData.images.map { HotelImages(name: $0.name,
+                                                                 imageDescription: $0.imageDescription,
+                                                                 url: $0.url) }
+            
+            return HotelDataModel(hotelID: realmData.hotelID,
+                                  hotelName: realmData.hotelName,
+                                  description: realmData.descriptionText,
+                                  px: realmData.px,
+                                  py: realmData.py,
+                                  grade: realmData.grade,
+                                  classData: Array(realmData.classData),
+                                  add: realmData.add,
+                                  region: realmData.region,
+                                  town: realmData.town,
+                                  tel: Array(realmData.tel),
+                                  gov: Array(govArray),
+                                  website: realmData.website,
+                                  images: Array(imagesArray),
+                                  spec: realmData.spec,
+                                  serviceinfo: realmData.serviceinfo,
+                                  totalNumberofRooms: realmData.totalNumberofRooms,
+                                  accessibilityRooms: realmData.accessibilityRooms,
+                                  lowestPrice: realmData.lowestPrice,
+                                  ceilingPrice: realmData.ceilingPrice,
+                                  industryEmail: realmData.industryEmail,
+                                  totalNumberofPeople: realmData.totalNumberofPeople,
+                                  parkingSpace: realmData.parkingSpace,
+                                  parkinginfo: realmData.parkinginfo)
+        }
+        return Array(hotelDataModels)
+    }
 }
