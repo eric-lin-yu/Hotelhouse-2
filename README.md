@@ -37,8 +37,10 @@ enum HotelDetailType: Int {
 並僅顯示紅圈範圍內的旅店。
 - 使用 touch Callout 面板，點選進入 HotelDetailViewController 頁
 
->TODO: 整合 HotelDetailMapViewController 與 MapSearchViewController ，共用同一頁的 map 就好
+>TODO: 整合 HotelDetailMapViewController 與 MapSearchViewController ，共用同一頁的 map 就好，並增加客製化的 TabBar 以按鈕來做切換使用
+
+- 預期的 UI 效果
+![image](Documents/MapSearch%20預期效果.png)
 
 # 收藏 (CollectionsViewController)
-TODO: 待開發
-
+TODO: 待開發。 UI呈現待後續規劃
