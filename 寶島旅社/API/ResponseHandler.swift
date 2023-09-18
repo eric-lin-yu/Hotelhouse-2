@@ -48,7 +48,7 @@ struct ResponseHandler {
 //                    return
 //                }
 
-                let alertController = UIAlertController(title: "通知", message: message, preferredStyle: .alert)
+                let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
 //                alertController.setValue(attributedString, forKey: "attributedMessage")
 
                 let okButton = UIAlertAction(title: "確定", style: .default) { (_) in
