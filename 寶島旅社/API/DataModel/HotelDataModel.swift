@@ -9,12 +9,12 @@
 import Foundation
 import SwiftyJSON
 
-struct HotelBookDataModel {
+struct HotelDataModel {
     let updateInterval: String
     let language: String
     let providerID: String
     let updatetime: String
-    var dataArray: [HotelDataModel] = []
+    var hotels: [Hotels] = []
     
     init (json: JSON) {
         updateInterval = json["UpdateInterval"].stringValue
@@ -23,7 +23,7 @@ struct HotelBookDataModel {
         updatetime = json["Updatetime"].stringValue
         
         let hotelsArray = json["Hotels"].arrayValue
-        dataArray = hotelsArray.map { HotelDataModel(json: $0) }
+        hotels = hotelsArray.map { Hotels(json: $0) }
     }
 }
 
@@ -102,7 +102,7 @@ struct HotelBookDataModel {
     },
   */
 
-struct HotelDataModel {
+struct Hotels {
     let hotelID: String
     /// 名稱
     let hotelName: String

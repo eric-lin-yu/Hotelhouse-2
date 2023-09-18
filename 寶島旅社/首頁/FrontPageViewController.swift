@@ -59,12 +59,12 @@ class FrontPageViewController: UIViewController {
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
-    lazy var viewModel: HotelBookViewModel = {
-        return HotelBookViewModel()
+    lazy var viewModel: HotelViewModel = {
+        return HotelViewModel()
     }()
     
-    private var downloadAllData: [HotelDataModel] = []
-    private var hotelDataModel: [HotelDataModel] = []
+    private var downloadAllData: [Hotels] = []
+    private var hotelDataModel: [Hotels] = []
     private var frontPageViewStatus: FrontPageViewStatus = .searchView
     
     override func viewDidLoad() {
@@ -80,7 +80,7 @@ class FrontPageViewController: UIViewController {
             LoadingPageView.shard.dismiss()
             self.searchView.isHidden = false
             self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
-            self.downloadAllData = response?.dataArray ?? []
+            self.downloadAllData = response?.hotels ?? []
         }
     
         tableView.dataSource = self
@@ -251,7 +251,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    private func configureCell(_ cell: FrontPageTableViewCell, with dataModel: HotelDataModel) {
+    private func configureCell(_ cell: FrontPageTableViewCell, with dataModel: Hotels) {
         cell.nameLabel.text = dataModel.hotelName
         
         cell.hotelimageView.loadUrlImage(urlString: dataModel.images.first?.url ?? "") { result in

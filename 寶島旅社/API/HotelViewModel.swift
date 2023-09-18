@@ -10,9 +10,9 @@ import Foundation
 import SwiftyJSON
 import Alamofire
 
-class HotelBookViewModel {
+class HotelViewModel {
     
-    func getHotelBookData( _ completion: @escaping (HotelBookDataModel?)->()) {
+    func getHotelBookData( _ completion: @escaping (HotelDataModel?)->()) {
         
         // 本地端抓取
         guard let url = Bundle.main.url(forResource: "HotelList", withExtension: "json") else {
@@ -25,7 +25,7 @@ class HotelBookViewModel {
             switch response.result {
             case .success(_):
                 if let json: JSON = try? JSON(data: response.data!) {
-                    completion(HotelBookDataModel(json: json))
+                    completion(HotelDataModel(json: json))
                 } else {
                     ResponseHandler.errorHandler(statusCode: response.response?.statusCode, errorString: response.description)
                 }

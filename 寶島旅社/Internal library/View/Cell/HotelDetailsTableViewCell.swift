@@ -34,7 +34,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
  
-    func configure(dataModel: HotelDataModel, delegate: HotelDetailsTableViewCellDelegate) {
+    func configure(dataModel: Hotels, delegate: HotelDetailsTableViewCellDelegate) {
         self.delegate = delegate
         
         if let classData = dataModel.classData.first,

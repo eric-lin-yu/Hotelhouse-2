@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class MapSearchViewController: UIViewController {
-    static func make(dataModel: [HotelDataModel]) -> MapSearchViewController {
+    static func make(dataModel: [Hotels]) -> MapSearchViewController {
         let storyboard = UIStoryboard(name: "MapSearchStoryboard", bundle: nil)
         let vc: MapSearchViewController = storyboard.instantiateViewController(withIdentifier: "MapSearchIdentity") as! MapSearchViewController
         
@@ -35,7 +35,7 @@ class MapSearchViewController: UIViewController {
     @IBOutlet weak var userLocationImageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     
-    private var hotelDataModel: [HotelDataModel] = []
+    private var hotelDataModel: [Hotels] = []
     private let manager = CLLocationManager()
     private var circleOverlay: MKCircle?
     

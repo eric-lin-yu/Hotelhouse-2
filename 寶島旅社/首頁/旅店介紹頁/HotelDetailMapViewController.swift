@@ -20,7 +20,7 @@ enum MapButtonViewStatus {
 }
 
 class HotelDetailMapViewController: UIViewController {
-    static func make(hotelData: HotelDataModel) -> HotelDetailMapViewController {
+    static func make(hotelData: Hotels) -> HotelDetailMapViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
         let vc: HotelDetailMapViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailMapIdentifier") as! HotelDetailMapViewController
         
@@ -55,7 +55,7 @@ class HotelDetailMapViewController: UIViewController {
     @IBOutlet weak var isButtonImageView: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
     
-    var dataModel: HotelDataModel! = nil
+    var dataModel: Hotels! = nil
     
     var mapType: MapType!
     var mapButtonType: MapButtonViewStatus!

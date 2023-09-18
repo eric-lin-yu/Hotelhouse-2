@@ -121,7 +121,7 @@ class RealmManager {
         return expandedKeyData
     }
     
-    func addHotelDataModelToRealm(_ hotelDataModel: HotelDataModel) {
+    func addHotelDataModelToRealm(_ hotelDataModel: Hotels) {
         // get gov Data
         var govArray: [RLM_Organization] = []
         for index in 0..<hotelDataModel.gov.count {
@@ -181,7 +181,7 @@ class RealmManager {
         }
     }
     
-    func getHotelDataModelsFromRealm() -> [HotelDataModel] {
+    func getHotelDataModelsFromRealm() -> [Hotels] {
         guard let realm = RealmManager.shard else {
             return []
         }
@@ -203,7 +203,7 @@ class RealmManager {
                                                                  imageDescription: $0.imageDescription,
                                                                  url: $0.url) }
             
-            return HotelDataModel(hotelID: realmData.hotelID,
+            return Hotels(hotelID: realmData.hotelID,
                                   hotelName: realmData.hotelName,
                                   description: realmData.descriptionText,
                                   px: realmData.px,

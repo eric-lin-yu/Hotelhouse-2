@@ -22,7 +22,7 @@ class HotelDetailViewController: UIViewController {
         let title: String
     }
     
-    private var hotelDataModel: HotelDataModel
+    private var hotelDataModel: Hotels
     private var collectionImageDataModel: [DetailImageData] = []
 
     private let useCells: [UITableViewCell.Type] = [HotelDetailCollectionTableViewCell.self,
@@ -35,7 +35,7 @@ class HotelDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(hotelDataModel: HotelDataModel) {
+    init(hotelDataModel: Hotels) {
         self.hotelDataModel = hotelDataModel
         super.init(nibName: nil, bundle: nil)
     }
