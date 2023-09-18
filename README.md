@@ -44,4 +44,20 @@ enum HotelDetailType: Int {
 ![image](Documents/MapSearchVC預期效果.png)
 
 # 收藏 (CollectionsViewController)
-TODO: 待開發。 UI呈現待後續規劃
+- use 點選 收藏按鈕，將立即把該筆 hotel 資料存至 Realm 中\
+(目前於首頁、資料細節頁，都有做收藏鈕)
+
+- 新增資料至 Realm 的 func\
+```swift
+func addHotelDataModelToRealm(_ hotelDataModel: Hotels)
+```
+存入前，會同步檢查該筆資料，是否已建立過
+
+- 將資料從 Realm 中取出
+```swift
+func getHotelDataModelsFromRealm() -> [Hotels] 
+```
+
+>TODO: 
+>- 1.UI部分思考設計
+>- 2.比對是否已建立，更換不同的 收藏按鈕 icon
