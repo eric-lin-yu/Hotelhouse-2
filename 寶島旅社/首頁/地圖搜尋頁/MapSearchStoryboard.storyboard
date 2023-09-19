@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,9 +22,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GCq-Tf-G9H">
-                                <rect key="frame" x="94.5" y="58" width="225" height="41"/>
+                                <rect key="frame" x="87" y="58" width="240" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="225" id="3uY-77-IZw"/>
+                                    <constraint firstAttribute="width" constant="240" id="3uY-77-IZw"/>
                                     <constraint firstAttribute="height" constant="40" id="oKA-9w-Axk"/>
                                 </constraints>
                                 <segments>
@@ -32,7 +32,7 @@
                                     <segment title="衛星"/>
                                     <segment title="混合"/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" red="0.71372549019607845" green="0.78823529411764703" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="mayTypeChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="aK4-NS-bbM"/>
                                 </connections>
