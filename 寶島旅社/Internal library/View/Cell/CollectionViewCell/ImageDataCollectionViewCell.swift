@@ -29,7 +29,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         
-        label.textColor = .mainRed
+        label.textColor = .orangeRed
         label.font = .boldSystemFont(ofSize: 17)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -40,7 +40,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
         
         //邊框線條
         label.layer.borderWidth = 2
-        label.layer.borderColor = UIColor.mainGreen.cgColor
+        label.layer.borderColor = UIColor.sageGreen.cgColor
         
         label.backgroundColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false

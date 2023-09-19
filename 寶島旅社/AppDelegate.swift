@@ -14,18 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // NavigationBarStyle設定
-        UINavigationBar.appearance().tintColor = UIColor.mainRed
+        UINavigationBar.appearance().tintColor = UIColor.orangeRed
         if #available(iOS 15.0, *) {
             let barAppearance =  UINavigationBarAppearance()
-            barAppearance.backgroundColor = UIColor.mainGreen
-            barAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed,
+            barAppearance.backgroundColor = UIColor.sageGreen
+            barAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orangeRed,
                                                  NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
             UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
             UINavigationBar.appearance().standardAppearance = barAppearance
         } else {
-            UINavigationBar.appearance().barTintColor = UIColor.mainGreen
-            UINavigationBar.appearance().backgroundColor = UIColor.mainGreen
-            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.mainRed,
+            UINavigationBar.appearance().barTintColor = UIColor.sageGreen
+            UINavigationBar.appearance().backgroundColor = UIColor.sageGreen
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orangeRed,
                                                                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         }
         

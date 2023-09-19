@@ -37,7 +37,7 @@ class HotelDetailMapViewController: UIViewController {
             
             //邊框線條
             mapSegmentedControl.layer.borderWidth = 2
-            mapSegmentedControl.layer.borderColor = UIColor.mainGreen.cgColor
+            mapSegmentedControl.layer.borderColor = UIColor.sageGreen.cgColor
             
             mapSegmentedControl.backgroundColor = UIColor.white
         }
@@ -67,7 +67,7 @@ class HotelDetailMapViewController: UIViewController {
         super.viewDidLoad()
         
         // 更改UISegmentedControl字體
-        mapSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.mainRed,
+        mapSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.orangeRed,
                                               .font: UIFont.boldSystemFont(ofSize: 20)], for: .normal)
         // 預設先show出旅店位置
         getHotelLocation()

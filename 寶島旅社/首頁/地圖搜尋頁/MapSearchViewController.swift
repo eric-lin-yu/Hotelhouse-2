@@ -27,7 +27,7 @@ class MapSearchViewController: UIViewController {
             
             //邊框線條
             mapSegmentedControl.layer.borderWidth = 2
-            mapSegmentedControl.layer.borderColor = UIColor.mainGreen.cgColor
+            mapSegmentedControl.layer.borderColor = UIColor.sageGreen.cgColor
             
             mapSegmentedControl.backgroundColor = UIColor.white
         }
@@ -47,7 +47,7 @@ class MapSearchViewController: UIViewController {
         
         manager.delegate = self
         mapView.delegate = self
-        mapSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.mainRed,
+        mapSegmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.orangeRed,
                                                     .font: UIFont.boldSystemFont(ofSize: 20)], for: .normal)
         
         getUserLocation()

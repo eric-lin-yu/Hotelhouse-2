@@ -6,19 +6,19 @@
 import UIKit
 
 extension UIColor {
-    // 主色調
-    static let mainGreen: UIColor = { return UIColor.init(hexString: "#B6C9BB") }()
-    
-    static let mainRed: UIColor = { return UIColor.init(hexString: "#f74311") }()
-    
-    static let mainGray: UIColor = { return UIColor.init(hexString: "#c4c4c4") }()
-    
+    //MARK: - 綠色
+    /// 草綠色 (主色調)
+    static let sageGreen: UIColor = { return UIColor.init(hexString: "#B6C9BB") }()
     /// 淡翡翠綠
     static let fadedJadeGreen: UIColor = { return UIColor.init(hexString: "#68A983") }()
     
+    //MARK: - 灰色
     /// 白煙色
     static let whitesmokeGray: UIColor = { return UIColor.init(hexString: "F5F5F5") }()
-    
+
+    //MARK: - 紅色
+    /// 橙紅色 (文字色調)
+    static let orangeRed: UIColor = { return UIColor.init(hexString: "#f74311") }()
     /// 薄霧玫瑰色
     static let mistyRose: UIColor = { return UIColor.init(hexString: "#F9C6CF") }()
     

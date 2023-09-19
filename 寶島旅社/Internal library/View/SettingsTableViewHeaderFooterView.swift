@@ -31,7 +31,7 @@ class SettingsTableViewHeaderFooterView: UITableViewHeaderFooterView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = UIColor.mainGreen
+        label.textColor = UIColor.sageGreen
         return label
     }()
 }

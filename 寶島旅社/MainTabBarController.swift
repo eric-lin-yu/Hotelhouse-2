@@ -26,26 +26,26 @@ class MainTabBarController: UITabBarController {
         // TabBarStyle設定
         if #available(iOS 15.0, *) {
             let tabbarAppearance = UITabBarAppearance()
-            tabbarAppearance.backgroundColor = UIColor.mainGreen
+            tabbarAppearance.backgroundColor = UIColor.sageGreen
 
             tabbarAppearance.stackedLayoutAppearance.normal.iconColor = .white //未選中
             tabbarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [
                 .foregroundColor: UIColor.white,
                 .font: UIFont.boldSystemFont(ofSize: 14) ]
 
-            tabbarAppearance.stackedLayoutAppearance.selected.iconColor = .mainRed //選中
+            tabbarAppearance.stackedLayoutAppearance.selected.iconColor = .orangeRed //選中
             tabbarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-                .foregroundColor: UIColor.mainRed,
+                .foregroundColor: UIColor.orangeRed,
                 .font: UIFont.boldSystemFont(ofSize: 14) ]
 
             UITabBar.appearance().scrollEdgeAppearance = tabbarAppearance
             UITabBar.appearance().standardAppearance = tabbarAppearance
 
         } else {
-            UITabBar.appearance().tintColor = UIColor.mainRed
+            UITabBar.appearance().tintColor = UIColor.orangeRed
             UITabBar.appearance().unselectedItemTintColor = UIColor.white //未選中
-            UITabBar.appearance().barTintColor = UIColor.mainGreen
-            UITabBar.appearance().backgroundColor = UIColor.mainGreen
+            UITabBar.appearance().barTintColor = UIColor.sageGreen
+            UITabBar.appearance().backgroundColor = UIColor.sageGreen
         }
         
         setUpChildViewControllers()

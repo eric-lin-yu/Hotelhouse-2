@@ -51,7 +51,7 @@ class FrontPageViewController: UIViewController {
             
             //邊框線條
             searchTextField.layer.borderWidth = 2
-            searchTextField.layer.borderColor = UIColor.mainGreen.cgColor
+            searchTextField.layer.borderColor = UIColor.sageGreen.cgColor
             
             searchTextField.backgroundColor = UIColor.white
         }
