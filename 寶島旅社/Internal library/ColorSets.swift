@@ -13,6 +13,9 @@ extension UIColor {
     
     static let mainGray: UIColor = { return UIColor.init(hexString: "#c4c4c4") }()
     
+    /// 淡翡翠綠
+    static let fadedJadeGreen: UIColor = { return UIColor.init(hexString: "#68A983") }()
+    
     /// 白煙色
     static let whitesmokeGray: UIColor = { return UIColor.init(hexString: "F5F5F5") }()
     
