@@ -170,31 +170,31 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func configureCellForAboutSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row].stringValue
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
         
-        switch indexPath.row {
-        case 0:
+        switch rowDataTitle {
+        case .aboutSubtitle(.appVersion):
             // 版本
             let versions = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
             let subtitle = "\(versions ?? "")"
-            cell.configure(title: rowDataTitle, subtitle: subtitle)
+            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
             
-        case 1:
+        case .aboutSubtitle(.apiDataSource):
             // 資料來源
             let subtitle = "政府資料開放平臺"
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
-            cell.configure(title: rowDataTitle, subtitle: subtitle, tap: tap)
+            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle, tap: tap)
             
-        case 2:
+        case .aboutSubtitle(.dataUpdateDate):
             // 資料更新日期
             let dateTimeString = APIDataStorage.hotelDataBase?.updatetime
             if let formattedDateString = dateTimeString?.formatDateToYearMonthDay() {
-                cell.configure(title: rowDataTitle, subtitle: formattedDateString)
+                cell.configure(title: rowDataTitle.stringValue, subtitle: formattedDateString)
             }
-        case 3:
+        case .aboutSubtitle(.totalHotelCount):
             // 旅店總筆數
             if let subtitle = APIDataStorage.hotelDataBase?.updateInterval {
-                cell.configure(title: rowDataTitle, subtitle: "\(subtitle) 間")
+                cell.configure(title: rowDataTitle.stringValue, subtitle: "\(subtitle) 間")
             }
         default:
             break
@@ -202,12 +202,12 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     private func configureCellForSetupSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row].stringValue
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
         
-        switch indexPath.row {
-        case 0:
+        switch rowDataTitle {
+        case .setupSubtitle(.underDesign):
             let subtitle = "創作者還在摸索..."
-            cell.configure(title: rowDataTitle, subtitle: subtitle)
+            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
             
         default:
             break
