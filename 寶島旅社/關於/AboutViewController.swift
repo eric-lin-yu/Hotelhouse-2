@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct APIDataStorage {
+    static var hotelDataBase: HotelDataModel?
+}
+
 class AboutViewController: BaseViewController {
     enum AboutViewControllerType: Int, CaseIterable {
         case about = 0
