@@ -135,7 +135,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             return nil
         }
         
-        let headerView = SettingsTableViewHeaderFooterView(title: sectionType.title, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
+        let headerView = SettingsTableViewHeaderFooterView(title: sectionType.sectionTitle, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
         
         return headerView
     }
@@ -170,7 +170,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func configureCellForAboutSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row].stringValue
         
         switch indexPath.row {
         case 0:
@@ -185,13 +185,24 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
             cell.configure(title: rowDataTitle, subtitle: subtitle, tap: tap)
             
+        case 2:
+            // 資料更新日期
+            let dateTimeString = APIDataStorage.hotelDataBase?.updatetime
+            if let formattedDateString = dateTimeString?.formatDateToYearMonthDay() {
+                cell.configure(title: rowDataTitle, subtitle: formattedDateString)
+            }
+        case 3:
+            // 旅店總筆數
+            if let subtitle = APIDataStorage.hotelDataBase?.updateInterval {
+                cell.configure(title: rowDataTitle, subtitle: "\(subtitle) 間")
+            }
         default:
             break
         }
     }
 
     private func configureCellForSetupSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row].stringValue
         
         switch indexPath.row {
         case 0:
