@@ -81,6 +81,7 @@ class FrontPageViewController: UIViewController {
             self.searchView.isHidden = false
             self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
             self.downloadAllData = response?.hotels ?? []
+            APIDataStorage.hotelDataBase = response
         }
     
         tableView.dataSource = self
