@@ -17,7 +17,7 @@ class AboutViewController: BaseViewController {
         case about = 0
         case setup = 1
         
-        var title: String {
+        var sectionTitle: String {
             switch self {
             case .about:
                 return "關於"
