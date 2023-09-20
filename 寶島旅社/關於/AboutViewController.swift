@@ -22,17 +22,62 @@ class AboutViewController: BaseViewController {
             }
         }
         
-        var cellData: [String] {
+        // 關於 Cell Type
+        enum AboutCellSubtitle: Int {
+            case appVersion = 0
+            case apiDataSource
+            case dataUpdateDate
+            case totalHotelCount
+            
+            var stringValue: String {
+                switch self {
+                case .appVersion:
+                    return "APP版本"
+                case .apiDataSource:
+                    return "資料來源"
+                case .dataUpdateDate:
+                    return "資料更新日期"
+                case .totalHotelCount:
+                    return "目前旅店總筆數"
+                }
+            }
+        }
+        
+        // 設定 Cell Type
+        enum SetupCellSubtitle: Int {
+            case underDesign = 0
+            
+            var stringValue: String {
+                switch self {
+                case .underDesign:
+                    return "動工中"
+                }
+            }
+        }
+        
+        enum CellSubtitle {
+            case aboutSubtitle(AboutCellSubtitle)
+            case setupSubtitle(SetupCellSubtitle)
+            
+            var stringValue: String {
+                switch self {
+                case .aboutSubtitle(let aboutSubtitle):
+                    return aboutSubtitle.stringValue
+                case .setupSubtitle(let setupSubtitle):
+                    return setupSubtitle.stringValue
+                }
+            }
+        }
+        
+        var cellData: [CellSubtitle] {
             switch self {
             case .about:
-                return [
-                    "APP版本",
-                    "資料來源",
-                ]
+                return [.aboutSubtitle(.appVersion), 
+                    .aboutSubtitle(.apiDataSource),
+                    .aboutSubtitle(.dataUpdateDate),
+                    .aboutSubtitle(.totalHotelCount)]
             case .setup:
-                return [
-                    "動工中",
-                ]
+                return [.setupSubtitle(.underDesign)] // Add more as needed
             }
         }
     }
