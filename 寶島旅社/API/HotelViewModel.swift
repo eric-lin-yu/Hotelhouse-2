@@ -13,13 +13,13 @@ import Alamofire
 class HotelViewModel {
     
     func getHotelBookData( _ completion: @escaping (HotelDataModel?)->()) {
-        
         // 本地端抓取
         guard let url = Bundle.main.url(forResource: "HotelList", withExtension: "json") else {
             return
         }
 
-        // 雲端url：https://media.taiwan.net.tw/XMLReleaseALL_public/hotel_C_f.xml
+        // 雲端抓取
+//        let url = "https://media.taiwan.net.tw/XMLReleaseALL_public/hotel_C_f.xml"
         
         AlamofireHandler.request(url: url) { response in
             switch response.result {
