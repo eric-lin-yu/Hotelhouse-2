@@ -20,7 +20,7 @@ struct HotelDataModel {
         updateInterval = json["UpdateInterval"].stringValue
         language = json["Language"].stringValue
         providerID = json["ProviderID"].stringValue
-        updatetime = json["Updatetime"].stringValue
+        updatetime = json["UpdateTime"].stringValue
         
         let hotelsArray = json["Hotels"].arrayValue
         hotels = hotelsArray.map { Hotels(json: $0) }
