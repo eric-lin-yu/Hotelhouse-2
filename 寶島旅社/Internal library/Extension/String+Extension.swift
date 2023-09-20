@@ -14,4 +14,16 @@ public extension String {
         }
         return Data()
     }
+    
+    func formatDateToYearMonthDay() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedDate = dateFormatter.string(from: date)
+            return formattedDate
+        }
+        return nil
+    }
 }
