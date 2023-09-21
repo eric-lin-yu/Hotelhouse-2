@@ -38,7 +38,6 @@
 		892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DE04929024987003F3974 /* MapTableViewCell.swift */; };
 		892DE04C29024987003F3974 /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892DE04A29024987003F3974 /* MapTableViewCell.xib */; };
 		892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892DE04E29024E2F003F3974 /* MapKit.framework */; };
-		8938D13D297162FB0005BC9A /* Cluster in Frameworks */ = {isa = PBXBuildFile; productRef = 8938D13C297162FB0005BC9A /* Cluster */; };
 		896DF71828F7E3080031A88A /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71728F7E3080031A88A /* ResponseHandler.swift */; };
 		896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71928F7E58D0031A88A /* MainTabBarController.swift */; };
 		896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71B28F7E5CE0031A88A /* ColorSets.swift */; };
@@ -55,7 +54,6 @@
 		89BF620428F65DDB00418305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620228F65DDB00418305 /* Main.storyboard */; };
 		89BF620628F65DDC00418305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620528F65DDC00418305 /* Assets.xcassets */; };
 		89BF620928F65DDC00418305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BF620728F65DDC00418305 /* LaunchScreen.storyboard */; };
-		89BF621228F65F6800418305 /* KRProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621128F65F6800418305 /* KRProgressHUD */; };
 		89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621428F65F8500418305 /* SwiftyJSON */; };
 		89BF621828F65FAE00418305 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 89BF621728F65FAE00418305 /* Alamofire */; };
 		89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF621B28F66C8D00418305 /* AlamofireHandler.swift */; };
@@ -156,8 +154,6 @@
 				89BF621528F65F8500418305 /* SwiftyJSON in Frameworks */,
 				89EFD1D12AB2A4C900A1D0F7 /* SkeletonView in Frameworks */,
 				892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */,
-				89BF621228F65F6800418305 /* KRProgressHUD in Frameworks */,
-				8938D13D297162FB0005BC9A /* Cluster in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,10 +400,8 @@
 			);
 			name = "寶島旅社";
 			packageProductDependencies = (
-				89BF621128F65F6800418305 /* KRProgressHUD */,
 				89BF621428F65F8500418305 /* SwiftyJSON */,
 				89BF621728F65FAE00418305 /* Alamofire */,
-				8938D13C297162FB0005BC9A /* Cluster */,
 				8993C08A2A7393940046AD84 /* Realm */,
 				8993C08C2A7393940046AD84 /* RealmSwift */,
 				89EFD1D02AB2A4C900A1D0F7 /* SkeletonView */,
@@ -442,10 +436,8 @@
 			);
 			mainGroup = 89BF61F028F65DDB00418305;
 			packageReferences = (
-				89BF621028F65F6800418305 /* XCRemoteSwiftPackageReference "KRProgressHUD" */,
 				89BF621328F65F8500418305 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				89BF621628F65FAE00418305 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */,
 				8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				89EFD1CF2AB2A4C900A1D0F7 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
@@ -755,25 +747,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/efremidze/Cluster.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		89BF621028F65F6800418305 /* XCRemoteSwiftPackageReference "KRProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krimpedance/KRProgressHUD";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -806,11 +782,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8938D13C297162FB0005BC9A /* Cluster */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8938D13B297162FB0005BC9A /* XCRemoteSwiftPackageReference "Cluster" */;
-			productName = Cluster;
-		};
 		8993C08A2A7393940046AD84 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -820,11 +791,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8993C0892A7393940046AD84 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
-		};
-		89BF621128F65F6800418305 /* KRProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 89BF621028F65F6800418305 /* XCRemoteSwiftPackageReference "KRProgressHUD" */;
-			productName = KRProgressHUD;
 		};
 		89BF621428F65F8500418305 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
