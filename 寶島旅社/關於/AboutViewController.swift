@@ -14,6 +14,7 @@ struct APIDataStorage {
 
 class AboutViewController: BaseViewController {
     enum AboutViewControllerType: Int, CaseIterable {
+        // Section
         case about = 0
         case setup = 1
         
@@ -26,14 +27,15 @@ class AboutViewController: BaseViewController {
             }
         }
         
-        // 關於 Cell Type
+        // row
+        // About (關於) Cell Type
         enum AboutCellSubtitle: Int {
             case appVersion = 0
             case apiDataSource
             case dataUpdateDate
             case totalHotelCount
             
-            var stringValue: String {
+            var rowTitle: String {
                 switch self {
                 case .appVersion:
                     return "APP版本"
@@ -47,11 +49,11 @@ class AboutViewController: BaseViewController {
             }
         }
         
-        // 設定 Cell Type
+        // Setup (設定) Cell Type
         enum SetupCellSubtitle: Int {
             case underDesign = 0
             
-            var stringValue: String {
+            var rowTitle: String {
                 switch self {
                 case .underDesign:
                     return "動工中"
@@ -66,14 +68,14 @@ class AboutViewController: BaseViewController {
             var stringValue: String {
                 switch self {
                 case .aboutSubtitle(let aboutSubtitle):
-                    return aboutSubtitle.stringValue
+                    return aboutSubtitle.rowTitle
                 case .setupSubtitle(let setupSubtitle):
-                    return setupSubtitle.stringValue
+                    return setupSubtitle.rowTitle
                 }
             }
         }
         
-        var cellData: [CellSubtitle] {
+        var cellDataArray: [CellSubtitle] {
             switch self {
             case .about:
                 return [.aboutSubtitle(.appVersion), 
@@ -96,7 +98,7 @@ class AboutViewController: BaseViewController {
     @IBOutlet weak var kanaheiImageView: UIImageView!
     
     var dataModel: Hotels? = nil
-    private let cellData: [AboutViewControllerType] = [.about, .setup]
+    private let viewControllerTypes: [AboutViewControllerType] = [.about, .setup]
     private let useCells: [UITableViewCell.Type] = [PersonalSettingsLanguageTableViewCell.self]
     
     override func viewDidLoad() {
@@ -149,7 +151,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         guard let sectionType = AboutViewControllerType(rawValue: section) else {
             return 0
         }
-        return sectionType.cellData.count
+        return sectionType.cellDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -157,7 +159,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        let sectionType = cellData[indexPath.section]
+        let sectionType = viewControllerTypes[indexPath.section]
         
         switch sectionType {
         case .about:
@@ -170,7 +172,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func configureCellForAboutSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        let rowDataTitle = viewControllerTypes[indexPath.section].cellDataArray[indexPath.row]
         
         switch rowDataTitle {
         case .aboutSubtitle(.appVersion):
@@ -202,10 +204,11 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     private func configureCellForSetupSection(indexPath: IndexPath, cell: PersonalSettingsLanguageTableViewCell) {
-        let rowDataTitle = cellData[indexPath.section].cellData[indexPath.row]
+        let rowDataTitle = viewControllerTypes[indexPath.section].cellDataArray[indexPath.row]
         
         switch rowDataTitle {
         case .setupSubtitle(.underDesign):
+            
             let subtitle = "創作者還在摸索..."
             cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
             
