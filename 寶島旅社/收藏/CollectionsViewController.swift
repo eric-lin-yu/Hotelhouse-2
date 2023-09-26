@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
@@ -96,6 +97,12 @@ class CollectionsViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+    
+    private let mapView: MKMapView = {
+       let mapView = MKMapView()
+        
+        return mapView
     }()
     
     //MARK: - setup
