@@ -123,8 +123,8 @@ class FrontPageViewController: UIViewController {
     private func filterContent(for searchText: String) {
         let text = searchText.replacingOccurrences(of: "台", with: "臺")
         hotelDataModel = downloadAllData.filter { (info) -> Bool in
-            let isMatch = info.add.localizedCaseInsensitiveContains(text) ||
-            info.region.localizedCaseInsensitiveContains(text)  ||
+            let isMatch = info.address.localizedCaseInsensitiveContains(text) ||
+            info.city.localizedCaseInsensitiveContains(text)  ||
             info.town.localizedCaseInsensitiveContains(text) ||
             info.hotelName.localizedCaseInsensitiveContains(text)
             return isMatch
@@ -286,7 +286,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
             cell.hotleCalssLabel.text = "旅店未提供"
         }
         
-        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.region, town: dataModel.town, add: dataModel.add)
+        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.city, town: dataModel.town, add: dataModel.address)
         cell.addLabel.text = formattedAddress
     }
     

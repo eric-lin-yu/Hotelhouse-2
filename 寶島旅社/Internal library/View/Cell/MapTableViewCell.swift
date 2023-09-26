@@ -32,11 +32,11 @@ class MapTableViewCell: UITableViewCell {
     }
     
     func configure(dataModel: Hotels) {
-        regionLabel.text = dataModel.region
+        regionLabel.text = dataModel.city
         townLabel.text = dataModel.town
         
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(dataModel.add) { (placemarks, error) in
+        geoCoder.geocodeAddressString(dataModel.address) { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
                 // 使用備用的座標或其他方法進行處理

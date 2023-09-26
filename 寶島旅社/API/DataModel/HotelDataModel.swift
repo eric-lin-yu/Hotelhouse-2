@@ -117,9 +117,9 @@ struct Hotels {
     /// 酒店類別
     let classData: [Int]
     /// 地址
-    let add: String
+    let address: String
     /// 地區
-    let region: String
+    let city: String
     /// 城鎮
     let town: String
     /// 電話
@@ -162,8 +162,8 @@ struct Hotels {
         let classesArray = json["HotelClasses"].arrayValue
         classData = classesArray.map { $0.intValue }
         
-        add = json["PostalAddress"]["StreetAddress"].stringValue
-        region = json["PostalAddress"]["City"].stringValue
+        address = json["PostalAddress"]["StreetAddress"].stringValue
+        city = json["PostalAddress"]["City"].stringValue
         town = json["PostalAddress"]["Town"].stringValue
         tel = json["Telephones"].arrayValue.map { $0["Tel"].stringValue }
         
@@ -218,8 +218,8 @@ struct Hotels {
         self.py = py
         self.grade = grade
         self.classData = classData
-        self.add = add
-        self.region = region
+        self.address = add
+        self.city = region
         self.town = town
         self.tel = tel
         self.gov = gov
