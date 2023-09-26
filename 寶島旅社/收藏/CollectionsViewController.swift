@@ -304,5 +304,16 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
 
 //MARK: - MapView
 extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegate {
-    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let latLocation = locations.last else {
+            assertionFailure("Invalid location or coordinate.")
+            return
+        }
+        let coordinate = latLocation.coordinate
+        
+        // 定位到map時,放大畫面到定位的位置
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01) // 放大的畫面經緯度範圍
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
 }
