@@ -10,6 +10,8 @@ import UIKit
 
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
+    private var groupedHotels: [String: [Hotels]] = [:]
+    
     // constraint Spacing
     private let spacing: CGFloat = 20
     private let innerLayerSpacing: CGFloat = 10
@@ -172,6 +174,7 @@ class CollectionsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
+            self.groupedHotels = groupAndSortHotelsByCity()
         }
     }
 
@@ -179,10 +182,51 @@ class CollectionsViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    private func groupAndSortHotelsByCity() -> [String: [Hotels]] {
+        for hotel in hotelDataModel {
+            let city = hotel.city
+            if var cityHotels = groupedHotels[city] {
+                cityHotels.append(hotel)
+                groupedHotels[city] = cityHotels
+            } else {
+                groupedHotels[city] = [hotel]
+            }
+        }
+        
+        // Sort the grouped hotels by city name
+        let sortedGroupedHotels = groupedHotels.sorted { $0.key < $1.key }
+        // Convert the sorted array back to a dictionary
+        let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
+        return sortedGroupedHotelsDictionary
+    }
 }
 
 //MARK: - TableView
 extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate {
+    // section
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return groupedHotels.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section < groupedHotels.count else {
+            return nil
+        }
+        
+        let cityNames = groupedHotels.keys.sorted()
+        let cityName = cityNames[section]
+        
+        let headerView = SettingsTableViewHeaderFooterView(title: cityName, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return SettingsTableViewHeaderFooterView.height
+    }
+    
+    // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hotelDataModel.count
     }
