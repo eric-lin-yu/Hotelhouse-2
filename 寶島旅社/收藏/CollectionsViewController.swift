@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
     private var groupedHotels: [String: [Hotels]] = [:]
+    private let manager = CLLocationManager()
     
     // constraint Spacing
     private let spacing: CGFloat = 20
@@ -100,6 +102,13 @@ class CollectionsViewController: UIViewController {
         return tableView
     }()
     
+    private let mapView: MKMapView = {
+        let mapView = MKMapView()
+        mapView.isHidden = true
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        return mapView
+    }()
+    
     //MARK: - setup
     private func setupViews() {
         view.backgroundColor = .white
@@ -107,6 +116,7 @@ class CollectionsViewController: UIViewController {
             searchView,
             segmentedControl,
             tableView,
+            mapView,
         ]
         viewsToAdd.forEach { view.addSubview($0) }
         
@@ -149,6 +159,11 @@ class CollectionsViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: leftSafeArea),
             tableView.rightAnchor.constraint(equalTo: rightSafeArea),
             tableView.bottomAnchor.constraint(equalTo: bottomSafeArea),
+            
+            mapView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: innerLayerSpacing),
+            mapView.leftAnchor.constraint(equalTo: leftSafeArea),
+            mapView.rightAnchor.constraint(equalTo: rightSafeArea),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     
@@ -167,6 +182,14 @@ class CollectionsViewController: UIViewController {
         setupViews()
         setupConstraint()
         setupTableView()
+        
+        manager.activityType = .automotiveNavigation
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        manager.delegate = self
+        mapView.delegate = self
+
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,12 +198,53 @@ class CollectionsViewController: UIViewController {
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
             self.groupedHotels = groupAndSortHotelsByCity()
+            tableView.reloadData()
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    @objc func getUserLocation() {
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            // 首次使用 向user取得隱私權限
+            manager.requestWhenInUseAuthorization()
+            
+            getUserLocation()
+        case .denied, .restricted:
+            // user已拒絕過權限 或 未開啟定位功能
+            let message = "如欲使用此功能，請開啟定位權限\n\n請至\n設定 > 隱私權與安全性 >\n定位服務 > 永許旅社取得您得位置。"
+            showAlertClosure(title: "定位權限已關閉", message: message, okBtn: "前往開啟") {
+                // 開啟設定
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            }
+            
+        case .authorizedWhenInUse:
+            // user接受
+            manager.startUpdatingLocation()
+            mapView.showsUserLocation = true
+        default:
+            break
+        }
+    }
+    
+    @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            tableView.isHidden = false
+            mapView.isHidden = true
+            tabBarController?.tabBar.isHidden = false
+        case 1:
+            getUserLocation()
+            mapView.isHidden = false
+            tableView.isHidden = true
+            tabBarController?.tabBar.isHidden = true
+        default:
+            break
+        }
     }
     
     private func groupAndSortHotelsByCity() -> [String: [Hotels]] {
@@ -235,4 +299,10 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
         
         return UITableViewCell()
     }
+}
+
+
+//MARK: - MapView
+extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    
 }
