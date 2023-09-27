@@ -6,7 +6,7 @@ hotelhouse-V2，為資策會結業作品「寶島旅社」的升級版\
 
 # 資料來源
 - 旅店資料來源與前版相同，使用 [政府公開平台 - 旅館民宿-觀光資訊資料庫](https://data.gov.tw/dataset/7780) API 串接。
->fix: 因於 2023-06-16 18:10 資料庫更新異動後，架構與舊版差異極大，APP API 無法解析成功\
+>fix: 因於 2023-06-16 18:10 資料庫更新異動後，架構與舊版差異極大，APP API 無法解析成功，且必須申請權限才可使用\
 >避免影響 App 使用，先暫時存於 APP 內以 .JSON 檔案，來做使用。
 - gif 動圖檔案，目前為學術研究示意使用
 >TODO: 替換 git 檔，避免侵權
@@ -57,7 +57,15 @@ func addHotelDataModelToRealm(_ hotelDataModel: Hotels)
 ```swift
 func getHotelDataModelsFromRealm() -> [Hotels] 
 ```
+目前依照 city 來給予 section title 區分\
+使用 UISegmentedControl 來區分列表、地圖模式
+```swift
+private let segmentedControl: UISegmentedControl
+```
 
 >TODO: 
->- 1.UI部分思考設計
->- 2.比對是否已建立，更換不同的 收藏按鈕 icon
+>- 1.cell UI 部分還在規劃要怎麼設計
+>- 2.地圖模式中，顯示已收藏的旅店標記起來，並於下方使用 collectionView
+>- 3.比對是否已建立，更換不同的 收藏按鈕 icon
+
+參考 [Figma 目前規劃的 UI](https://www.figma.com/file/MzcYqkwJp73iKYaGdMg0OH/Untitled?type=design&node-id=0-1&mode=design&t=9t8MSUnldDL7BGXL-0)
