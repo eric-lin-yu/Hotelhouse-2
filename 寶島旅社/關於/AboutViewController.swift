@@ -209,7 +209,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         switch rowDataTitle {
         case .setupSubtitle(.underDesign):
             
-            let subtitle = "創作者還在摸索..."
+            let subtitle = "我還在想要做什麼"
             cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
             
         default:
