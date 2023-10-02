@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SkeletonView
 
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
@@ -170,11 +171,7 @@ class CollectionsViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-//        let useCells = []
-//        useCells.forEach {
-//            tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
-//        }
+        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
     }
 
     override func viewDidLoad() {
@@ -198,12 +195,24 @@ class CollectionsViewController: UIViewController {
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
             self.groupedHotels = groupAndSortHotelsByCity()
-            tableView.reloadData()
+            
+            tableView.isSkeletonable = true
+            tableView.showAnimatedGradientSkeleton()
+       
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.tableView.stopSkeletonAnimation()
+                self.view.hideSkeleton(reloadDataAfter: true,
+                                       transition: .crossDissolve(0.25))
+                
+                self.tableView.reloadData()
+            }
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.hotelDataModel = []
+        self.groupedHotels = [:]
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -264,10 +273,24 @@ class CollectionsViewController: UIViewController {
         let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
         return sortedGroupedHotelsDictionary
     }
+    
+    private func isDataEmpty(_ dataStr: String) -> Bool {
+        return dataStr.isEmpty
+    }
 }
 
 //MARK: - TableView
-extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate {
+extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDelegate {
+    // skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return FrontPageTableViewCell.cellIdenifier
+    }
+    
+    // show skeletonView
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+        
     // section
     func numberOfSections(in tableView: UITableView) -> Int {
         return groupedHotels.count
@@ -292,12 +315,102 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
     
     // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotelDataModel.count
+        let cityNames = groupedHotels.keys.sorted()
+        
+        guard section < cityNames.count else {
+            return 0
+        }
+        
+        let cityName = cityNames[section]
+        
+        if let cityHotels = groupedHotels[cityName] {
+            return cityHotels.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
-        return UITableViewCell()
+        
+        let cityNames = groupedHotels.keys.sorted()
+        
+        guard indexPath.section < cityNames.count else {
+            return cell
+        }
+        
+        let cityName = cityNames[indexPath.section]
+        
+        if let cityHotels = groupedHotels[cityName] {
+            let hotel = cityHotels[indexPath.row]
+            
+            cell.nameLabel.text = hotel.hotelName
+            
+            cell.hotelimageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
+                switch result {
+                case .success(let image):
+                    if let image = image {
+                        cell.hotelimageView.image = image
+                    } else {
+                        cell.hotelimageView.image = UIImage(named: "iconError")
+                    }
+                case .failure(_):
+                    cell.hotelimageView.image = UIImage(named: "iconError")
+                }
+            }
+            
+            // 星級
+            cell.gradeLabel.isHidden = isDataEmpty(hotel.hotelStars)
+            cell.gradeLabel.text = "☆級：\(hotel.hotelStars)"
+            
+            cell.govLabel.text = hotel.hotelID
+            cell.descriptionLabel.text = hotel.description
+            
+            // 價格
+            let priceText = hotel.lowestPrice != hotel.ceilingPrice ? "\(hotel.lowestPrice) ~ \(hotel.ceilingPrice)" : "\(hotel.ceilingPrice)"
+            cell.priceLabel.text = "： \(priceText)"
+            
+            // 旅店類別
+            if let hotelClass = hotel.hotelClasses.first.flatMap(HotelClass.init(rawValue:)) {
+                cell.hotleCalssLabel.text = "：\(hotelClass.description)"
+            } else {
+                cell.hotleCalssLabel.text = "旅店未提供"
+            }
+            
+            let formattedAddress = AddressFormatter.shared.formatAddress(region: hotel.city,
+                                                                         town: hotel.town,
+                                                                         add: hotel.streetAddress)
+            cell.addLabel.text = formattedAddress
+        }
+        
+        cell.buttonView.isHidden = true
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        
+        let cityNames = groupedHotels.keys.sorted()
+        
+        guard indexPath.section < cityNames.count else {
+            return
+        }
+        
+        let cityName = cityNames[indexPath.section]
+        
+        if let cityHotels = groupedHotels[cityName] {
+            let hotel = cityHotels[indexPath.row]
+            
+            let vc = HotelDetailViewController(hotelDataModel: hotel)
+            vc.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+        }
     }
 }
 
