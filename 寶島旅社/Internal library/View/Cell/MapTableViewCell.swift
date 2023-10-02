@@ -36,12 +36,12 @@ class MapTableViewCell: UITableViewCell {
         townLabel.text = dataModel.town
         
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(dataModel.address) { (placemarks, error) in
+        geoCoder.geocodeAddressString(dataModel.streetAddress) { (placemarks, error) in
             if let error = error {
                 print("地址轉換失敗：\(error.localizedDescription)")
                 // 使用備用的座標或其他方法進行處理
-                let px = dataModel.px as NSString
-                let py = dataModel.py as NSString
+                let px = dataModel.positionLat as NSString
+                let py = dataModel.positionLon as NSString
                 
                 let annotation = MKPointAnnotation()
                 annotation.title = dataModel.hotelName

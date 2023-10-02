@@ -176,8 +176,8 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         var annotations: [MKPointAnnotation] = []
         
         for index in 0..<hotelDataModel.count {
-            let py = self.hotelDataModel[index].py as NSString
-            let px = self.hotelDataModel[index].px as NSString
+            let py = self.hotelDataModel[index].positionLon as NSString
+            let px = self.hotelDataModel[index].positionLat as NSString
             
             let hotelCoordinate = CLLocationCoordinate2D(latitude: px.doubleValue, longitude: py.doubleValue)
             
@@ -191,7 +191,7 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
                 annotation.coordinate = hotelCoordinate
                 annotation.title = self.hotelDataModel[index].hotelName
                 
-                if let classData = hotelDataModel[index].classData.first,
+                if let classData = hotelDataModel[index].hotelClasses.first,
                    let hotelClass = HotelClass(rawValue: classData) {
                     annotation.subtitle = hotelClass.description
                 } else {

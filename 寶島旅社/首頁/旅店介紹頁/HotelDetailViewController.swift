@@ -99,7 +99,7 @@ class HotelDetailViewController: UIViewController {
     
    @objc func callPhoneBtn() {
         showAlertClosure(title: "通知", message: "將外撥電話至 \(hotelDataModel.hotelName)", okBtn: "確定") {
-            let phone = self.hotelDataModel.tel
+            let phone = self.hotelDataModel.telephones
             if let url = URL(string: "tel:\(phone)") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -115,7 +115,7 @@ class HotelDetailViewController: UIViewController {
     }
     
     @objc func getOpenWebView() {
-        let vc = OpenWKWebViewController.make(urlString: hotelDataModel.website,
+        let vc = OpenWKWebViewController.make(urlString: hotelDataModel.websiteURL,
                                               title: hotelDataModel.hotelName)
         vc.hidesBottomBarWhenPushed = true
         

@@ -123,7 +123,7 @@ class FrontPageViewController: UIViewController {
     private func filterContent(for searchText: String) {
         let text = searchText.replacingOccurrences(of: "台", with: "臺")
         hotelDataModel = downloadAllData.filter { (info) -> Bool in
-            let isMatch = info.address.localizedCaseInsensitiveContains(text) ||
+            let isMatch = info.streetAddress.localizedCaseInsensitiveContains(text) ||
             info.city.localizedCaseInsensitiveContains(text)  ||
             info.town.localizedCaseInsensitiveContains(text) ||
             info.hotelName.localizedCaseInsensitiveContains(text)
@@ -235,12 +235,12 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         cell.collectionsBtn.addTarget(self, action: #selector(collectionsBtnAction(_:)), for: .touchUpInside)
         
         // 電話
-        cell.phoneBtn.isHidden = isDataEmpty(dataModel.tel[0])
+        cell.phoneBtn.isHidden = isDataEmpty(dataModel.telephones[0])
         cell.phoneBtn.tag = indexPath.row
         cell.phoneBtn.addTarget(self, action: #selector(phoneBtnAction(_:)), for: .touchUpInside)
         
         // 官網
-        cell.webBtn.isHidden = isDataEmpty(dataModel.website)
+        cell.webBtn.isHidden = isDataEmpty(dataModel.websiteURL)
         cell.webBtn.tag = indexPath.row
         cell.webBtn.addTarget(self, action: #selector(webBtnAction(_:)), for: .touchUpInside)
         
@@ -269,8 +269,8 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         }
         
         // 星級
-        cell.gradeLabel.isHidden = isDataEmpty(dataModel.grade)
-        cell.gradeLabel.text = "☆級：\(dataModel.grade)"
+        cell.gradeLabel.isHidden = isDataEmpty(dataModel.hotelStars)
+        cell.gradeLabel.text = "☆級：\(dataModel.hotelStars)"
         
         cell.govLabel.text = dataModel.hotelID
         cell.descriptionLabel.text = dataModel.description
@@ -280,13 +280,13 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         cell.priceLabel.text = "： \(priceText)"
         
         // 旅店類別
-        if let hotelClass = dataModel.classData.first.flatMap(HotelClass.init(rawValue:)) {
+        if let hotelClass = dataModel.hotelClasses.first.flatMap(HotelClass.init(rawValue:)) {
             cell.hotleCalssLabel.text = "：\(hotelClass.description)"
         } else {
             cell.hotleCalssLabel.text = "旅店未提供"
         }
         
-        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.city, town: dataModel.town, add: dataModel.address)
+        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.city, town: dataModel.town, add: dataModel.streetAddress)
         cell.addLabel.text = formattedAddress
     }
     
@@ -305,7 +305,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         let searchData = hotelDataModel[index]
         
         showAlertClosure(title: "通知", message: "將外撥電話至 \(searchData.hotelName)", okBtn: "確定") {
-            let phone = searchData.tel
+            let phone = searchData.telephones
             if let url = URL(string: "tel:\(phone)") {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -325,7 +325,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
         let index = sender.tag
         let searchData = hotelDataModel[index]
         
-        let vc = OpenWKWebViewController.make(urlString: searchData.website,
+        let vc = OpenWKWebViewController.make(urlString: searchData.websiteURL,
                                               title: searchData.hotelName)
         vc.hidesBottomBarWhenPushed = true
         

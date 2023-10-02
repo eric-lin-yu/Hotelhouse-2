@@ -109,34 +109,34 @@ struct Hotels {
     /// 描述
     let description: String
     /// 緯度
-    let px: String
+    let positionLat: String
     /// 經度
-    let py: String
+    let positionLon: String
     /// 星級
-    let grade: String
+    let hotelStars: String
     /// 酒店類別
-    let classData: [Int]
+    let hotelClasses: [Int]
     /// 地址
-    let address: String
+    let streetAddress: String
     /// 地區
     let city: String
     /// 城鎮
     let town: String
     /// 電話
-    let tel: [String]
+    let telephones: [String]
     /// 管理機構
-    let gov: [Organization]
+    let organizations: [Organization]
     /// 官網
-    let website: String
+    let websiteURL: String
     let images: [HotelImages]
     /// 特殊規格
     let spec: String
     /// 服務信息
-    let serviceinfo: String
+    let serviceInfo: String
     /// 總客房數量
-    let totalNumberofRooms: String
+    let totalRooms: String
     /// 無障礙客房數量
-    let accessibilityRooms: String
+    let accessibleRooms: String
     /// 最低價格
     let lowestPrice: String
     /// 最高價格
@@ -144,42 +144,42 @@ struct Hotels {
     /// 官方電子信箱
     let industryEmail: String
     /// 總人數容納量
-    let totalNumberofPeople: String
+    let totalCapacity: String
     /// 停車位
-    let parkingSpace: String
+    let parkingSpaces: String
     /// 停車位訊息
-    let parkinginfo: String
+    let parkingInfo: String
     
     
     init(json: JSON) {
         hotelID = json["HotelID"].stringValue
         hotelName = json["HotelName"].stringValue
         description = json["Description"].stringValue
-        px = json["PositionLat"].stringValue
-        py = json["PositionLon"].stringValue
-        grade = json["HotelStars"].stringValue
+        positionLat = json["PositionLat"].stringValue
+        positionLon = json["PositionLon"].stringValue
+        hotelStars = json["HotelStars"].stringValue
         
         let classesArray = json["HotelClasses"].arrayValue
-        classData = classesArray.map { $0.intValue }
+        hotelClasses = classesArray.map { $0.intValue }
         
-        address = json["PostalAddress"]["StreetAddress"].stringValue
+        streetAddress = json["PostalAddress"]["StreetAddress"].stringValue
         city = json["PostalAddress"]["City"].stringValue
         town = json["PostalAddress"]["Town"].stringValue
-        tel = json["Telephones"].arrayValue.map { $0["Tel"].stringValue }
+        telephones = json["Telephones"].arrayValue.map { $0["Tel"].stringValue }
         
-        gov = json["Organizations"].arrayValue.map { Organization(json: $0) }
+        organizations = json["Organizations"].arrayValue.map { Organization(json: $0) }
         
-        website = json["WebsiteURL"].stringValue
+        websiteURL = json["WebsiteURL"].stringValue
         spec = json["Spec"].stringValue
-        serviceinfo = json["ServiceInfo"].stringValue
-        totalNumberofRooms = json["TotalRooms"].stringValue
-        accessibilityRooms = json["AccessibleRooms"].stringValue
+        serviceInfo = json["ServiceInfo"].stringValue
+        totalRooms = json["TotalRooms"].stringValue
+        accessibleRooms = json["AccessibleRooms"].stringValue
         lowestPrice = json["LowestPrice"].stringValue
         ceilingPrice = json["CeilingPrice"].stringValue
         industryEmail = json["IndustryEmail"].stringValue
-        totalNumberofPeople = json["TotalCapacity"].stringValue
-        parkingSpace = json["ParkingSpaces"].stringValue
-        parkinginfo = json["ParkingInfo"].stringValue
+        totalCapacity = json["TotalCapacity"].stringValue
+        parkingSpaces = json["ParkingSpaces"].stringValue
+        parkingInfo = json["ParkingInfo"].stringValue
         
         let imagesArray = json["Images"].arrayValue
         images = imagesArray.map { HotelImages(json: $0) }
@@ -214,27 +214,27 @@ struct Hotels {
         self.hotelID = hotelID
         self.hotelName = hotelName
         self.description = description
-        self.px = px
-        self.py = py
-        self.grade = grade
-        self.classData = classData
-        self.address = add
+        self.positionLat = px
+        self.positionLon = py
+        self.hotelStars = grade
+        self.hotelClasses = classData
+        self.streetAddress = add
         self.city = region
         self.town = town
-        self.tel = tel
-        self.gov = gov
-        self.website = website
+        self.telephones = tel
+        self.organizations = gov
+        self.websiteURL = website
         self.images = images
         self.spec = spec
-        self.serviceinfo = serviceinfo
-        self.totalNumberofRooms = totalNumberofRooms
-        self.accessibilityRooms = accessibilityRooms
+        self.serviceInfo = serviceinfo
+        self.totalRooms = totalNumberofRooms
+        self.accessibleRooms = accessibilityRooms
         self.lowestPrice = lowestPrice
         self.ceilingPrice = ceilingPrice
         self.industryEmail = industryEmail
-        self.totalNumberofPeople = totalNumberofPeople
-        self.parkingSpace = parkingSpace
-        self.parkinginfo = parkinginfo
+        self.totalCapacity = totalNumberofPeople
+        self.parkingSpaces = parkingSpace
+        self.parkingInfo = parkinginfo
     }
 }
 

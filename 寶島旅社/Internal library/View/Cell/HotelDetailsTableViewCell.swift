@@ -37,7 +37,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
     func configure(dataModel: Hotels, delegate: HotelDetailsTableViewCellDelegate) {
         self.delegate = delegate
         
-        if let classData = dataModel.classData.first,
+        if let classData = dataModel.hotelClasses.first,
            let hotelClass = HotelClass(rawValue: classData) {
             hotelCalssLabel.text = " 旅館類別： \(hotelClass.description)"
         } else {
@@ -51,7 +51,7 @@ class HotelDetailsTableViewCell: UITableViewCell {
         let priceText = dataModel.lowestPrice != dataModel.ceilingPrice ? "\(dataModel.lowestPrice) ~ \(dataModel.ceilingPrice)" : "\(dataModel.ceilingPrice)"
         priceLabel.text = " 價位： \(priceText)"
         
-        if !dataModel.website.isEmpty {
+        if !dataModel.websiteURL.isEmpty {
             webLabel.text = "開啟網站"
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWebView))
             webLabel.isUserInteractionEnabled = true

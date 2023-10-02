@@ -59,8 +59,8 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
             labelText += "\(dataModel.spec)\n\n"
         }
         
-        if !dataModel.serviceinfo.isEmpty {
-            labelText += "提供服務：\n\(dataModel.serviceinfo)\n"
+        if !dataModel.serviceInfo.isEmpty {
+            labelText += "提供服務：\n\(dataModel.serviceInfo)\n"
         }
         
         if labelText.isEmpty {
@@ -69,16 +69,16 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
         
         spec_infoLabel.text = labelText
         
-        if dataModel.accessibilityRooms == "0" {
-            roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房"
+        if dataModel.accessibleRooms == "0" {
+            roomsLabel.text = "：總共 \(dataModel.totalRooms) 間房"
         } else {
-            roomsLabel.text = "：總共 \(dataModel.totalNumberofRooms) 間房\n 並提供無障礙客房 \(dataModel.accessibilityRooms) 間"
+            roomsLabel.text = "：總共 \(dataModel.totalRooms) 間房\n 並提供無障礙客房 \(dataModel.accessibleRooms) 間"
         }
         
-        peopleLabel.text = "：可容納 \(dataModel.totalNumberofPeople) 人"
+        peopleLabel.text = "：可容納 \(dataModel.totalCapacity) 人"
         
-        if dataModel.parkingSpace != "0" {
-            let parkinginfo = dataModel.parkinginfo.dropFirst(3)
+        if dataModel.parkingSpaces != "0" {
+            let parkinginfo = dataModel.parkingInfo.dropFirst(3)
             parkingLabel.text = "：\(parkinginfo)"
         } else {
             parkingLabel.text = "：很抱歉暫無提供停車位"

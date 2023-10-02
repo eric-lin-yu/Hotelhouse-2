@@ -134,7 +134,7 @@ class RealmManager {
         
         do {
             // get gov Data
-            let govArray = hotelDataModel.gov.map { RLM_Organization(name: $0.name,
+            let govArray = hotelDataModel.organizations.map { RLM_Organization(name: $0.name,
                                                                      classData: $0.classData,
                                                                      taxCode: $0.taxCode ?? "",
                                                                      agencyCode: $0.agencyCode ?? "",
@@ -152,27 +152,27 @@ class RealmManager {
             let realmData = RLM_CollectionsHotels(hotelID: hotelDataModel.hotelID,
                                                   hotelName: hotelDataModel.hotelName,
                                                   descriptionText: hotelDataModel.description,
-                                                  px: hotelDataModel.px,
-                                                  py: hotelDataModel.py,
-                                                  grade: hotelDataModel.grade,
-                                                  classData: hotelDataModel.classData,
-                                                  add: hotelDataModel.address,
+                                                  px: hotelDataModel.positionLat,
+                                                  py: hotelDataModel.positionLon,
+                                                  grade: hotelDataModel.hotelStars,
+                                                  classData: hotelDataModel.hotelClasses,
+                                                  add: hotelDataModel.streetAddress,
                                                   region: hotelDataModel.city,
                                                   town: hotelDataModel.town,
-                                                  tel: hotelDataModel.tel,
+                                                  tel: hotelDataModel.telephones,
                                                   gov: govArray,
-                                                  website: hotelDataModel.website,
+                                                  website: hotelDataModel.websiteURL,
                                                   images: hotelImageArray,
                                                   spec: hotelDataModel.spec,
-                                                  serviceinfo: hotelDataModel.serviceinfo,
-                                                  totalNumberofRooms: hotelDataModel.totalNumberofRooms,
-                                                  accessibilityRooms: hotelDataModel.accessibilityRooms,
+                                                  serviceinfo: hotelDataModel.serviceInfo,
+                                                  totalNumberofRooms: hotelDataModel.totalRooms,
+                                                  accessibilityRooms: hotelDataModel.accessibleRooms,
                                                   lowestPrice: hotelDataModel.lowestPrice,
                                                   ceilingPrice: hotelDataModel.ceilingPrice,
                                                   industryEmail: hotelDataModel.industryEmail,
-                                                  totalNumberofPeople: hotelDataModel.totalNumberofPeople,
-                                                  parkingSpace: hotelDataModel.parkingSpace,
-                                                  parkinginfo: hotelDataModel.parkinginfo)
+                                                  totalNumberofPeople: hotelDataModel.totalCapacity,
+                                                  parkingSpace: hotelDataModel.parkingSpaces,
+                                                  parkinginfo: hotelDataModel.parkingInfo)
             
             try realm.write { realm in
                 realm.add(realmData)
