@@ -13,6 +13,8 @@ import SkeletonView
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
     private var groupedHotels: [String: [Hotels]] = [:]
+    private var cityNames: [String] = []
+    
     private let manager = CLLocationManager()
     
     // constraint Spacing
@@ -194,7 +196,7 @@ class CollectionsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
-            self.groupedHotels = groupAndSortHotelsByCity()
+            cityNames = groupAndSortHotelsByCity().keys.sorted()
             
             tableView.isSkeletonable = true
             tableView.showAnimatedGradientSkeleton()
@@ -212,7 +214,7 @@ class CollectionsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.hotelDataModel = []
-        self.groupedHotels = [:]
+        self.cityNames = []
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -273,10 +275,6 @@ class CollectionsViewController: UIViewController {
         let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
         return sortedGroupedHotelsDictionary
     }
-    
-    private func isDataEmpty(_ dataStr: String) -> Bool {
-        return dataStr.isEmpty
-    }
 }
 
 //MARK: - TableView
@@ -288,22 +286,20 @@ extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDel
     
     // show skeletonView
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
         
     // section
     func numberOfSections(in tableView: UITableView) -> Int {
-        return groupedHotels.count
+        return cityNames.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section < groupedHotels.count else {
+        guard section < cityNames.count else {
             return nil
         }
         
-        let cityNames = groupedHotels.keys.sorted()
         let cityName = cityNames[section]
-        
         let headerView = SettingsTableViewHeaderFooterView(title: cityName, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
         
         return headerView
@@ -315,8 +311,6 @@ extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDel
     
     // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cityNames = groupedHotels.keys.sorted()
-        
         guard section < cityNames.count else {
             return 0
         }
@@ -333,68 +327,24 @@ extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
         
-        
-        let cityNames = groupedHotels.keys.sorted()
-        
         guard indexPath.section < cityNames.count else {
             return cell
         }
         
         let cityName = cityNames[indexPath.section]
         
-        if let cityHotels = groupedHotels[cityName] {
+        if let cityHotels = groupedHotels[cityName]{
             let hotel = cityHotels[indexPath.row]
-            
-            cell.nameLabel.text = hotel.hotelName
-            
-            cell.hotelimageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
-                switch result {
-                case .success(let image):
-                    if let image = image {
-                        cell.hotelimageView.image = image
-                    } else {
-                        cell.hotelimageView.image = UIImage(named: "iconError")
-                    }
-                case .failure(_):
-                    cell.hotelimageView.image = UIImage(named: "iconError")
-                }
-            }
-            
-            // 星級
-            cell.gradeLabel.isHidden = isDataEmpty(hotel.hotelStars)
-            cell.gradeLabel.text = "☆級：\(hotel.hotelStars)"
-            
-            cell.govLabel.text = hotel.hotelID
-            cell.descriptionLabel.text = hotel.description
-            
-            // 價格
-            let priceText = hotel.lowestPrice != hotel.ceilingPrice ? "\(hotel.lowestPrice) ~ \(hotel.ceilingPrice)" : "\(hotel.ceilingPrice)"
-            cell.priceLabel.text = "： \(priceText)"
-            
-            // 旅店類別
-            if let hotelClass = hotel.hotelClasses.first.flatMap(HotelClass.init(rawValue:)) {
-                cell.hotleCalssLabel.text = "：\(hotelClass.description)"
-            } else {
-                cell.hotleCalssLabel.text = "旅店未提供"
-            }
-            
-            let formattedAddress = AddressFormatter.shared.formatAddress(region: hotel.city,
-                                                                         town: hotel.town,
-                                                                         add: hotel.streetAddress)
-            cell.addLabel.text = formattedAddress
+            cell.configure(with: hotel)
         }
         
         cell.buttonView.isHidden = true
         
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        
-        let cityNames = groupedHotels.keys.sorted()
         
         guard indexPath.section < cityNames.count else {
             return
@@ -413,8 +363,6 @@ extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDel
         }
     }
 }
-
-
 //MARK: - MapView
 extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

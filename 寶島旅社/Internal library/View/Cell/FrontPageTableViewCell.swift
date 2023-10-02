@@ -51,5 +51,49 @@ class FrontPageTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func configure(with hotel: Hotels) {
+        nameLabel.text = hotel.hotelName
+        
+        hotelimageView.loadUrlImage(urlString: hotel.images.first?.url ?? "") { result in
+            switch result {
+            case .success(let image):
+                if let image = image {
+                    self.hotelimageView.image = image
+                } else {
+                    self.hotelimageView.image = UIImage(named: "iconError")
+                }
+            case .failure(_):
+                self.hotelimageView.image = UIImage(named: "iconError")
+            }
+        }
+        
+        // 星级
+        gradeLabel.isHidden = isDataEmpty(hotel.hotelStars)
+        gradeLabel.text = "☆級：\(hotel.hotelStars)"
+        
+        govLabel.text = hotel.hotelID
+        descriptionLabel.text = hotel.description
+        
+        // 價格
+        let priceText = hotel.lowestPrice != hotel.ceilingPrice ? "\(hotel.lowestPrice) ~ \(hotel.ceilingPrice)" : "\(hotel.ceilingPrice)"
+        priceLabel.text = "： \(priceText)"
+        
+        // 旅店類别
+        if let hotelClass = hotel.hotelClasses.first.flatMap(HotelClass.init(rawValue:)) {
+            hotleCalssLabel.text = "：\(hotelClass.description)"
+        } else {
+            hotleCalssLabel.text = "旅店未提供"
+        }
+        
+        let formattedAddress = AddressFormatter.shared.formatAddress(region: hotel.city,
+                                                                     town: hotel.town,
+                                                                     add: hotel.streetAddress)
+        addLabel.text = formattedAddress
+    }
+    
+    private func isDataEmpty(_ dataStr: String) -> Bool {
+        return dataStr.isEmpty
+    }
 }
 
