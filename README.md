@@ -44,6 +44,8 @@ enum HotelDetailType: Int {
 ![image](Documents/MapSearchVC預期效果.png)
 
 # 收藏 (CollectionsViewController)
+這頁的所有 UI 以 code 製作
+
 - use 點選 收藏按鈕，將立即把該筆 hotel 資料存至 Realm 中\
 (目前於首頁、資料細節頁，都有做收藏鈕)
 
