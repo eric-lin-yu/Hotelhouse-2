@@ -38,6 +38,7 @@
 		892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892DE04929024987003F3974 /* MapTableViewCell.swift */; };
 		892DE04C29024987003F3974 /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892DE04A29024987003F3974 /* MapTableViewCell.xib */; };
 		892DE04F29024E2F003F3974 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892DE04E29024E2F003F3974 /* MapKit.framework */; };
+		89366AC72ACA645C00769A12 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89366AC62ACA645C00769A12 /* LocationManager.swift */; };
 		896DF71828F7E3080031A88A /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71728F7E3080031A88A /* ResponseHandler.swift */; };
 		896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71928F7E58D0031A88A /* MainTabBarController.swift */; };
 		896DF71C28F7E5CE0031A88A /* ColorSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896DF71B28F7E5CE0031A88A /* ColorSets.swift */; };
@@ -108,6 +109,7 @@
 		892DE04929024987003F3974 /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		892DE04A29024987003F3974 /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		892DE04E29024E2F003F3974 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		89366AC62ACA645C00769A12 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		896DF71728F7E3080031A88A /* ResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		896DF71928F7E58D0031A88A /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		896DF71B28F7E5CE0031A88A /* ColorSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSets.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		891E4F9F2AB1B24500C48624 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
+				89366AC62ACA645C00769A12 /* LocationManager.swift */,
 				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
 				891E4F9D2AB1B07400C48624 /* AddressFormatter.swift */,
 			);
@@ -487,6 +490,7 @@
 				89D07896299C89C1004EAF2B /* UIView+Extension.swift in Sources */,
 				892DE03D29011886003F3974 /* HotelDetailViewController.swift in Sources */,
 				892BCC252907C3290095D3D5 /* StoryboardSupports.swift in Sources */,
+				89366AC72ACA645C00769A12 /* LocationManager.swift in Sources */,
 				89BF620128F65DDB00418305 /* FrontPageViewController.swift in Sources */,
 				9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */,
 				9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */,
