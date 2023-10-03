@@ -193,11 +193,14 @@ class CollectionsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        LoadingPageView.shard.show()
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
             groupAndSortHotelsByCity()
     
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                LoadingPageView.shard.dismiss()
                 self.tableView.reloadData()
             }
         }
