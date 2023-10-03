@@ -100,11 +100,21 @@ class CollectionsTableViewCell: UITableViewCell {
         return button
     }()
     
+    private let deleteBtn: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "trash")
+        button.setImage(image, for: .normal)
+        button.tintColor = .orange
+        button.isSkeletonable = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .bottom
-        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
         stackView.spacing = 15
         stackView.isSkeletonable = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +145,8 @@ class CollectionsTableViewCell: UITableViewCell {
         
         let viewsToAddButtonStackView: [UIView] = [
             editBtn,
+            
+            deleteBtn,
         ]
         viewsToAddButtonStackView.forEach { buttonStackView.addArrangedSubview($0) }
     }
@@ -205,5 +217,27 @@ class CollectionsTableViewCell: UITableViewCell {
         
         organizationsHotelStars.isHidden = hotel.hotelStars.isEmpty
         organizationsHotelStars.text = "☆級：\(hotel.hotelStars)"
+        
+        deleteBtn.addTarget(self, action: #selector(deleteDataModelAction), for: .touchUpInside)
+        deleteBtn.tag = Int(hotel.hotelID) ?? 0
+    }
+    
+    @objc func deleteDataModelAction(sender: UIButton) {
+        let hotelID = sender.tag
+        
+        if let realm = RealmManager.shard {
+            if let hotelToDelete = realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", String(hotelID)).first {
+                do {
+                    try realm.write { realm in
+                        realm.delete(hotelToDelete)
+                        ResponseHandler.presentAlertHandler(message: "旅店删除成功")
+                    }
+                } catch {
+                    ResponseHandler.errorHandler(errorString: "刪除旅店時發生錯誤")
+                }
+            } else {
+                ResponseHandler.presentAlertHandler(message: "未找到要删除的旅店數據")
+            }
+        }
     }
 }
