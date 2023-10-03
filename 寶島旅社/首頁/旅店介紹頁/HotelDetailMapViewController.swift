@@ -45,7 +45,7 @@ class HotelDetailMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var buttonView: UIView! {
         didSet {
-            buttonView.roundFrameView(roundView: buttonView)
+            buttonView.addRoundBorder()
         }
     }
     @IBOutlet weak var userLocationBtn: UIButton!

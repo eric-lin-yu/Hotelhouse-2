@@ -12,7 +12,7 @@ class DescriptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var roundFramView: UIView! {
         didSet {
-            roundFramView.roundFrameView(roundView: roundFramView)
+            roundFramView.addRoundBorder()
         }
     }
     @IBOutlet weak var descriptionTextView: UITextView!

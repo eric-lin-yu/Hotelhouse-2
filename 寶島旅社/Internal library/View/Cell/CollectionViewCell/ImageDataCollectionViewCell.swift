@@ -49,7 +49,7 @@ class ImageDataCollectionViewCell: UICollectionViewCell {
     
     private let popupView: UIView = {
         let view = UIView()
-        view.roundFrameView(roundView: view)
+        view.addRoundBorder()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

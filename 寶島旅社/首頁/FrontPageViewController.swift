@@ -28,13 +28,13 @@ class FrontPageViewController: UIViewController {
     ///showSearchBtnView
     @IBOutlet weak var showSearchBtnView: UIView! {
         didSet {
-            showSearchBtnView.roundFrameView(roundView: showSearchBtnView)
+            showSearchBtnView.addRoundBorder()
         }
     }
     ///showMapSearchView
     @IBOutlet weak var showMapBtnView: UIView! {
         didSet {
-            showMapBtnView.roundFrameView(roundView: showMapBtnView)
+            showMapBtnView.addRoundBorder()
         }
     }
     

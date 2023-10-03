@@ -13,7 +13,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var spec_infoLabel: UILabel!
     @IBOutlet weak var spec_infView: UIView! {
         didSet {
-            spec_infView.roundFrameView(roundView: spec_infView)
+            spec_infView.addRoundBorder()
         }
     }
     
@@ -21,7 +21,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var roomsLabel: UILabel!
     @IBOutlet weak var roomsView: UIView! {
         didSet {
-            roomsView.roundFrameView(roundView: roomsView)
+            roomsView.addRoundBorder()
         }
     }
     
@@ -29,7 +29,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var peopleLabel: UILabel!
     @IBOutlet weak var peopleView: UIView! {
         didSet {
-            peopleView.roundFrameView(roundView: peopleView)
+            peopleView.addRoundBorder()
         }
     }
     
@@ -37,7 +37,7 @@ class HotelExtraDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var parkingLabel: UILabel!
     @IBOutlet weak var parkingView: UIView! {
         didSet {
-            parkingView.roundFrameView(roundView: parkingView)
+            parkingView.addRoundBorder()
         }
     }
 

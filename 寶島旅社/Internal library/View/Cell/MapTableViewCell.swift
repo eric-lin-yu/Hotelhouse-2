@@ -13,7 +13,7 @@ class MapTableViewCell: UITableViewCell {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var roundFramView: UIView! {
         didSet {
-            roundFramView.roundFrameView(roundView: roundFramView)
+            roundFramView.addRoundBorder()
         }
     }
     //  "Region": "南投縣", "Town": "埔里鎮"

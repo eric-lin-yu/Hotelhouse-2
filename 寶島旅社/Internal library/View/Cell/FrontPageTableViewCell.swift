@@ -31,13 +31,13 @@ class FrontPageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var govView: UIView! {
         didSet {
-            govView.roundFrameView(roundView: govView)
+            govView.addRoundBorder()
         }
     }
  
     @IBOutlet weak var buttonView: UIView! {
         didSet {
-            buttonView.roundFrameView(roundView: buttonView)
+            buttonView.addRoundBorder()
         }
     }
     
