@@ -6,7 +6,10 @@ import UIKit
 
 extension UIView {
     /// View add 邊框
-    func addRoundBorder(cornerRadius: CGFloat = 15, borderWidth: CGFloat = 1, borderColor: UIColor = .black, backgroundColor: UIColor = .white) {
+    func addRoundBorder(cornerRadius: CGFloat = 15, 
+                        borderWidth: CGFloat = 1,
+                        borderColor: UIColor = .black,
+                        backgroundColor: UIColor = .white) {
         layer.cornerRadius = cornerRadius
         layer.masksToBounds = true
         layer.borderWidth = borderWidth
