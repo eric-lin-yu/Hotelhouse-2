@@ -183,6 +183,27 @@ class RealmManager {
         }
     }
     
+    func deleteHotelDataModelFromRealm(_ hotelDataModel: Hotels) {
+        guard let realm = RealmManager.shard else {
+            return
+        }
+        
+        // 查找要删除的对象
+        if let hotelToDelete = realm.objects(RLM_CollectionsHotels.self).filter("hotelID == %@", hotelDataModel.hotelID).first {
+            do {
+                try realm.write { realm in
+                    realm.delete(hotelToDelete)
+                    ResponseHandler.presentAlertHandler(message: "旅店删除成功")
+                }
+            } catch {
+                ResponseHandler.errorHandler(errorString: "刪除旅店數據時發生錯誤")
+            }
+        } else {
+            ResponseHandler.presentAlertHandler(message: "未找到要删除的旅店數據")
+        }
+    }
+
+    
     func getHotelDataModelsFromRealm() -> [Hotels] {
         guard let realm = RealmManager.shard else {
             return []
