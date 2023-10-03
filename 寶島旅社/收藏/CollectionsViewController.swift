@@ -196,7 +196,7 @@ class CollectionsViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
-            cityNames = groupAndSortHotelsByCity().keys.sorted()
+            groupAndSortHotelsByCity()
             
             tableView.isSkeletonable = true
             tableView.showAnimatedGradientSkeleton()
@@ -232,7 +232,6 @@ class CollectionsViewController: UIViewController {
                 // 開啟設定
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
             }
-            
         case .authorizedWhenInUse:
             // user接受
             manager.startUpdatingLocation()
@@ -258,7 +257,10 @@ class CollectionsViewController: UIViewController {
         }
     }
     
-    private func groupAndSortHotelsByCity() -> [String: [Hotels]] {
+    // 依照 city 分組
+    private func groupAndSortHotelsByCity() {
+        self.groupedHotels = [:] // 初始化
+        
         for hotel in hotelDataModel {
             let city = hotel.city
             if var cityHotels = groupedHotels[city] {
@@ -273,7 +275,9 @@ class CollectionsViewController: UIViewController {
         let sortedGroupedHotels = groupedHotels.sorted { $0.key < $1.key }
         // Convert the sorted array back to a dictionary
         let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
-        return sortedGroupedHotelsDictionary
+        
+        // Update cityNames
+        cityNames = sortedGroupedHotelsDictionary.keys.sorted()
     }
 }
 
