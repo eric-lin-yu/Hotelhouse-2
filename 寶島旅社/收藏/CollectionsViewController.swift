@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import SkeletonView
 
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
@@ -197,15 +196,8 @@ class CollectionsViewController: UIViewController {
         if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
             self.hotelDataModel = realmDataModels
             groupAndSortHotelsByCity()
-            
-            tableView.isSkeletonable = true
-            tableView.showAnimatedGradientSkeleton()
-       
+    
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.tableView.stopSkeletonAnimation()
-                self.view.hideSkeleton(reloadDataAfter: true,
-                                       transition: .crossDissolve(0.25))
-                
                 self.tableView.reloadData()
             }
         }
@@ -282,17 +274,7 @@ class CollectionsViewController: UIViewController {
 }
 
 //MARK: - TableView
-extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDelegate {
-    // skeletonView
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        return FrontPageTableViewCell.cellIdenifier
-    }
-    
-    // show skeletonView
-    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-        
+extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate {
     // section
     func numberOfSections(in tableView: UITableView) -> Int {
         return cityNames.count
