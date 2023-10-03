@@ -15,10 +15,11 @@ class SettingsTableViewHeaderFooterView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(title: String?, reuseIdentifier: String?) {
+    init(title: String?, reuseIdentifier: String?, bgColor: UIColor? = nil) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        self.contentView.backgroundColor = .white
+        self.contentView.backgroundColor = bgColor ?? .white
+        self.contentView.layer.cornerRadius = 20
         self.contentView.addSubview(titleLabel)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

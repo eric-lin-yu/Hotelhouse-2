@@ -304,7 +304,7 @@ extension CollectionsViewController: SkeletonTableViewDataSource, UITableViewDel
         }
         
         let cityName = cityNames[section]
-        let headerView = SettingsTableViewHeaderFooterView(title: cityName, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier)
+        let headerView = SettingsTableViewHeaderFooterView(title: cityName, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier, bgColor: .whitesmokeGray)
         
         return headerView
     }
