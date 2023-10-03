@@ -172,7 +172,11 @@ class CollectionsViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
+        
+        let useCells = [CollectionsTableViewCell.self]
+        useCells.forEach {
+            tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
+        }
     }
 
     override func viewDidLoad() {
@@ -314,7 +318,9 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FrontPageTableViewCell.cellIdenifier, for: indexPath) as! FrontPageTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CollectionsTableViewCell.self), for: indexPath) as? CollectionsTableViewCell else {
+            return UITableViewCell()
+        }
         
         guard indexPath.section < cityNames.count else {
             return cell
@@ -326,9 +332,6 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
             let hotel = cityHotels[indexPath.row]
             cell.configure(with: hotel)
         }
-        
-        cell.buttonView.isHidden = true
-        
         return cell
     }
 
