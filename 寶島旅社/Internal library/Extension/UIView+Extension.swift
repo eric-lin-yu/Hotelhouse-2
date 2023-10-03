@@ -6,20 +6,11 @@ import UIKit
 
 extension UIView {
     /// View add 邊框
-    public func roundFrameView(roundView: UIView, color: UIColor? = nil) {
-        // 圓角
-        roundView.layer.cornerRadius = 15
-        roundView.layer.masksToBounds = true
-        
-        // 邊框線條處理
-        roundView.layer.borderWidth = 1
-        roundView.layer.borderColor = UIColor.black.cgColor
-        
-        if color == nil {
-            roundView.backgroundColor = UIColor.white
-        } else {
-            roundView.backgroundColor = color
-        }
+    func addRoundBorder(cornerRadius: CGFloat = 15, borderWidth: CGFloat = 1, borderColor: UIColor = .black, backgroundColor: UIColor = .white) {
+        layer.cornerRadius = cornerRadius
+        layer.masksToBounds = true
+        layer.borderWidth = borderWidth
+        layer.borderColor = borderColor.cgColor
+        self.backgroundColor = backgroundColor
     }
-    
 }
