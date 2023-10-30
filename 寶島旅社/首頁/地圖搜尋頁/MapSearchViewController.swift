@@ -33,6 +33,19 @@ class MapSearchViewController: UIViewController {
         }
     }
     @IBOutlet weak var userLocationImageView: UIImageView!
+    @IBOutlet weak var userLocationBaseView: UIView! {
+        didSet {
+            //圓角
+            userLocationBaseView.layer.cornerRadius = 15
+            userLocationBaseView.layer.masksToBounds = true
+            
+            //邊框線條
+            userLocationBaseView.layer.borderWidth = 1
+            userLocationBaseView.layer.borderColor = UIColor.black.cgColor
+            
+            userLocationBaseView.backgroundColor = .sageGreen
+        }
+    }
     @IBOutlet weak var backBtn: UIButton!
     
     private var hotelDataModel: [Hotels] = []
@@ -163,6 +176,7 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.userLocationImageView.isHidden = false
+            self.userLocationBaseView.isHidden = false
         }
     }
     
