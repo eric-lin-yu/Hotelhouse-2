@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import CommonCrypto
 
 public extension String {
@@ -25,5 +26,10 @@ public extension String {
             return formattedDate
         }
         return nil
+    }
+    
+    func sizeOfString(usingFont font: UIFont) -> CGSize {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        return self.size(withAttributes: fontAttributes)
     }
 }
