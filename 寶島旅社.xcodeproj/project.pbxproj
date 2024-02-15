@@ -76,6 +76,7 @@
 		9FA8F0ED2A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */; };
 		9FA8F0F02A639939009ACADD /* PersonalSettingsIconTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */; };
 		9FA8F0F22A639939009ACADD /* SettingsTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */; };
+		9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +146,7 @@
 		9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalSettingsIconTableViewCell.swift; sourceTree = "<group>"; };
 		9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
+		9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				892AACA728F90FF900614DA1 /* UIApplication+Extension.swift */,
 				892AACA228F909DF00614DA1 /* Bundle+Extension.swift */,
 				892AAC9E28F9092000614DA1 /* UIImage+GIF.swift */,
+				9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */,
 				89D07895299C89C1004EAF2B /* UIView+Extension.swift */,
 				892DE04729023A32003F3974 /* UIViewController+SendEmail.swift */,
 				891E4F932AB1615D00C48624 /* ImageView+Extension.swift */,
@@ -509,6 +512,7 @@
 				892DE04B29024987003F3974 /* MapTableViewCell.swift in Sources */,
 				892AACA328F909DF00614DA1 /* Bundle+Extension.swift in Sources */,
 				9F87E3FB2A754B42007E77EA /* RLM_CollectionsHotels.swift in Sources */,
+				9FC059822B7DB7FB00B481B8 /* ToastLabel.swift in Sources */,
 				896DF71A28F7E58D0031A88A /* MainTabBarController.swift in Sources */,
 				89BF621C28F66C8D00418305 /* AlamofireHandler.swift in Sources */,
 				89B546982925D59F0020C522 /* MapSearchViewController.swift in Sources */,

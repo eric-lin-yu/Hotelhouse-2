@@ -111,7 +111,7 @@ class FrontPageViewController: UIViewController {
     //MARK: - searchBar相關
     @IBAction func searchAction(_ sender: Any) {
         guard let searchText = searchTextField.text, !searchText.isEmpty else {
-            showAlert(title: "通知", message: "查詢條件未輸入哦")
+            self.view.showToast(text: "查詢條件未輸入哦")
             return
         }
         hotelDataModel = []
@@ -131,7 +131,7 @@ class FrontPageViewController: UIViewController {
         }
         
         if hotelDataModel.isEmpty {
-            showAlert(title: "通知", message: "輸入條件未查到相符的資料哦...")
+            self.view.showToast(text: "輸入條件未查到相符的資料哦...")
         } else {
             self.frontPageViewStatus = .resultTableView
             searchView.isHidden = true
@@ -310,7 +310,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
-                    self.showAlert(title: "通知", message: "撥打失敗，請稍後再嘗試")
+                    self.view.showToast(text: "撥打失敗，請稍後再嘗試")
                 }
             } else {
                 #if DEBUG

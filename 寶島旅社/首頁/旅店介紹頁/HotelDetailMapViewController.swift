@@ -229,7 +229,7 @@ class HotelDetailMapViewController: UIViewController {
             LoadingPageView.shard.dismiss()
             if let error = error {
                 print(error)
-                self.showAlert(title: "通知", message: "無法取得路線")
+                self.view.showToast(text: "無法取得路線")
                 return
             }
 
