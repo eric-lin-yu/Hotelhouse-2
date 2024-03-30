@@ -286,7 +286,9 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
             cell.hotleCalssLabel.text = "旅店未提供"
         }
         
-        let formattedAddress = AddressFormatter.shared.formatAddress(region: dataModel.city, town: dataModel.town, add: dataModel.streetAddress)
+        let formattedAddress = String.formattedAddress(region: dataModel.city,
+                                                       town: dataModel.town,
+                                                       add: dataModel.streetAddress)
         cell.addLabel.text = formattedAddress
     }
     

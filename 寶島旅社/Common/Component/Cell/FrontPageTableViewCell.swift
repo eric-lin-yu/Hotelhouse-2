@@ -86,9 +86,9 @@ class FrontPageTableViewCell: UITableViewCell {
             hotleCalssLabel.text = "旅店未提供"
         }
         
-        let formattedAddress = AddressFormatter.shared.formatAddress(region: hotel.city,
-                                                                     town: hotel.town,
-                                                                     add: hotel.streetAddress)
+        let formattedAddress = String.formattedAddress(region: hotel.city,
+                                                       town: hotel.town,
+                                                       add: hotel.streetAddress)
         addLabel.text = formattedAddress
     }
     
