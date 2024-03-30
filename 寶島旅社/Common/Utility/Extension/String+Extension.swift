@@ -32,4 +32,14 @@ public extension String {
         let fontAttributes = [NSAttributedString.Key.font: font]
         return self.size(withAttributes: fontAttributes)
     }
+    
+    /// 格式化地址，將區域、城鎮和地址組合成單一字符串。
+    /// - Parameters:
+    ///   - region: 區域
+    ///   - town: 城鎮
+    ///   - add: 地址
+    /// - Returns: 格式化後的地址字符串
+    static func formattedAddress(region: String, town: String, add: String) -> String {
+        return region + town + add
+    }
 }
