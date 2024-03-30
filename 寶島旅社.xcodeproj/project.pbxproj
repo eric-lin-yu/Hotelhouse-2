@@ -706,7 +706,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98HT6BVDPA;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "寶島旅社/Info.plist";
+				INFOPLIST_FILE = "寶島旅社/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -735,7 +735,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 98HT6BVDPA;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "寶島旅社/Info.plist";
+				INFOPLIST_FILE = "寶島旅社/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
