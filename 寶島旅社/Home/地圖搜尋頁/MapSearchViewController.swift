@@ -259,7 +259,7 @@ extension MapSearchViewController: MKMapViewDelegate, CLLocationManagerDelegate 
         
         //依dataModel.name == annotation.title，抓取其index
         if let index = self.hotelDataModel.firstIndex(where: { $0.hotelName == annotation.title }) {
-            let vc = HotelDetailViewController(hotelDataModel: hotelDataModel[index])
+            let vc = HotelDetailsViewController(hotelDataModel: hotelDataModel[index])
             vc.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(vc, animated: true)

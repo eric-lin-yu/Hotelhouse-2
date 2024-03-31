@@ -347,7 +347,7 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
         if let cityHotels = groupedHotels[cityName] {
             let hotel = cityHotels[indexPath.row]
             
-            let vc = HotelDetailViewController(hotelDataModel: hotel)
+            let vc = HotelDetailsViewController(hotelDataModel: hotel)
             vc.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(vc, animated: true)

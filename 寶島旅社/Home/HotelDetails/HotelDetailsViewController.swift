@@ -8,8 +8,8 @@
 
 import UIKit
 
-class HotelDetailViewController: UIViewController {
-    enum HotelDetailType: Int {
+class HotelDetailsViewController: UIViewController {
+    enum HotelDetailsType: Int {
         case hotelImage = 0
         case hotelDetails
         case hotelDescription
@@ -129,13 +129,13 @@ class HotelDetailViewController: UIViewController {
 }
 
 //MARK: - TableView
-extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate {
+extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return useCells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let type = HotelDetailType(rawValue: indexPath.row) else {
+        guard let type = HotelDetailsType(rawValue: indexPath.row) else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
             return cell
         }
@@ -156,7 +156,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let type = HotelDetailType(rawValue: indexPath.row) else {
+        guard let type = HotelDetailsType(rawValue: indexPath.row) else {
             return
         }
         
@@ -224,7 +224,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 //MARK: - Collection
-extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
+extension HotelDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch collectionImageDataModel.count {
@@ -269,7 +269,7 @@ extension HotelDetailViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 //MARK: - HotelDetailsTableViewCellDelegate
-extension HotelDetailViewController: HotelDetailsTableViewCellDelegate {
+extension HotelDetailsViewController: HotelDetailsTableViewCellDelegate {
     func addHotelDataModelToRealm(for cell: HotelDetailsTableViewCell) {
         self.addHotelDataModelToRealm()
     }

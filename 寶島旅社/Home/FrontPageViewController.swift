@@ -216,7 +216,7 @@ extension FrontPageViewController: SkeletonTableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = HotelDetailViewController(hotelDataModel: hotelDataModel[indexPath.row])
+        let vc = HotelDetailsViewController(hotelDataModel: hotelDataModel[indexPath.row])
         vc.hidesBottomBarWhenPushed = true
         
         self.navigationController?.pushViewController(vc, animated: true)
