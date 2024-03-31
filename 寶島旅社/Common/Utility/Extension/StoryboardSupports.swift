@@ -37,7 +37,6 @@ extension StoryboardIdentifiable where Self: UICollectionReusableView {
 }
 
 extension UIViewController: StoryboardIdentifiable { }
-extension UICollectionViewCell: StoryboardIdentifiable { }
 extension UITableViewCell: StoryboardIdentifiable { }
 extension UICollectionReusableView: StoryboardIdentifiable { }
 
