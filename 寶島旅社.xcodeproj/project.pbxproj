@@ -172,13 +172,13 @@
 			path = CommonManager;
 			sourceTree = "<group>";
 		};
-		892AAC8E28F9054E00614DA1 /* 關於 */ = {
+		892AAC8E28F9054E00614DA1 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				892AAC8F28F9056700614DA1 /* AboutViewController.swift */,
 				892AAC9128F9057700614DA1 /* AboutStoryboard.storyboard */,
 			);
-			path = "關於";
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		892AAC9328F9073D00614DA1 /* Component */ = {
@@ -201,7 +201,6 @@
 				892AACA728F90FF900614DA1 /* UIApplication+Extension.swift */,
 				892AACA228F909DF00614DA1 /* Bundle+Extension.swift */,
 				892AAC9E28F9092000614DA1 /* UIImage+GIF.swift */,
-				9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */,
 				89D07895299C89C1004EAF2B /* UIView+Extension.swift */,
 				892DE04729023A32003F3974 /* UIViewController+SendEmail.swift */,
 				891E4F932AB1615D00C48624 /* ImageView+Extension.swift */,
@@ -232,14 +231,14 @@
 			path = GIF;
 			sourceTree = "<group>";
 		};
-		892DE039290117E5003F3974 /* 旅店介紹頁 */ = {
+		892DE039290117E5003F3974 /* HotelDetails */ = {
 			isa = PBXGroup;
 			children = (
 				892DE03C29011886003F3974 /* HotelDetailViewController.swift */,
 				89DF5F0C290F736200434000 /* HotelDetailMapViewController.swift */,
 				892DE03A29011873003F3974 /* HotelDetailStoryboard.storyboard */,
 			);
-			path = "旅店介紹頁";
+			path = HotelDetails;
 			sourceTree = "<group>";
 		};
 		892DE04D29024E2F003F3974 /* Frameworks */ = {
@@ -258,13 +257,13 @@
 			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
-		893BB9422AAAAAA600A9A3B8 /* DataModel */ = {
+		893BB9422AAAAAA600A9A3B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				9F87E3F62A754B42007E77EA /* HotelDataModel.swift */,
 				9F87E3F72A754B42007E77EA /* RLM_CollectionsHotels.swift */,
 			);
-			path = DataModel;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		896DF71D28F7E5DD0031A88A /* Common */ = {
@@ -275,19 +274,20 @@
 				891E4F9F2AB1B24500C48624 /* CommonManager */,
 				9F74CE982BB8687800044EC0 /* Utility */,
 				891E4F9B2AB1A73800C48624 /* ImageNames.swift */,
+				9FC059812B7DB7FB00B481B8 /* ToastLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
 		};
-		896DF71E28F7E6380031A88A /* 首頁 */ = {
+		896DF71E28F7E6380031A88A /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				89BF620028F65DDB00418305 /* FrontPageViewController.swift */,
 				892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */,
 				89B5469B2925D5BC0020C522 /* 地圖搜尋頁 */,
-				892DE039290117E5003F3974 /* 旅店介紹頁 */,
+				892DE039290117E5003F3974 /* HotelDetails */,
 			);
-			path = "首頁";
+			path = Home;
 			sourceTree = "<group>";
 		};
 		89B5469B2925D5BC0020C522 /* 地圖搜尋頁 */ = {
@@ -322,9 +322,9 @@
 				89BF61FC28F65DDB00418305 /* AppDelegate.swift */,
 				89BF61FE28F65DDB00418305 /* SceneDelegate.swift */,
 				9F87E3F32A754B42007E77EA /* API */,
-				896DF71E28F7E6380031A88A /* 首頁 */,
-				9F87E3FD2A754BC8007E77EA /* 收藏 */,
-				892AAC8E28F9054E00614DA1 /* 關於 */,
+				896DF71E28F7E6380031A88A /* Home */,
+				9F87E3FD2A754BC8007E77EA /* Favorite */,
+				892AAC8E28F9054E00614DA1 /* Settings */,
 				896DF71D28F7E5DD0031A88A /* Common */,
 				9F74CE992BB868A400044EC0 /* Resources */,
 			);
@@ -364,10 +364,10 @@
 		9F87E3F32A754B42007E77EA /* API */ = {
 			isa = PBXGroup;
 			children = (
+				893BB9422AAAAAA600A9A3B8 /* Model */,
 				89BF621B28F66C8D00418305 /* AlamofireHandler.swift */,
 				896DF71728F7E3080031A88A /* ResponseHandler.swift */,
 				891E4F952AB1921300C48624 /* RealmManager.swift */,
-				893BB9422AAAAAA600A9A3B8 /* DataModel */,
 				9F87E3F82A754B42007E77EA /* HotelViewModel.swift */,
 			);
 			path = API;
@@ -381,13 +381,13 @@
 			path = "Hotel-json";
 			sourceTree = "<group>";
 		};
-		9F87E3FD2A754BC8007E77EA /* 收藏 */ = {
+		9F87E3FD2A754BC8007E77EA /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
 				9F87E3FE2A754BC8007E77EA /* CollectionsViewController.swift */,
 			);
-			name = "收藏";
-			path = "寶島旅社/收藏";
+			name = Favorite;
+			path = "寶島旅社/Favorite";
 			sourceTree = SOURCE_ROOT;
 		};
 		9FA8F0E42A639939009ACADD /* Cell */ = {
@@ -448,7 +448,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = "Eric Lin";
 				TargetAttributes = {
 					89BF61F828F65DDB00418305 = {
@@ -619,6 +619,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -679,6 +680,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
