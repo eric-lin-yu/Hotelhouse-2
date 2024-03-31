@@ -9,6 +9,11 @@
 import UIKit
 
 struct ResponseHandler {
+    /// 處理錯誤的回呼。
+    ///
+    /// - Parameters:
+    ///   - statusCode: errorCode 狀態碼。預設值為 `nil`。
+    ///   - errorString: 錯誤說明。
     static func errorHandler(statusCode: Int? = nil, errorString: String) {
         LoadingPageView.shard.dismiss()
         print("\n - - - - - - - - - - errorHandler - - - - - - - - - - \n")
@@ -25,6 +30,11 @@ struct ResponseHandler {
         }
     }
     
+    /// 顯示 Alert 彈窗。
+    ///
+    /// - Parameters:
+    ///   - message: 警示訊息字串。
+    ///   - handler: 點擊確定按鈕後的處理程式碼區塊。預設為 `nil`。
     static func presentAlertHandler(message: String, handler: (() -> Void)? = nil) {
         guard let window = SceneDelegate.shared?.window else {
             assertionFailure("Fail to prepare data parameter.")
