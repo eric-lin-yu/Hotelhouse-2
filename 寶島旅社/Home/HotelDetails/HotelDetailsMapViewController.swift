@@ -19,10 +19,10 @@ enum MapButtonViewStatus {
     case showButtonView
 }
 
-class HotelDetailMapViewController: UIViewController {
-    static func make(hotelData: Hotels) -> HotelDetailMapViewController {
+class HotelDetailsMapViewController: UIViewController {
+    static func make(hotelData: Hotels) -> HotelDetailsMapViewController {
         let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
-        let vc: HotelDetailMapViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailMapIdentifier") as! HotelDetailMapViewController
+        let vc: HotelDetailsMapViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailMapIdentifier") as! HotelDetailsMapViewController
         
         vc.dataModel = hotelData
         
@@ -317,7 +317,7 @@ class HotelDetailMapViewController: UIViewController {
 }
 
 // MARK: - LocationManagerDelegate
-extension HotelDetailMapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+extension HotelDetailsMapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let latLocation = locations.last else{
             assertionFailure("Invalid lcoation or coordinate.")

@@ -162,7 +162,7 @@ extension HotelDetailsViewController: UITableViewDataSource, UITableViewDelegate
         
         switch type {
         case .hotelMap:
-            let vc = HotelDetailMapViewController.make(hotelData: hotelDataModel)
+            let vc = HotelDetailsMapViewController.make(hotelData: hotelDataModel)
 
             self.navigationController?.pushViewController(vc, animated: true)
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
