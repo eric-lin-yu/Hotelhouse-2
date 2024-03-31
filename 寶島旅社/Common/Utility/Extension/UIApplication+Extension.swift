@@ -52,17 +52,24 @@ extension UIApplication {
 //    }
     
     var topLevelWindow: UIWindow? {
-        return UIApplication.shared.windows
-        .filter({ !$0.isHidden })
-        .sorted(by: { $0.windowLevel > $1.windowLevel })
-        .first
-        
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            return windowScene.windows
+                .filter({ !$0.isHidden })
+                .sorted(by: { $0.windowLevel > $1.windowLevel })
+                .first
+        }
+        return nil
     }
+    
     var topWindow: UIWindow? {
-        return UIApplication.shared.windows
-        .sorted(by: { $0.windowLevel > $1.windowLevel })
-        .first
-        
+        if let windowScene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            return windowScene.windows
+                .sorted(by: { $0.windowLevel > $1.windowLevel })
+                .first
+        }
+        return nil
     }
     
     /// Checks if view hierarchy of application contains `UIRemoteKeyboardWindow` if it does, keyboard is presented
