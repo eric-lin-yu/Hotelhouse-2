@@ -186,7 +186,6 @@
 			children = (
 				9FA8F0EB2A639939009ACADD /* SettingsTableViewHeaderFooterView.swift */,
 				9FA8F0E42A639939009ACADD /* Cell */,
-				892AACA428F90CA200614DA1 /* GIF */,
 				892AACA128F9099200614DA1 /* LoadingPage */,
 				892AAC9628F907FF00614DA1 /* CustomView.swift */,
 				892DE0372900F72A003F3974 /* OpenWKWebViewController.swift */,
@@ -351,6 +350,7 @@
 		9F74CE992BB868A400044EC0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				892AACA428F90CA200614DA1 /* GIF */,
 				9F87E3F42A754B42007E77EA /* Hotel-json */,
 				896DF71B28F7E5CE0031A88A /* ColorSets.swift */,
 				89BF620228F65DDB00418305 /* Main.storyboard */,
