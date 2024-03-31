@@ -284,19 +284,19 @@
 			children = (
 				89BF620028F65DDB00418305 /* FrontPageViewController.swift */,
 				892AAC8C28F8FD1000614DA1 /* FrontPageStoryboard.storyboard */,
-				89B5469B2925D5BC0020C522 /* 地圖搜尋頁 */,
+				89B5469B2925D5BC0020C522 /* MapSearch */,
 				892DE039290117E5003F3974 /* HotelDetails */,
 			);
 			path = Home;
 			sourceTree = "<group>";
 		};
-		89B5469B2925D5BC0020C522 /* 地圖搜尋頁 */ = {
+		89B5469B2925D5BC0020C522 /* MapSearch */ = {
 			isa = PBXGroup;
 			children = (
 				89B546972925D59F0020C522 /* MapSearchViewController.swift */,
 				89B546992925D5B70020C522 /* MapSearchStoryboard.storyboard */,
 			);
-			path = "地圖搜尋頁";
+			path = MapSearch;
 			sourceTree = "<group>";
 		};
 		89BF61F028F65DDB00418305 = {
