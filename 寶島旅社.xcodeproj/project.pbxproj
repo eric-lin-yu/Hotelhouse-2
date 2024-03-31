@@ -330,6 +330,60 @@
 			path = "寶島旅社";
 			sourceTree = "<group>";
 		};
+		9F55A8D82BB9128D0076C4BF /* FrontPageTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				89DF925729232C9C00B049BA /* FrontPageTableViewCell.swift */,
+				89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */,
+			);
+			path = FrontPageTableViewCell;
+			sourceTree = "<group>";
+		};
+		9F55A8D92BB912990076C4BF /* HotelDetailCollectionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */,
+				89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */,
+			);
+			path = HotelDetailCollectionTableViewCell;
+			sourceTree = "<group>";
+		};
+		9F55A8DA2BB912A30076C4BF /* HotelDetailsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */,
+				89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */,
+			);
+			path = HotelDetailsTableViewCell;
+			sourceTree = "<group>";
+		};
+		9F55A8DB2BB912B10076C4BF /* DescriptionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				892BCC1E2907BC4F0095D3D5 /* DescriptionTableViewCell.swift */,
+				892BCC1F2907BC4F0095D3D5 /* DescriptionTableViewCell.xib */,
+			);
+			path = DescriptionTableViewCell;
+			sourceTree = "<group>";
+		};
+		9F55A8DC2BB912BB0076C4BF /* HotelExtraDetailsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				892BD283290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.swift */,
+				892BD284290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib */,
+			);
+			path = HotelExtraDetailsTableViewCell;
+			sourceTree = "<group>";
+		};
+		9F55A8DD2BB912C40076C4BF /* MapTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				892DE04929024987003F3974 /* MapTableViewCell.swift */,
+				892DE04A29024987003F3974 /* MapTableViewCell.xib */,
+			);
+			path = MapTableViewCell;
+			sourceTree = "<group>";
+		};
 		9F74CE972BB8681A00044EC0 /* CommonBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,19 +447,13 @@
 		9FA8F0E42A639939009ACADD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				89DF925729232C9C00B049BA /* FrontPageTableViewCell.swift */,
-				89DF925829232C9C00B049BA /* FrontPageTableViewCell.xib */,
+				9F55A8D82BB9128D0076C4BF /* FrontPageTableViewCell */,
 				89A0A4D92ACBA8CC00F5F91E /* CollectionsTableViewCell.swift */,
-				89B413062914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.swift */,
-				89B413072914C1AB00FAEBF3 /* HotelDetailCollectionTableViewCell.xib */,
-				89DF98B929248F5F00B049BA /* HotelDetailsTableViewCell.swift */,
-				89DF98BA29248F5F00B049BA /* HotelDetailsTableViewCell.xib */,
-				892BCC1E2907BC4F0095D3D5 /* DescriptionTableViewCell.swift */,
-				892BCC1F2907BC4F0095D3D5 /* DescriptionTableViewCell.xib */,
-				892BD283290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.swift */,
-				892BD284290A2FE40095D3D5 /* HotelExtraDetailsTableViewCell.xib */,
-				892DE04929024987003F3974 /* MapTableViewCell.swift */,
-				892DE04A29024987003F3974 /* MapTableViewCell.xib */,
+				9F55A8D92BB912990076C4BF /* HotelDetailCollectionTableViewCell */,
+				9F55A8DA2BB912A30076C4BF /* HotelDetailsTableViewCell */,
+				9F55A8DB2BB912B10076C4BF /* DescriptionTableViewCell */,
+				9F55A8DC2BB912BB0076C4BF /* HotelExtraDetailsTableViewCell */,
+				9F55A8DD2BB912C40076C4BF /* MapTableViewCell */,
 				9FA8F0E92A639939009ACADD /* PersonalSettingsIconTableViewCell.swift */,
 				9FA8F0E62A639939009ACADD /* PersonalSettingsLanguageTableViewCell.swift */,
 				892DE05429027E09003F3974 /* CollectionViewCell */,
