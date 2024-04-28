@@ -72,21 +72,7 @@ class FrontPageViewController: UIViewController {
         
         self.searchView.isHidden = true
         self.setupSearchViewBackground()
-        
-        DispatchQueue.main.async {
-            LoadingPageView.shard.show()
-        }
-        // download DataModel
-        self.viewModel.getHotelBookData { response in
-            LoadingPageView.shard.dismiss()
-            self.searchView.isHidden = false
-            self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
-            self.downloadAllData = response?.hotels ?? []
-            APIDataStorage.hotelDataBase = response
-        }
     
-        tableView.dataSource = self
-        tableView.delegate = self
         // 註冊cell
         tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
@@ -101,6 +87,7 @@ class FrontPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.downloadData()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
@@ -109,11 +96,52 @@ class FrontPageViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    //MARK: - searchBar相關
-    func setupSearchViewBackground() {
+
+    @IBAction func cancelBtn(_ sender: Any) {
+        self.searchTextField.text = ""
+    }
+    
+    @objc func toggleSearchViewVisibility() {
+        self.searchView.isHidden.toggle()
+        frontPageViewStatus = searchView.isHidden ? .resultTableView : .searchView
+    }
+    
+    @objc func showMapView() {
+        let vc = MapSearchViewController.make(dataModel: self.downloadAllData)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
+    }
+    
+    /// 下載 API 資料
+    private func downloadData() {
+        if self.hotelDataModel.count == 0 {
+            LoadingPageView.shard.show()
+            
+            // download DataModel
+            self.viewModel.getHotelBookData { response in
+                self.searchView.isHidden = false
+                self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
+                self.downloadAllData = response?.hotels ?? []
+                APIDataStorage.hotelDataBase = response
+                LoadingPageView.shard.dismiss()
+            }
+        }
+    }
+    
+    private func isDataEmpty(_ dataStr: String) -> Bool {
+        return dataStr.isEmpty
+    }
+}
+
+//MARK: - searchBar相關
+extension FrontPageViewController {
+    /// 建立 Search 背景模糊效果
+    private func setupSearchViewBackground() {
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-
+        
         blurEffectView.frame = view.bounds
         blurEffectView.alpha = 0.6
         
@@ -167,27 +195,6 @@ class FrontPageViewController: UIViewController {
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
-    }
-    
-    @IBAction func cancelBtn(_ sender: Any) {
-        searchTextField.text = ""
-    }
-    
-    @objc func toggleSearchViewVisibility() {
-        searchView.isHidden.toggle()
-        frontPageViewStatus = searchView.isHidden ? .resultTableView : .searchView
-    }
-    
-    @objc func showMapView() {
-        let vc = MapSearchViewController.make(dataModel: self.downloadAllData)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
-    }
-    
-    private func isDataEmpty(_ dataStr: String) -> Bool {
-        return dataStr.isEmpty
     }
 }
 

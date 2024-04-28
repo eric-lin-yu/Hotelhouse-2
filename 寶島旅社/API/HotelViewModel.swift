@@ -33,7 +33,5 @@ class HotelViewModel {
                 ResponseHandler.errorHandler(statusCode: response.response?.statusCode, errorString: "發生一點錯誤，請稍後再試。")
             }
         }
-        LoadingPageView.shard.dismiss()
     }
-    
 }
