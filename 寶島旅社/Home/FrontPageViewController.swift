@@ -70,13 +70,14 @@ class FrontPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchView.isHidden = true
+        self.searchView.isHidden = true
+        self.setupSearchViewBackground()
         
         DispatchQueue.main.async {
             LoadingPageView.shard.show()
         }
         // download DataModel
-        viewModel.getHotelBookData { response in
+        self.viewModel.getHotelBookData { response in
             LoadingPageView.shard.dismiss()
             self.searchView.isHidden = false
             self.kanaheiImageView.loadGif(name: ImageNames.shared.searchViewImageName)
@@ -90,12 +91,12 @@ class FrontPageViewController: UIViewController {
         tableView.register(UINib(nibName: "FrontPageTableViewCell", bundle: nil), forCellReuseIdentifier: FrontPageTableViewCell.cellIdenifier)
         
         let searchTap = UITapGestureRecognizer(target: self, action: #selector((toggleSearchViewVisibility)))
-        showSearchBtnView.isUserInteractionEnabled = true
-        showSearchBtnView.addGestureRecognizer(searchTap)
+        self.showSearchBtnView.isUserInteractionEnabled = true
+        self.showSearchBtnView.addGestureRecognizer(searchTap)
         
         let mapTap = UITapGestureRecognizer(target: self, action: #selector((showMapView)))
-        showMapBtnView.isUserInteractionEnabled = true
-        showMapBtnView.addGestureRecognizer(mapTap)
+        self.showMapBtnView.isUserInteractionEnabled = true
+        self.showMapBtnView.addGestureRecognizer(mapTap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +110,17 @@ class FrontPageViewController: UIViewController {
     }
     
     //MARK: - searchBar相關
+    func setupSearchViewBackground() {
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+
+        blurEffectView.frame = view.bounds
+        blurEffectView.alpha = 0.6
+        
+        self.searchView.addSubview(blurEffectView)
+        self.searchView.sendSubviewToBack(blurEffectView)
+    }
+    
     @IBAction func searchAction(_ sender: Any) {
         guard let searchText = searchTextField.text, !searchText.isEmpty else {
             self.view.showToast(text: "查詢條件未輸入哦")
