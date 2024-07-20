@@ -9,6 +9,11 @@
 import UIKit
 import MapKit
 
+enum SegmentedControlOption: Int {
+    case list = 0
+    case map = 1
+}
+
 class CollectionsViewController: UIViewController {
     private var hotelDataModel: [Hotels] = []
     private var groupedHotels: [String: [Hotels]] = [:]
@@ -241,18 +246,18 @@ class CollectionsViewController: UIViewController {
     }
     
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            tableView.isHidden = false
-            mapView.isHidden = true
+        let selectedOption = SegmentedControlOption(rawValue: sender.selectedSegmentIndex) ?? .list
+        
+        switch selectedOption {
+        case .list:
+            self.tableView.isHidden = false
+            self.mapView.isHidden = true
             tabBarController?.tabBar.isHidden = false
-        case 1:
-            getUserLocation()
-            mapView.isHidden = false
-            tableView.isHidden = true
+        case .map:
+            self.getUserLocation()
+            self.mapView.isHidden = false
+            self.tableView.isHidden = true
             tabBarController?.tabBar.isHidden = true
-        default:
-            break
         }
     }
     
