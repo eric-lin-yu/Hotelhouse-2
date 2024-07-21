@@ -9,15 +9,8 @@
 import UIKit
 import MapKit
 
-enum SegmentedControlOption: Int {
-    case list = 0
-    case map = 1
-}
-
 class CollectionsViewController: UIViewController {
-    private var hotelDataModel: [Hotels] = []
-    private var groupedHotels: [String: [Hotels]] = [:]
-    private var cityNames: [String] = []
+    private let viewModel: CollectionsViewModel
     
     private let manager = CLLocationManager()
     
@@ -27,15 +20,7 @@ class CollectionsViewController: UIViewController {
     private let searchiconBtnSize: CGFloat = 24
     private let segmentedControlSize: CGFloat = 40
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    //MARK: - UI
+    //MARK: - Code UI
     private let searchView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -56,7 +41,7 @@ class CollectionsViewController: UIViewController {
         ]
         let attributedPlaceholder = NSAttributedString(string: "Search", attributes: attributes)
         textField.attributedPlaceholder = attributedPlaceholder
-
+        
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -80,7 +65,7 @@ class CollectionsViewController: UIViewController {
         
         // 置中
         let paragraphStyle = NSMutableParagraphStyle()
-           paragraphStyle.alignment = .center
+        paragraphStyle.alignment = .center
         
         let normalTextAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
@@ -116,24 +101,62 @@ class CollectionsViewController: UIViewController {
         return mapView
     }()
     
-    //MARK: - setup
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Initialization
+    init(viewModel: CollectionsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    // MARK: - Lifecycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupViews()
+        self.setupConstraint()
+        self.setupTableView()
+        self.setupMapView()
+        self.setupBindings()
+        
+        self.segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.viewModel.loadHotels()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+}
+
+//MARK: - setup
+extension CollectionsViewController {
+    
+    /// 設定 Views
     private func setupViews() {
         view.backgroundColor = .white
         let viewsToAdd: [UIView] = [
-            searchView,
-            segmentedControl,
-            tableView,
-            mapView,
+            self.searchView,
+            self.segmentedControl,
+            self.tableView,
+            self.mapView,
         ]
         viewsToAdd.forEach { view.addSubview($0) }
         
         let viewsToAddSearchView: [UIView] = [
-            searchTextFiled,
-            searchiconBtn,
+            self.searchTextFiled,
+            self.searchiconBtn,
         ]
-        viewsToAddSearchView.forEach { searchView.addSubview($0) }
+        viewsToAddSearchView.forEach {  self.searchView.addSubview($0) }
     }
     
+    /// 設定 Constraint
     private func setupConstraint() {
         let topSafeArea = view.safeAreaLayoutGuide.topAnchor
         let leftSafeArea = view.safeAreaLayoutGuide.leftAnchor
@@ -141,185 +164,145 @@ class CollectionsViewController: UIViewController {
         let bottomSafeArea = view.safeAreaLayoutGuide.bottomAnchor
         
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: topSafeArea, constant: spacing),
-            searchView.leftAnchor.constraint(equalTo: leftSafeArea, constant: spacing),
-            searchView.rightAnchor.constraint(equalTo: rightSafeArea, constant: -spacing),
+            self.searchView.topAnchor.constraint(equalTo: topSafeArea, constant:  self.spacing),
+            self.searchView.leftAnchor.constraint(equalTo: leftSafeArea, constant:  self.spacing),
+            self.searchView.rightAnchor.constraint(equalTo: rightSafeArea, constant: -self.spacing),
             
-            searchTextFiled.topAnchor.constraint(equalTo: searchView.topAnchor),
-            searchTextFiled.leftAnchor.constraint(equalTo: searchView.leftAnchor),
-            searchTextFiled.rightAnchor.constraint(equalTo: searchView.rightAnchor),
-            searchTextFiled.bottomAnchor.constraint(equalTo: searchView.bottomAnchor),
+            self.searchTextFiled.topAnchor.constraint(equalTo:  self.searchView.topAnchor),
+            self.searchTextFiled.leftAnchor.constraint(equalTo:  self.searchView.leftAnchor),
+            self.searchTextFiled.rightAnchor.constraint(equalTo:  self.searchView.rightAnchor),
+            self.searchTextFiled.bottomAnchor.constraint(equalTo:  self.searchView.bottomAnchor),
             
-            searchiconBtn.topAnchor.constraint(equalTo: searchView.topAnchor, constant: innerLayerSpacing),
-            searchiconBtn.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: -innerLayerSpacing),
-            searchiconBtn.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -innerLayerSpacing),
-            searchiconBtn.centerYAnchor.constraint(equalTo: searchView.centerYAnchor),
-            searchiconBtn.heightAnchor.constraint(equalToConstant: searchiconBtnSize),
-            searchiconBtn.widthAnchor.constraint(equalToConstant: searchiconBtnSize),
-        
-            segmentedControl.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: innerLayerSpacing),
-            segmentedControl.leftAnchor.constraint(equalTo: searchView.leftAnchor),
-            segmentedControl.rightAnchor.constraint(equalTo: searchView.rightAnchor),
-            segmentedControl.heightAnchor.constraint(equalToConstant: segmentedControlSize),
+            self.searchiconBtn.topAnchor.constraint(equalTo:  self.searchView.topAnchor, 
+                                                    constant:  self.innerLayerSpacing),
+            self.searchiconBtn.rightAnchor.constraint(equalTo:  self.searchView.rightAnchor,
+                                                      constant: -self.innerLayerSpacing),
+            self.searchiconBtn.bottomAnchor.constraint(equalTo:  self.searchView.bottomAnchor,
+                                                       constant: -self.innerLayerSpacing),
+            self.searchiconBtn.centerYAnchor.constraint(equalTo:  self.searchView.centerYAnchor),
+            self.searchiconBtn.heightAnchor.constraint(equalToConstant:  self.searchiconBtnSize),
+            self.searchiconBtn.widthAnchor.constraint(equalToConstant:  self.searchiconBtnSize),
             
-            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: innerLayerSpacing),
-            tableView.leftAnchor.constraint(equalTo: leftSafeArea),
-            tableView.rightAnchor.constraint(equalTo: rightSafeArea),
-            tableView.bottomAnchor.constraint(equalTo: bottomSafeArea),
+            self.segmentedControl.topAnchor.constraint(equalTo:  self.searchView.bottomAnchor, 
+                                                       constant:  self.innerLayerSpacing),
+            self.segmentedControl.leftAnchor.constraint(equalTo:  self.searchView.leftAnchor),
+            self.segmentedControl.rightAnchor.constraint(equalTo:  self.searchView.rightAnchor),
+            self.segmentedControl.heightAnchor.constraint(equalToConstant:  self.segmentedControlSize),
             
-            mapView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: innerLayerSpacing),
-            mapView.leftAnchor.constraint(equalTo: leftSafeArea),
-            mapView.rightAnchor.constraint(equalTo: rightSafeArea),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.tableView.topAnchor.constraint(equalTo:  self.segmentedControl.bottomAnchor, 
+                                                constant:  self.innerLayerSpacing),
+            self.tableView.leftAnchor.constraint(equalTo: leftSafeArea),
+            self.tableView.rightAnchor.constraint(equalTo: rightSafeArea),
+            self.tableView.bottomAnchor.constraint(equalTo: bottomSafeArea),
+            
+            self.mapView.topAnchor.constraint(equalTo:  self.segmentedControl.bottomAnchor, 
+                                              constant:  self.innerLayerSpacing),
+            self.mapView.leftAnchor.constraint(equalTo: leftSafeArea),
+            self.mapView.rightAnchor.constraint(equalTo: rightSafeArea),
+            self.mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     
+    /// 設定 TableView
     private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         let useCells = [CollectionsTableViewCell.self]
         useCells.forEach {
-            tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
+            self.tableView.register($0.self, forCellReuseIdentifier: $0.storyboardIdentifier)
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupViews()
-        setupConstraint()
-        setupTableView()
-        
-        manager.activityType = .automotiveNavigation
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        manager.delegate = self
-        mapView.delegate = self
-
-        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+    
+    /// 設定 MapView
+    private func setupMapView() {
+        self.manager.delegate = self
+        self.mapView.delegate = self
+        self.mapView.showsUserLocation = true
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+    private func setupBindings() {
+        self.viewModel.onHotelsLoaded = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
         
-        LoadingPageView.shard.show()
-        if let realmDataModels = RealmManager.shard?.getHotelDataModelsFromRealm() {
-            self.hotelDataModel = realmDataModels
-            groupAndSortHotelsByCity()
-    
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                LoadingPageView.shard.dismiss()
-                self.tableView.reloadData()
+        self.viewModel.onError = { [weak self] error in
+            DispatchQueue.main.async {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
+}
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.hotelDataModel = []
-        self.cityNames = []
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
+//MARK: - Action
+extension CollectionsViewController {
     
-    @objc func getUserLocation() {
+    @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        let selectedOption = SegmentedControlOption(rawValue: sender.selectedSegmentIndex) ?? .list
+        switch selectedOption {
+        case .list:
+            tableView.isHidden = false
+            mapView.isHidden = true
+            tabBarController?.tabBar.isHidden = false
+        case .map:
+            self.getUserLocationAndShowHotels()
+            mapView.isHidden = false
+            tableView.isHidden = true
+            tabBarController?.tabBar.isHidden = true
+        }
+    }
+}
+
+//MARK: - Private
+extension CollectionsViewController {
+    /// 取得使用者位置資訊
+    private func getUserLocationAndShowHotels() {
         switch manager.authorizationStatus {
         case .notDetermined:
-            // 首次使用 向user取得隱私權限
-            manager.requestWhenInUseAuthorization()
-            
-            getUserLocation()
+            self.manager.requestWhenInUseAuthorization()
         case .denied, .restricted:
-            // user已拒絕過權限 或 未開啟定位功能
-            let message = "如欲使用此功能，請開啟定位權限\n\n請至\n設定 > 隱私權與安全性 >\n定位服務 > 永許旅社取得您得位置。"
-            showAlertClosure(title: "定位權限已關閉", message: message, okBtn: "前往開啟") {
-                // 開啟設定
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-            }
-        case .authorizedWhenInUse:
-            // user接受
-            manager.startUpdatingLocation()
-            mapView.showsUserLocation = true
-        default:
+            self.showLocationPermissionAlert()
+            self.showHotelsOnMap()
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.manager.requestLocation() // 只請求一次位置
+            self.showHotelsOnMap()
+        @unknown default:
             break
         }
     }
     
-    @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        let selectedOption = SegmentedControlOption(rawValue: sender.selectedSegmentIndex) ?? .list
+    /// 顯示旅店於地圖上的位置
+    private func showHotelsOnMap() {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.viewModel.getHotelAnnotations().forEach { self.mapView.addAnnotation($0) }
         
-        switch selectedOption {
-        case .list:
-            self.tableView.isHidden = false
-            self.mapView.isHidden = true
-            tabBarController?.tabBar.isHidden = false
-        case .map:
-            self.getUserLocation()
-            self.mapView.isHidden = false
-            self.tableView.isHidden = true
-            tabBarController?.tabBar.isHidden = true
+        if let firstHotel = self.viewModel.getHotelAnnotations().first {
+            let region = MKCoordinateRegion(center: firstHotel.coordinate,
+                                            latitudinalMeters: 1200, longitudinalMeters: 1200)
+            self.mapView.setRegion(region, animated: true)
         }
     }
     
-    // 依照 city 分組
-    private func groupAndSortHotelsByCity() {
-        self.groupedHotels = [:] // 初始化
-        
-        for hotel in hotelDataModel {
-            let city = hotel.city
-            if var cityHotels = groupedHotels[city] {
-                cityHotels.append(hotel)
-                groupedHotels[city] = cityHotels
-            } else {
-                groupedHotels[city] = [hotel]
-            }
+    /// 顯示地圖權限未開啟彈窗
+    private func showLocationPermissionAlert() {
+        let message = "如欲使用此功能，請開啟定位權限\n\n請至\n設定 > 隱私權與安全性 >\n定位服務 > 永許旅社取得您得位置。"
+        showAlertClosure(title: "定位權限已關閉", message: message, okBtn: "前往開啟") {
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
         }
-        
-        // Sort the grouped hotels by city name
-        let sortedGroupedHotels = groupedHotels.sorted { $0.key < $1.key }
-        // Convert the sorted array back to a dictionary
-        let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
-        
-        // Update cityNames
-        cityNames = sortedGroupedHotelsDictionary.keys.sorted()
     }
 }
 
 //MARK: - TableView
 extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate {
-    // section
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return cityNames.count
+        return  self.viewModel.numberOfSections
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section < cityNames.count else {
-            return nil
-        }
-        
-        let cityName = cityNames[section]
-        let headerView = SettingsTableViewHeaderFooterView(title: cityName, reuseIdentifier: SettingsTableViewHeaderFooterView.reuseIdentifier, bgColor: .whitesmokeGray)
-        
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return SettingsTableViewHeaderFooterView.height
-    }
-    
-    // row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard section < cityNames.count else {
-            return 0
-        }
-        
-        let cityName = cityNames[section]
-        
-        if let cityHotels = groupedHotels[cityName] {
-            return cityHotels.count
-        } else {
-            return 0
-        }
+        return  self.viewModel.numberOfRows(in: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -327,31 +310,16 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
             return UITableViewCell()
         }
         
-        guard indexPath.section < cityNames.count else {
-            return cell
-        }
-        
-        let cityName = cityNames[indexPath.section]
-        
-        if let cityHotels = groupedHotels[cityName]{
-            let hotel = cityHotels[indexPath.row]
+        if let hotel =  self.viewModel.hotel(at: indexPath) {
             cell.configure(with: hotel)
         }
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section < cityNames.count else {
-            return
-        }
-        
-        let cityName = cityNames[indexPath.section]
-        
-        if let cityHotels = groupedHotels[cityName] {
-            let hotel = cityHotels[indexPath.row]
-            
+        if let hotel =  self.viewModel.hotel(at: indexPath) {
             let vc = HotelDetailsViewController(hotelDataModel: hotel)
             vc.hidesBottomBarWhenPushed = true
             
@@ -360,18 +328,46 @@ extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate 
         }
     }
 }
-//MARK: - MapView
+
+// MARK: - MKMapViewDelegate, CLLocationManagerDelegate
 extension CollectionsViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let latLocation = locations.last else {
-            assertionFailure("Invalid location or coordinate.")
+        guard let location = locations.last else {
             return
         }
-        let coordinate = latLocation.coordinate
-        
-        // 定位到map時,放大畫面到定位的位置
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01) // 放大的畫面經緯度範圍
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+        let region = MKCoordinateRegion(center: location.coordinate, 
+                                        latitudinalMeters: 1200, longitudinalMeters: 1200)
+        self.mapView.setRegion(region, animated: true)
+        self.showHotelsOnMap()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location manager failed with error: \(error.localizedDescription)")
+        self.showHotelsOnMap()
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+
+        let identifier = "HotelAnnotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        return annotationView
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let annotation = view.annotation as? HotelAnnotation else { return }
+        let hotel = annotation.hotel
+        let vc = HotelDetailsViewController(hotelDataModel: hotel)
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
