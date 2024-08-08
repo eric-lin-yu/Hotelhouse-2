@@ -24,10 +24,6 @@ class CollectionsViewModel {
     var onHotelsLoaded: (() -> Void)?
     var onError: ((Error) -> Void)?
     
-    var numberOfSections: Int {
-        return cityNames.count
-    }
-    
     // MARK: - Public Methods
     func loadHotels() {
         LoadingPageView.shard.show()
@@ -40,6 +36,10 @@ class CollectionsViewModel {
                 self.onHotelsLoaded?()
             }
         }
+    }
+    
+    func numberOfSections() -> Int {
+        return self.cityNames.count
     }
     
     func numberOfRows(in section: Int) -> Int {
@@ -60,7 +60,20 @@ class CollectionsViewModel {
         return self.groupedHotels[cityName]?[indexPath.row]
     }
     
-    // MARK: - Private Methods
+    func getHotelAnnotations() -> [HotelAnnotation] {
+        return hotelDataModel.compactMap { hotel in
+            let latitude = Double(hotel.positionLat) ?? 0.0
+            let longitude = Double(hotel.positionLon) ?? 0.0
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            return HotelAnnotation(hotel: hotel, coordinate: coordinate)
+        }
+    }
+}
+
+// MARK: - Private Methods
+
+extension CollectionsViewModel {
+    
     private func groupAndSortHotelsByCity() {
         self.groupedHotels = [:]
         
@@ -78,14 +91,5 @@ class CollectionsViewModel {
         let sortedGroupedHotelsDictionary = Dictionary(uniqueKeysWithValues: sortedGroupedHotels)
         
         self.cityNames = sortedGroupedHotelsDictionary.keys.sorted()
-    }
-    
-    func getHotelAnnotations() -> [HotelAnnotation] {
-        return hotelDataModel.compactMap { hotel in
-            let latitude = Double(hotel.positionLat) ?? 0.0
-            let longitude = Double(hotel.positionLon) ?? 0.0
-            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            return HotelAnnotation(hotel: hotel, coordinate: coordinate)
-        }
     }
 }

@@ -298,7 +298,7 @@ extension CollectionsViewController {
 extension CollectionsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return  self.viewModel.numberOfSections
+        return  self.viewModel.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
