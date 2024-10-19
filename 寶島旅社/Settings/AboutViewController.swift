@@ -12,82 +12,54 @@ struct APIDataStorage {
     static var hotelDataBase: HotelDataModel?
 }
 
-class AboutViewController: BaseViewController {
-    enum AboutViewControllerType: Int, CaseIterable {
-        // Section
-        case about = 0
-        case setup = 1
+enum AboutViewControllerType: Int, CaseIterable {
+    // Section
+    case about = 0
+    case setup = 1
+    
+    var sectionTitle: String {
+        switch self {
+        case .about:
+            return "關於"
+        case .setup:
+            return "設定"
+        }
+    }
+    
+    enum CellSubtitle {
+        case appVersion
+        case apiDataSource
+        case dataUpdateDate
+        case totalHotelCount
+        case underDesign
         
-        var sectionTitle: String {
+        var rowTitle: String {
             switch self {
-            case .about:
-                return "關於"
-            case .setup:
-                return "設定"
-            }
-        }
-        
-        // row
-        // About (關於) Cell Type
-        enum AboutCellSubtitle: Int {
-            case appVersion = 0
-            case apiDataSource
-            case dataUpdateDate
-            case totalHotelCount
-            
-            var rowTitle: String {
-                switch self {
-                case .appVersion:
-                    return "APP版本"
-                case .apiDataSource:
-                    return "資料來源"
-                case .dataUpdateDate:
-                    return "資料更新日期"
-                case .totalHotelCount:
-                    return "目前旅店總筆數"
-                }
-            }
-        }
-        
-        // Setup (設定) Cell Type
-        enum SetupCellSubtitle: Int {
-            case underDesign = 0
-            
-            var rowTitle: String {
-                switch self {
-                case .underDesign:
-                    return "動工中"
-                }
-            }
-        }
-        
-        enum CellSubtitle {
-            case aboutSubtitle(AboutCellSubtitle)
-            case setupSubtitle(SetupCellSubtitle)
-            
-            var stringValue: String {
-                switch self {
-                case .aboutSubtitle(let aboutSubtitle):
-                    return aboutSubtitle.rowTitle
-                case .setupSubtitle(let setupSubtitle):
-                    return setupSubtitle.rowTitle
-                }
-            }
-        }
-        
-        var cellDataArray: [CellSubtitle] {
-            switch self {
-            case .about:
-                return [.aboutSubtitle(.appVersion), 
-                    .aboutSubtitle(.apiDataSource),
-                    .aboutSubtitle(.dataUpdateDate),
-                    .aboutSubtitle(.totalHotelCount)]
-            case .setup:
-                return [.setupSubtitle(.underDesign)] // Add more as needed
+            case .appVersion:
+                return "APP版本"
+            case .apiDataSource:
+                return "資料來源"
+            case .dataUpdateDate:
+                return "資料更新日期"
+            case .totalHotelCount:
+                return "目前旅店總筆數"
+            case .underDesign:
+                return "動工中"
             }
         }
     }
     
+    var cellDataArray: [CellSubtitle] {
+        switch self {
+        case .about:
+            return [.appVersion, .apiDataSource, .dataUpdateDate, .totalHotelCount]
+        case .setup:
+            return [.underDesign]
+        }
+    }
+}
+
+class AboutViewController: BaseViewController {
     static func make() -> AboutViewController {
         let storyboard = UIStoryboard(name: "AboutStoryboard", bundle: nil)
         let vc: AboutViewController = storyboard.instantiateViewController(withIdentifier: "AboutIdentifier") as! AboutViewController
@@ -123,8 +95,8 @@ class AboutViewController: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.back))
     }
-
 }
+
 //MARK: - TableView
 extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     // section
@@ -155,7 +127,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PersonalSettingsLanguageTableViewCell.self), for: indexPath) as? PersonalSettingsLanguageTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PersonalSettingsLanguageTableViewCell.storyboardIdentifier, for: indexPath) as? PersonalSettingsLanguageTableViewCell else {
             return UITableViewCell()
         }
         
@@ -175,28 +147,28 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         let rowDataTitle = viewControllerTypes[indexPath.section].cellDataArray[indexPath.row]
         
         switch rowDataTitle {
-        case .aboutSubtitle(.appVersion):
+        case .appVersion:
             // 版本
             let versions = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
             let subtitle = "\(versions ?? "")"
-            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
+            cell.configure(title: rowDataTitle.rowTitle, subtitle: subtitle)
             
-        case .aboutSubtitle(.apiDataSource):
+        case .apiDataSource:
             // 資料來源
             let subtitle = "政府資料開放平臺"
             let tap = UITapGestureRecognizer(target: self, action: #selector(openWKUrl))
-            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle, tap: tap)
+            cell.configure(title: rowDataTitle.rowTitle, subtitle: subtitle, tap: tap)
             
-        case .aboutSubtitle(.dataUpdateDate):
+        case .dataUpdateDate:
             // 資料更新日期
             let dateTimeString = APIDataStorage.hotelDataBase?.updatetime
             if let formattedDateString = dateTimeString?.formatDateToYearMonthDay() {
-                cell.configure(title: rowDataTitle.stringValue, subtitle: formattedDateString)
+                cell.configure(title: rowDataTitle.rowTitle, subtitle: formattedDateString)
             }
-        case .aboutSubtitle(.totalHotelCount):
+        case .totalHotelCount:
             // 旅店總筆數
             if let subtitle = APIDataStorage.hotelDataBase?.updateInterval {
-                cell.configure(title: rowDataTitle.stringValue, subtitle: "\(subtitle) 間")
+                cell.configure(title: rowDataTitle.rowTitle, subtitle: "\(subtitle) 間")
             }
         default:
             break
@@ -207,11 +179,9 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         let rowDataTitle = viewControllerTypes[indexPath.section].cellDataArray[indexPath.row]
         
         switch rowDataTitle {
-        case .setupSubtitle(.underDesign):
-            
+        case .underDesign:
             let subtitle = "我還在想要做什麼"
-            cell.configure(title: rowDataTitle.stringValue, subtitle: subtitle)
-            
+            cell.configure(title: rowDataTitle.rowTitle, subtitle: subtitle)
         default:
             break
         }
