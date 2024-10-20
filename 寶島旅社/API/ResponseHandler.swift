@@ -19,15 +19,24 @@ struct ResponseHandler {
         print("\n - - - - - - - - - - errorHandler - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
         
-        if statusCode != nil {
-            let errorMsg = "(\(statusCode!)) \( (errorString != "") ? errorString : "發生一點錯誤，請稍後再試。" )"
-            presentAlertHandler(message: errorMsg)
-            #if DEBUG
-            print("\(errorMsg)")
-            #endif
+        var errorMsg = "發生一點錯誤,請稍後再試。"
+        
+        if let code = statusCode {
+            switch code {
+            case 401:
+                errorMsg = "未經授權的存取。"
+            case 404:
+                errorMsg = "找不到指定的資源。"
+            case 500:
+                errorMsg = "伺服器發生內部錯誤。"
+            default:
+                errorMsg = "(\(code)) \(errorString)"
+            }
         } else {
-            presentAlertHandler(message: "目前無法建立網路連線，請檢查是否已開啟手機上網功能 ! ", handler: nil)
+            errorMsg = "目前無法建立網路連線,請檢查是否已開啟手機上網功能!"
         }
+        
+        presentAlertHandler(message: errorMsg)
     }
     
     /// 顯示 Alert 彈窗。
