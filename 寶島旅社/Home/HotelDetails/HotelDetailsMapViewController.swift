@@ -21,7 +21,7 @@ enum MapButtonViewStatus {
 
 class HotelDetailsMapViewController: UIViewController {
     static func make(hotelData: Hotels) -> HotelDetailsMapViewController {
-        let storyboard = UIStoryboard(name: "HotelDetailStoryboard", bundle: nil)
+        let storyboard = UIStoryboard(name: "HotelDetailsStoryboard", bundle: nil)
         let vc: HotelDetailsMapViewController = storyboard.instantiateViewController(withIdentifier: "HotelDetailMapIdentifier") as! HotelDetailsMapViewController
         
         vc.dataModel = hotelData
